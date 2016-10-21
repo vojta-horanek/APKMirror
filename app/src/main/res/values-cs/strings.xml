@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="option1">Nepamatovat si mezipaměť</string>
+    <string name="option1desc">Aplikace bude sice menší, ale stránky se budou načítat pomaleji.</string>
+    <string name="option2">Vypnout JavaScript</string>
+    <string name="option2desc">Nedoporučováno, ale nastavit to jde</string>
+    <string name="settingsrestart">Restartuji</string>
+    <string name="storage_access">Tato aplkace potřebuje mít přístup na úložitě aby mohla stahovat soubory</string>
+    <string name="storage_access_denied">Nyní nebzdete moci stahovat, prosím restartujte aplikaci.</string>
+    <string name="title_activity_settings">Nastavení</string>
+    <string name="option3">Obarvit navigační lištu</string>
+    <string name="option3desc">Možnost obarvit navigační lištu</string>
+    <string name="option4">Zobrazovat název aplikace v notifikaci</string>
+    <string name="option4desc">Zobrazovat název aplikace namísto názvu souboru aplikace</string>
+    <string name="for_those_who_want_to_join_the_dark_side">Pro ty co se chtějí připojit na temnou stranu</string>
+    <string name="use_dark_theme">Používat tmavý motiv</string>
+    <string name="developers">Vývojáři</string>
+    <string name="latest_uploads">Nahrát</string>
+    <string name="option6desc">Obrazovka se otočí pokud se otočí zařízení</string>
+    <string name="option6">Povolit otáčení obrazovky</string>
+    <string name="download">Staženo</string>
+    <string name="open">Otevřít</string>
+    <string name="error">Chyba</string>
+    <string name="settings">Nastavení</string>
+</resources>

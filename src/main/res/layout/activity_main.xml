@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="0px">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/splash_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="cf.vojtechh.apkmirror.MainActivity"
+        android:background="#F27C20">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/logo"
+            android:src="@drawable/logo"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/app_name"
+            android:id="@+id/name"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            android:layout_marginBottom="136dp"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Vojtěch Hořánek"
+            android:id="@+id/textView"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/settingsButton"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/settingsButton"
+            tools:layout_constraintTop_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/settingsButton"
+            android:src="@drawable/settings"
+            android:background="@null"
+            android:adjustViewBounds="true"
+            android:maxHeight="32dp"
+            android:maxWidth="32dp"
+            android:scaleType="fitCenter"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintBottom_creator="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="16dp" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="146dp"
+            android:layout_height="20dp"
+            android:id="@+id/progress"
+            android:theme="@style/progress"
+            tools:layout_constraintTop_creator="1"
+            app:layout_constraintRight_toRightOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintLeft_toLeftOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            tools:layout_constraintBottom_creator="1"
+            android:layout_marginStart="8dp" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <RelativeLayout
+    android:id="@+id/main_view"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:visibility="invisible"
+    android:layout_marginTop="0px">
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/bottom_bar"
+            app:bb_inActiveTabColor="#ffffff"
+            app:bb_activeTabColor="#ffffff"
+            app:bb_inActiveTabAlpha="0.6"
+            app:bb_activeTabAlpha="1"
+            app:bb_behavior="shifting"
+            app:bb_showShadow="false"/>
+
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swiperefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottomBar">
+                <WebView android:id="@+id/apkmirror"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="53dp" />
+
+        <android.support.design.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/snackbar_place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="49dp"/>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
