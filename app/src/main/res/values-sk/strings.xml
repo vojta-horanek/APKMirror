@@ -13,7 +13,7 @@
     <string name="option4">Zobraziť názov aplikácie v upozornení</string>
     <string name="option4desc">Pri sťahovaní zobrazí názov aplikácie namiesto názvu súboru.</string>
     <string name="settingsrestart">Reštartovanie</string>
-    <string name="use_dark_theme">Použiť tmavú tému v nastavenie</string>
+    <string name="use_dark_theme">Použiť tmavú tému v nastaveniach</string>
     <string name="for_those_who_want_to_join_the_dark_side">Pre tých, ktorí sa chcú pridať na temnú stranu.</string>
     <string name="developers">Vývojári</string>
     <string name="latest_uploads">Nahrať</string>
