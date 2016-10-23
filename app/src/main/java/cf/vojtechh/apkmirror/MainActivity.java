@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity  {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Intent Openedfromexternallink = getIntent();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -139,8 +140,15 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
         createBottomBar();
+        //Support for external links
+        Uri data = Openedfromexternallink.getData();
+        if (data != null){
+            url = data.toString();
+        }
+        else {
+            url = "http://www.apkmirror.com/";
+        }
         //setting webview
-        url = "http://www.apkmirror.com/";
         mWebView = (WebView) findViewById(R.id.apkmirror);
         mWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -231,7 +239,10 @@ public class MainActivity extends AppCompatActivity  {
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
         else {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            if (android.provider.Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1){
+                setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
+
         }
 
         mWebView.setDownloadListener(new DownloadListener() {
@@ -450,7 +461,7 @@ public class MainActivity extends AppCompatActivity  {
     }
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack())
         {
             finish();
             return true;
