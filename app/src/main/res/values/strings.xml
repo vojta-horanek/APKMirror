@@ -12,7 +12,7 @@
     <string name="option4">Show title in downloading notification</string>
     <string name="option4desc">A setting whether to show the file name(disabled) or show the title(enabled) in downloading notification</string>
     <string name="settingsrestart">Restarting</string>
-    <string name="use_dark_theme">Use dark theme</string>
+    <string name="use_dark_theme">Use dark theme for settings</string>
     <string name="for_those_who_want_to_join_the_dark_side">For those who want to join the dark side</string>
     <string name="developers">Developers</string>
     <string name="latest_uploads">Upload</string>
