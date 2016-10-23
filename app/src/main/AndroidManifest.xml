@@ -30,6 +30,8 @@
                 <data android:scheme="https" />
                 <data android:host="www.apkmirror.com" />
             </intent-filter>
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".SettingsActivity"

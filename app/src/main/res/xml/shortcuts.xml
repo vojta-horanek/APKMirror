@@ -1,0 +1,29 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="Main"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/app_name"
+        android:shortcutLongLabel="@string/app_name"
+        android:shortcutDisabledMessage="@string/app_name">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="cf.vojtechh.apkmirror"
+            android:targetClass="cf.vojtechh.apkmirror.MainActivity" />
+        <categories android:name="cf.vojtechh.apkmirror.MainShortcut" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="Settings"
+        android:enabled="true"
+        android:icon="@drawable/ic_settings"
+        android:shortcutShortLabel="@string/settings"
+        android:shortcutLongLabel="@string/settings"
+        android:shortcutDisabledMessage="@string/settings">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="cf.vojtechh.apkmirror"
+            android:targetClass="cf.vojtechh.apkmirror.SettingsActivity" />
+        <categories android:name="cf.vojtechh.apkmirror.SettingsShortcut" />
+    </shortcut>
+</shortcuts>
+
