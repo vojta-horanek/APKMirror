@@ -51,9 +51,6 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity  {
@@ -317,7 +314,6 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon)
         {
-            //changeStatusBarColor();
         }
         @SuppressWarnings("deprecation")
         @Override
@@ -414,39 +410,6 @@ public class MainActivity extends AppCompatActivity  {
         finish();
 
     }
-    //Status bar color
-    public void  changeStatusBarColor(){
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Connection.Response response = null;
-            try {
-                response = Jsoup.connect(mWebView.getUrl())
-                        .method(Connection.Method.POST)
-                        .followRedirects(true)
-                        .execute();
-                org.jsoup.nodes.Document document = Jsoup.connect(mWebView.getUrl())
-                        .cookies(response.cookies())
-                        .get();
-                final org.jsoup.nodes.Element titleElement= document.select("meta[name=\"theme-color\"]").first();
-                String title = titleElement.toString();
-                int websitecolor = Integer.parseInt(title);
-                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(title, bm, websitecolor);
-                this.setTaskDescription(taskDesc);
-                Window window = this.getWindow();
-                // clear FLAG_TRANSLUCENT_STATUS flag:
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                // finally change the color
-                window.setStatusBarColor(websitecolor);
-                Toast.makeText(this, title, Toast.LENGTH_LONG).show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     //back key
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
