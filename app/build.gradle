@@ -8,8 +8,8 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 13
-        versionName "2.2.3"
+        versionCode 14
+        versionName "2.2.5"
     }
     buildTypes {
         release {

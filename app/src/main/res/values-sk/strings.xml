@@ -23,5 +23,6 @@
     <string name="open">Otvoriť</string>
     <string name="error">Chyba</string>
     <string name="settings">Nastavenie</string>
+    <string name="exit">"Ukončiť "</string>
 
 </resources>

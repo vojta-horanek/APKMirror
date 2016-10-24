@@ -15,7 +15,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -460,16 +459,6 @@ public class MainActivity extends AppCompatActivity  {
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
     }
-    @Override
-    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack())
-        {
-            finish();
-            return true;
-        }
-        return super.onKeyLongPress(keyCode, event);
-    }
-
     //requesting the permission to write to external storage
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
@@ -501,6 +490,8 @@ public class MainActivity extends AppCompatActivity  {
                     mWebView.loadUrl("http://www.apkmirror.com/apk-upload/");
                 }if (tabId == R.id.tab_settings) {
                     openSettings();
+                }if (tabId == R.id.tab_exit) {
+                    finish();
                 }
             }
         });

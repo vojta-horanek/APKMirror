@@ -20,4 +20,9 @@
         icon="@drawable/ic_settings"
         title="@string/settings"
         barColorWhenSelected="@color/colorAccent" />
+    <tab
+        id="@+id/tab_exit"
+        icon="@drawable/ic_exit"
+        title="@string/exit"
+        barColorWhenSelected="@color/colorAccent" />
 </tabs>
