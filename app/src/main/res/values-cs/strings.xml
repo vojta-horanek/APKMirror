@@ -25,4 +25,6 @@
     <string name="settings">Nastavení</string>
     <string name="exit">Ukončit</string>
     <string name="close">Zavřít</string>
+    <string name="libraries">Knihovny</string>
+    <string name="thread">XDA Vlákno</string>
 </resources>

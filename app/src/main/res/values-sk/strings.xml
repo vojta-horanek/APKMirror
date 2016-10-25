@@ -24,5 +24,8 @@
     <string name="error">Chyba</string>
     <string name="settings">Nastavenie</string>
     <string name="exit">"Ukončiť "</string>
+    <string name="thread">XDA Vlákno</string>
+    <string name="libraries">Knižnice</string>
+    <string name="close">Zavrieť</string>
 
 </resources>
