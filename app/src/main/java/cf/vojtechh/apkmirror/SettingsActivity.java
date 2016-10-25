@@ -1,7 +1,9 @@
 package cf.vojtechh.apkmirror;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -9,10 +11,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -152,6 +161,41 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    public void openGitHub(View view) {
+        Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vojta-horanek/APKMirror"));
+        startActivity(githubIntent);
+
+    }
+    public void openLibs(View view) {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.libraries);
+
+        alert.setView(R.layout.libsdialog);
+        alert.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
+
+    }
+    public void openThread(View view) {
+        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
+        startActivity(threadIntent);
+
+    }
+    public void lib1(View view) {
+        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com/topic/libraries/support-library/index.html"));
+        startActivity(threadIntent);
+
+    }
+    public void lib2(View view) {
+        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/roughike/BottomBar"));
+        startActivity(threadIntent);
+
+    }
     public void disableCache() {
 
         SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();

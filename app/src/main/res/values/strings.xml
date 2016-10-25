@@ -23,6 +23,9 @@
     <string name="error">Error</string>
     <string name="settings">Settings</string>
     <string name="exit">Exit</string>
+    <string name="thread">Thread</string>
+    <string name="libraries">Libraries</string>
+    <string name="close">Close</string>
 
 
 </resources>
