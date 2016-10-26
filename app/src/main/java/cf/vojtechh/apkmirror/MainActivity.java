@@ -34,6 +34,7 @@ import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.JsResult;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -111,11 +112,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         Intent Openedfromexternallink = getIntent();
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
-            this.setTaskDescription(taskDesc);
-        }
         //all of the recources
         Pbar = (ProgressBar) findViewById(R.id.loading);
         PbarSplash = (ProgressBar) findViewById(R.id.progress);
@@ -307,9 +303,9 @@ public class MainActivity extends AppCompatActivity  {
                 findViewById(R.id.main_view).setVisibility(View.VISIBLE);
                 // hide splash screen
                 findViewById(R.id.splash_screen).setVisibility(View.GONE);
-
             }
             CookieSyncManager.getInstance().sync();
+            updateRecents();
         }
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon)
@@ -361,6 +357,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private class mChromeClient extends WebChromeClient {
+        @Override
         public void onProgressChanged(WebView view, int progress) {
             //Webview progressbar
             if(progress < 100 && Pbar.getVisibility() == ProgressBar.GONE){
@@ -373,6 +370,7 @@ public class MainActivity extends AppCompatActivity  {
             //splash screen progress bar
             PbarSplash.setProgress(progress);
         }
+
         //For Android 4.1+
         public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture){
             mUM = uploadMsg;
@@ -381,6 +379,8 @@ public class MainActivity extends AppCompatActivity  {
             i.setType("application/vnd.android.package-archive");
             MainActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), MainActivity.FCR);
         }
+
+
         //For Android 5.0+
         public boolean onShowFileChooser(
                 WebView webView, ValueCallback<Uri[]> filePathCallback,
@@ -471,6 +471,22 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
+    }
+    public void updateRecents(){
+        if (mWebView.getUrl().matches("http://www.apkmirror.com/")){
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
+                this.setTaskDescription(taskDesc);
+            }
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(mWebView.getTitle(), bm, getResources().getColor(R.color.Recents));
+                this.setTaskDescription(taskDesc);
+            }
+
+        }
     }
 
 }
