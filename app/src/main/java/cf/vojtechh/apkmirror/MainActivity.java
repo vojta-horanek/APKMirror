@@ -144,9 +144,6 @@ public class MainActivity extends AppCompatActivity  {
         else if (data == Uri.parse("http://www.apkmirror.com/apk-upload/")){
             bottomBar.selectTabAtPosition(2);
         }
-        else if (data == Uri.parse("apkmirror://settings")){
-            openSettings();
-        }
 
         else {
             url = "http://www.apkmirror.com/";
@@ -511,7 +508,7 @@ public class MainActivity extends AppCompatActivity  {
         else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2){
             bottomBar.selectTabAtPosition(2);
         }
-        else {
+        else if (!mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 0){
             bottomBar.selectTabAtPosition(0);
         }
     }
