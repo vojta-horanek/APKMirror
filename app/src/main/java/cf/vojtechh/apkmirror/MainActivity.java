@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity  {
         mWebView.getSettings().setLoadWithOverviewMode(false);
         mWebView.getSettings().setSaveFormData (true);
         mWebView.getSettings().setSavePassword(true);
-        mWebView.getSettings().setUserAgentString("user-agent-string");
         mWebView.setWebViewClient(new mWebClient());
         mWebView.setWebChromeClient(new mChromeClient());
         mWebView.getSettings().setAllowFileAccess(true);
