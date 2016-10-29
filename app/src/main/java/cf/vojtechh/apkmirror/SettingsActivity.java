@@ -40,12 +40,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
         else{
             this.setTheme(R.style.Settings);
-        }if(orientationSwitch){
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         }
-        else{
+        if (!orientationSwitch){
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+
         setContentView(R.layout.activity_settings);
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -235,14 +235,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
 
-        if (orientationSwitch){
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        }
-        else {
-            if (android.provider.Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1){
-                setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
-
+        if (!orientationSwitch){
+            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
         mWebView.setDownloadListener(new DownloadListener() {
