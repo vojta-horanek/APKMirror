@@ -511,6 +511,9 @@ public class MainActivity extends AppCompatActivity  {
         else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2){
             bottomBar.selectTabAtPosition(2);
         }
+        else {
+            bottomBar.selectTabAtPosition(0);
+        }
     }
 
 }
