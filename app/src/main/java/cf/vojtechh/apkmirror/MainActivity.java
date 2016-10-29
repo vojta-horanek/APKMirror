@@ -2,7 +2,6 @@ package cf.vojtechh.apkmirror;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.DownloadManager;
@@ -13,8 +12,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -27,18 +29,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
-import android.webkit.JsResult;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.view.KeyEvent;
@@ -52,7 +49,9 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import java.io.File;
 
-import java.io.IOException;
+import java.util.Arrays;
+
+import static cf.vojtechh.apkmirror.R.id.progress;
 
 public class MainActivity extends AppCompatActivity  {
     private final static int REQUEST_WRITE_STORAGE_RESULT = 112;
@@ -111,10 +110,11 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent Openedfromexternallink = getIntent();
+        createShortcuts();
 
         //all of the recources
         Pbar = (ProgressBar) findViewById(R.id.loading);
-        PbarSplash = (ProgressBar) findViewById(R.id.progress);
+        PbarSplash = (ProgressBar) findViewById(progress);
         final ImageButton settingsbutt = (ImageButton) findViewById(R.id.settingsButton);
 
         settingsbutt.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +138,16 @@ public class MainActivity extends AppCompatActivity  {
         if (data != null){
             url = data.toString();
         }
+        else if (data == Uri.parse("http://www.apkmirror.com/developers/")){
+            bottomBar.selectTabAtPosition(1);
+        }
+        else if (data == Uri.parse("http://www.apkmirror.com/apk-upload/")){
+            bottomBar.selectTabAtPosition(2);
+        }
+        else if (data == Uri.parse("apkmirror://settings")){
+            openSettings();
+        }
+
         else {
             url = "http://www.apkmirror.com/";
         }
@@ -310,6 +320,7 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon)
         {
+            updateBottomBar();
         }
         @SuppressWarnings("deprecation")
         @Override
@@ -330,30 +341,6 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
 
-        @TargetApi(Build.VERSION_CODES.N)
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            final Uri uri = request.getUrl();
-            return handleUri(uri);
-        }
-        private boolean handleUri(final Uri uri) {
-            Log.i(TAG, "Uri =" + uri);
-            final String host = uri.getHost();
-            final String scheme = uri.getScheme();
-            // Based on some condition you need to determine if you are going to load the url
-            // in your web view itself or in a browser.
-            // You can use `host` or `scheme` or any part of the `uri` to decide.
-            if (url.contains("apkmirror.com")) {
-                // Returning false means that you are going to load this url in the webView itself
-                return false;
-            } else {
-                // Returning true means that you need to handle what to do with the url
-                // e.g. open web page in a Browser
-                final Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-                return true;
-            }
-        }
     }
 
     private class mChromeClient extends WebChromeClient {
@@ -370,6 +357,7 @@ public class MainActivity extends AppCompatActivity  {
             //splash screen progress bar
             PbarSplash.setProgress(progress);
         }
+
 
         //For Android 4.1+
         public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture){
@@ -486,6 +474,42 @@ public class MainActivity extends AppCompatActivity  {
                 this.setTaskDescription(taskDesc);
             }
 
+        }
+    }
+
+    public void createShortcuts() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            Context context = getBaseContext();
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+
+            ShortcutInfo shortcut = new ShortcutInfo.Builder(this, "id1")
+                    .setShortLabel(getString(R.string.latest_uploads))
+                    .setLongLabel(getString(R.string.latest_uploads))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_upload))
+                    .setIntent(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://www.apkmirror.com/apk-upload/")))
+                    .build();
+            ShortcutInfo shortcut2 = new ShortcutInfo.Builder(this, "id2")
+                    .setShortLabel(getString(R.string.developers))
+                    .setLongLabel(getString(R.string.developers))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_people))
+                    .setIntent(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://www.apkmirror.com/developers/")))
+                    .build();
+
+            shortcutManager.setDynamicShortcuts(Arrays.asList(shortcut, shortcut2));
+
+        }
+
+
+    }
+
+    public void updateBottomBar(){
+        if (mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && bottomBar.getCurrentTabPosition() != 1){
+            bottomBar.selectTabAtPosition(1);
+        }
+        else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2){
+            bottomBar.selectTabAtPosition(2);
         }
     }
 
