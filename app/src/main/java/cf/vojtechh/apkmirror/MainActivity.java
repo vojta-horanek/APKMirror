@@ -43,10 +43,12 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import com.crashlytics.android.Crashlytics;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import io.fabric.sdk.android.Fabric;
 import java.io.File;
 
 import java.util.Arrays;
@@ -108,6 +110,11 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
+        boolean crashlyticsSwitch = prefs.getBoolean("crashlytics", true);
+        if (crashlyticsSwitch) {
+            Fabric.with(this, new Crashlytics());
+        }
         setContentView(R.layout.activity_main);
         Intent Openedfromexternallink = getIntent();
         createShortcuts();
@@ -195,10 +202,11 @@ public class MainActivity extends AppCompatActivity  {
             editor.putBoolean("title", false);
             editor.putBoolean("dark", false);
             editor.putBoolean("orientation", false);
+            editor.putBoolean("crashlytics", true);
             editor.apply();
         }
 
-        SharedPreferences prefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
+
         boolean cacheSwitch = prefs.getBoolean("cache", false);
         boolean javascriptSwitch = prefs.getBoolean("javascript", false);
         boolean navbarSwitch = prefs.getBoolean("navcolor", true);

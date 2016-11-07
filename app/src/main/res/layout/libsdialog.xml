@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
         android:onClick="lib1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorPrimaryDark" />
 
     <TextView
         android:text="Roughike BottomBar"
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
         android:onClick="lib2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorPrimaryDark" />
 
 </LinearLayout>

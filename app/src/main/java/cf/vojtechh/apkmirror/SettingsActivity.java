@@ -26,6 +26,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
+
 public class SettingsActivity extends AppCompatActivity {
 
 
@@ -33,6 +37,11 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPrefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
+
+        boolean crashlyticsSwitch = sharedPrefs.getBoolean("crashlytics", true);
+        if (crashlyticsSwitch) {
+            Fabric.with(this, new Crashlytics());
+        }
         boolean darkSwitch = sharedPrefs.getBoolean("dark", true);
         boolean orientationSwitch = sharedPrefs.getBoolean("orientation", true);
         if(darkSwitch){
@@ -69,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         final Switch option4switch = (Switch) findViewById(R.id.optionswitch4);
         final Switch option5switch = (Switch) findViewById(R.id.optionswitch5);
         final Switch option6switch = (Switch) findViewById(R.id.optionswitch6);
+        final Switch option7switch = (Switch) findViewById(R.id.optionswitch7);
 
         option1switch.setChecked(sharedPrefs.getBoolean("cache", true));
         option2switch.setChecked(sharedPrefs.getBoolean("javascript", true));
@@ -76,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
         option4switch.setChecked(sharedPrefs.getBoolean("title", true));
         option5switch.setChecked(sharedPrefs.getBoolean("dark", true));
         option6switch.setChecked(sharedPrefs.getBoolean("orientation", true));
+        option7switch.setChecked(sharedPrefs.getBoolean("crashlytics", true));
 
         //setting switch1
 
@@ -150,10 +161,20 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     orientationEnabled();
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                 }else{
                     orientationDisabled();
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            }
+        });
+        option7switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    crashlyticsEnabled();
+                }else{
+                    crashlyticsDisabled();
                 }
             }
         });
@@ -286,6 +307,21 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
         editor.putBoolean("orientation", false);
+        editor.apply();
+
+    }
+
+    public void crashlyticsEnabled() {
+
+        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
+        editor.putBoolean("crashlytics", true);
+        editor.apply();
+
+    }
+    public void crashlyticsDisabled() {
+
+        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
+        editor.putBoolean("crashlytics", false);
         editor.apply();
 
     }

@@ -26,6 +26,8 @@
     <string name="thread">XDA Thread</string>
     <string name="libraries">Libraries</string>
     <string name="close">Close</string>
+    <string name="option7">Enable crashlytics</string>
+    <string name="option7desc">Send anonymous report to the developer if app crashes</string>
 
 
 </resources>
