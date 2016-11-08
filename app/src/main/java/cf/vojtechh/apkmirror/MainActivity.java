@@ -26,9 +26,11 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -49,6 +51,8 @@ import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.services.common.CommonUtils;
+
 import java.io.File;
 
 import java.util.Arrays;
@@ -146,10 +150,11 @@ public class MainActivity extends AppCompatActivity  {
             url = data.toString();
         }
         else if (data == Uri.parse("http://www.apkmirror.com/developers/")){
-            bottomBar.selectTabAtPosition(1);
+            mWebView.loadUrl("http://www.apkmirror.com/developers/");
+
         }
         else if (data == Uri.parse("http://www.apkmirror.com/apk-upload/")){
-            bottomBar.selectTabAtPosition(2);
+            mWebView.loadUrl("http://www.apkmirror.com/apk-upload/");
         }
 
         else {
@@ -259,21 +264,23 @@ public class MainActivity extends AppCompatActivity  {
                 final View.OnClickListener opendown = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (titleSwitch){
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                            File apk = new File(downloads, fileName);
+                            Uri apkUri = FileProvider.getUriForFile(MainActivity.this, "cf.vojtechh.apkmirror.provider", apk);
+                            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                            intent.setData(apkUri);
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            startActivity(intent);
+                        } else {
                             File apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
+                            Uri apkUri = Uri.fromFile(apkfile);
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
 
-                            Intent i = new Intent();
-                            i.setAction(android.content.Intent.ACTION_VIEW);
-                            i.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
-                            startActivity(i);
-
-                        }else {
-                            File apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
-
-                            Intent i = new Intent();
-                            i.setAction(android.content.Intent.ACTION_VIEW);
-                            i.setDataAndType(Uri.fromFile(apkfile), "application/vnd.android.package-archive");
-                            startActivity(i);
                         }
                     }
                 };

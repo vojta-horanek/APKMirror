@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">APKMirror</string>
     <string name="storage_access">This app needs to have a permission to write to external storage in order to save files.</string>
-    <string name="storage_access_denied">You wont be able to download now, restart the app.</string>
+    <string name="storage_access_denied">You wont be able to download now, please restart the app.</string>
     <string name="title_activity_settings">Settings</string>
     <string name="option1">Dont keep cache</string>
     <string name="option1desc">Makes the app size smaller, but the website might load slower</string>
@@ -26,7 +26,7 @@
     <string name="thread">XDA Thread</string>
     <string name="libraries">Libraries</string>
     <string name="close">Close</string>
-    <string name="option7">Enable crashlytics</string>
+    <string name="option7">Enable analýzu chyb</string>
     <string name="option7desc">Send anonymous report to the developer if app crashes</string>
 
 
