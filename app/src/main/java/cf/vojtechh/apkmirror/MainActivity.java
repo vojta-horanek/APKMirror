@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity  {
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.colorAccent);
 
 
-        //checking if shared preferences exist
+        //checking if shared preferences exists
         File f = new File(getFilesDir().getPath(), "../shared_prefs/cf.vojtechh.apkmirror.xml");
         if (!f.exists()){
             SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity  {
                 request.setMimeType("application/vnd.android.package-archive");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Toast.makeText(MainActivity.this, R.string.download, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.download_started, Toast.LENGTH_SHORT).show();
                 final String dwn = getResources().getString(R.string.download);
                 final View.OnClickListener opendown = new View.OnClickListener() {
                     @Override
