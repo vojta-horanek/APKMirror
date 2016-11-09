@@ -6,6 +6,7 @@
     android:layout_width="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="0px">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -118,10 +119,11 @@
             app:bb_inActiveTabAlpha="0.6"
             app:bb_activeTabAlpha="1"
             app:bb_behavior="shifting"
-            app:bb_showShadow="false"/>
+            app:bb_showShadow="false"
+            android:onClick="search"/>
 
 
-            <android.support.v4.widget.SwipeRefreshLayout
+        <android.support.v4.widget.SwipeRefreshLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/swiperefresh"
                 android:layout_width="match_parent"
@@ -129,7 +131,9 @@
                 android:layout_above="@id/bottomBar">
                 <WebView android:id="@+id/apkmirror"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" />
+                    android:layout_height="fill_parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
             </android.support.v4.widget.SwipeRefreshLayout>
 
 
@@ -152,6 +156,19 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp"/>
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_search"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_colorPressed="@color/colorAccent"
+            fab:fab_colorRipple="@color/colorPrimaryDark"
+            android:onClick="search"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/bottomBar"
+            android:layout_marginBottom="60dp" />
 
 
     </RelativeLayout>

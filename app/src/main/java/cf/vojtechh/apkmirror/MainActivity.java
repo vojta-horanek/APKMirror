@@ -32,6 +32,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -52,6 +53,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import io.fabric.sdk.android.Fabric;
 import io.fabric.sdk.android.services.common.CommonUtils;
+import io.fabric.sdk.android.services.concurrency.DependsOn;
 
 import java.io.File;
 
@@ -177,6 +179,7 @@ public class MainActivity extends AppCompatActivity  {
         CookieSyncManager.createInstance(MainActivity.this);
         CookieSyncManager.getInstance().startSync();
         mWebView.loadUrl(url);
+        mWebView.requestFocus(View.FOCUS_DOWN);
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -260,6 +263,7 @@ public class MainActivity extends AppCompatActivity  {
                 request.setMimeType("application/vnd.android.package-archive");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                Toast.makeText(MainActivity.this, R.string.download, Toast.LENGTH_SHORT).show();
                 final String dwn = getResources().getString(R.string.download);
                 final View.OnClickListener opendown = new View.OnClickListener() {
                     @Override
@@ -330,6 +334,7 @@ public class MainActivity extends AppCompatActivity  {
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            //This will make the user able to login to disqus with twitter,google,disqus or facebook account
             if (!url.contains("apkmirror.com")) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -510,15 +515,25 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     public void updateBottomBar(){
-        if (mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && bottomBar.getCurrentTabPosition() != 1){
-            bottomBar.selectTabAtPosition(1);
+        //Try-catch prevents the app from crashing duo to loading some custom javascript (see above)
+        try {
+            if (mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && bottomBar.getCurrentTabPosition() != 1) {
+                bottomBar.selectTabAtPosition(1);
+            } else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2) {
+                bottomBar.selectTabAtPosition(2);
+            } else if (mWebView.getUrl().contains("http://www.apkmirror.com/?s=")) {
+
+            } else if (!mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 0) {
+                bottomBar.selectTabAtPosition(0);
+            }
+        }catch (NullPointerException e){
+            Log.w("Javascript error", "Incorrect bottombar update");
         }
-        else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2){
-            bottomBar.selectTabAtPosition(2);
-        }
-        else if (!mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 0){
-            bottomBar.selectTabAtPosition(0);
-        }
+    }
+
+    public void search(View view){
+        mWebView.loadUrl("javascript:document.getElementById(\"searchButtonMobile\").click();");
+        mWebView.loadUrl("javascript:document.getElementById(\"searchbox-sidebar\").focus();");
     }
 
 }
