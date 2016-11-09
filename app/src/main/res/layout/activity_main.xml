@@ -136,7 +136,6 @@
                     android:focusableInTouchMode="true"/>
             </android.support.v4.widget.SwipeRefreshLayout>
 
-
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="match_parent"
@@ -148,27 +147,31 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="53dp"
             android:theme="@style/progress2"/>
-
         <android.support.design.widget.CoordinatorLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/snackbar_place"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="60dp"/>
+            android:layout_marginBottom="60dp" />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab"
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="60dp">
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_search"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_colorPressed="@color/colorAccent"
-            fab:fab_colorRipple="@color/colorPrimaryDark"
-            android:onClick="search"
             android:layout_alignParentBottom="true"
             android:layout_alignEnd="@+id/bottomBar"
-            android:layout_marginBottom="60dp" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_search"
+            android:id="@+id/fab"
+            android:onClick="search" />
+        </android.support.design.widget.CoordinatorLayout>
+
+
 
 
     </RelativeLayout>

@@ -263,7 +263,9 @@ public class MainActivity extends AppCompatActivity  {
                 request.setMimeType("application/vnd.android.package-archive");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Toast.makeText(MainActivity.this, R.string.download_started, Toast.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.fab), R.string.download_started, 1500)
+                        .show();
+
                 final String dwn = getResources().getString(R.string.download);
                 final View.OnClickListener opendown = new View.OnClickListener() {
                     @Override
@@ -290,7 +292,7 @@ public class MainActivity extends AppCompatActivity  {
                 };
                 BroadcastReceiver onComplete=new BroadcastReceiver() {
                     public void onReceive(Context ctxt, Intent intent) {
-                        Snackbar.make(findViewById(R.id.snackbar_place), dwn + " " + fileName , Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.fab), dwn + " " + fileName , Snackbar.LENGTH_LONG)
                                 .setAction(R.string.open, opendown)
                                 .show();
                     }
