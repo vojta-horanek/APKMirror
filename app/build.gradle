@@ -43,7 +43,6 @@ dependencies {
     compile 'com.roughike:bottom-bar:2.0.2'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
-    compile 'com.github.clans:fab:1.6.4'
     compile 'com.android.support:design:25.0.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;

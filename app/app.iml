@@ -105,7 +105,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.2.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics-core/2.3.14/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.6.5/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.clans/fab/1.6.4/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.roughike/bottom-bar/2.0.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.14/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
@@ -144,7 +143,6 @@
     <orderEntry type="library" exported="" name="support-compat-25.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-25.0.0" level="project" />
     <orderEntry type="library" exported="" name="animated-vector-drawable-25.0.0" level="project" />
-    <orderEntry type="library" exported="" name="fab-1.6.4" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-core-2.3.14" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.0.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.3" level="project" />

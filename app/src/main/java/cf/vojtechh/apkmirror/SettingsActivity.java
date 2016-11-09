@@ -216,11 +216,6 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(threadIntent);
 
     }
-    public void lib3(View view) {
-        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Clans/FloatingActionButton"));
-        startActivity(threadIntent);
-
-    }
     public void disableCache() {
 
         SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();

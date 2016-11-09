@@ -23,14 +23,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark" />
-    <TextView
-        android:text="Clans Floating Action Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        android:onClick="lib3"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        android:textColor="@color/colorPrimaryDark" />
 
 </LinearLayout>
