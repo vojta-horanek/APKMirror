@@ -30,5 +30,7 @@
     <string name="option7">Povoliť analýzu chýb</string>
     <string name="option7desc">Poslať anonymnú správu vývojárovi ak dôjde k chybe aplikácie</string>
     <string name="download_started">Sťahujem...</string>
+    <string name="search">Hľadať</string>
+    <string name="cancel">Zrušiť</string>
 
 </resources>

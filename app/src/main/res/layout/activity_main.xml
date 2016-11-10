@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="cf.vojtechh.apkmirror.MainActivity"
-        android:background="#F27C20">
+        android:background="#f47d20">
 
         <ImageView
             android:layout_width="0dp"

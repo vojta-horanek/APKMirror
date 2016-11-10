@@ -29,6 +29,8 @@
     <string name="option7">Enable analýzu chyb</string>
     <string name="option7desc">Send anonymous report to the developer if app crashes</string>
     <string name="download_started">Download started...</string>
+    <string name="search">Search</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

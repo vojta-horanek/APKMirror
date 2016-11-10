@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity  {
         Intent Openedfromexternallink = getIntent();
         createShortcuts();
 
+
         //all of the recources
         Pbar = (ProgressBar) findViewById(R.id.loading);
         PbarSplash = (ProgressBar) findViewById(progress);
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity  {
                 request.setMimeType("application/vnd.android.package-archive");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Snackbar.make(findViewById(R.id.fab), R.string.download_started, 1500)
+                Snackbar.make(findViewById(R.id.fab), R.string.download_started + "(" + fileName + ")", 1500)
                         .show();
 
                 final String dwn = getResources().getString(R.string.download);
@@ -497,14 +498,14 @@ public class MainActivity extends AppCompatActivity  {
             ShortcutInfo shortcut = new ShortcutInfo.Builder(this, "id1")
                     .setShortLabel(getString(R.string.latest_uploads))
                     .setLongLabel(getString(R.string.latest_uploads))
-                    .setIcon(Icon.createWithResource(context, R.drawable.ic_upload))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_upload_shortcut))
                     .setIntent(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://www.apkmirror.com/apk-upload/")))
                     .build();
             ShortcutInfo shortcut2 = new ShortcutInfo.Builder(this, "id2")
                     .setShortLabel(getString(R.string.developers))
                     .setLongLabel(getString(R.string.developers))
-                    .setIcon(Icon.createWithResource(context, R.drawable.ic_people))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_people_shortcut))
                     .setIntent(new Intent(Intent.ACTION_VIEW,
                             Uri.parse("http://www.apkmirror.com/developers/")))
                     .build();
