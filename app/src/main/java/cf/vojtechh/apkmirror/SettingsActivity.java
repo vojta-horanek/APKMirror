@@ -37,7 +37,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hasAnythingChanged = false;
-        MainActivity.bottomBar.selectTabAtPosition(0);
 
         SharedPreferences sharedPrefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
 
@@ -353,6 +352,7 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
 
         }else {
+            MainActivity.bottomBar.selectTabAtPosition(0);
             finish();
         }
 
