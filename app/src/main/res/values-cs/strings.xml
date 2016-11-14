@@ -27,7 +27,7 @@
     <string name="close">Zavřít</string>
     <string name="libraries">Knihovny</string>
     <string name="thread">XDA Vlákno</string>
-    <string name="option7">Povolit crashlytics</string>
+    <string name="option7">Povolit analýzu chyb</string>
     <string name="option7desc">Poslat anonymní zprávu pro vývojáře pokud dojde k chybě aplikace</string>
     <string name="download_started">Stahuji...</string>
     <string name="search">Hledat</string>

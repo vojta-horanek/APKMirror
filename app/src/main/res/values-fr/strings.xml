@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="storage_access">Cette application nécessite l\'autorisation d\'écrire sur le stockage externe afin d\'enregistrer les fichiers.</string>
+    <string name="storage_access_denied">Vous ne serez pas en mesure de télécharger maintenant. Redémarrez l\'application s\'il vous plaît. </string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="option1">Ne pas garder le cache</string>
+    <string name="option1desc">Rend la taille de l\'application plus petite, mais le site peut être plus lent à charger</string>
+    <string name="option2">Désactiver le JavaScript</string>
+    <string name="option2desc">Non recommandé, mais l\'option est là</string>
+    <string name="option3">Barre de navigation coloré</string>
+    <string name="option3desc">Une option pour colorer la barre de navigation</string>
+    <string name="option4">Montrer le nom de l\'application dans les notifications de téléchargement</string>
+    <string name="option4desc">Une option pour choisir de montrer soit le titre du fichier (désactivé), ou le nom de l\'application dans les notifications de téléchargement</string>
+    <string name="settingsrestart">Redémarrage</string>
+    <string name="use_dark_theme">Utiliser le thème sombre pour les paramètres</string>
+    <string name="for_those_who_want_to_join_the_dark_side">Pour ceux qui veulent joindre le côté obscure</string>
+    <string name="developers">Développeurs</string>
+    <string name="latest_uploads">Mettre en ligne</string>
+    <string name="option6">Autoriser la rotation de l\'écran</string>
+    <string name="option6desc">Faire pivoter l\'écran lors du changement d\'orientation</string>
+    <string name="download">Téléchargé</string>
+    <string name="open">Ouvrir</string>
+    <string name="error">Erreur</string>
+    <string name="settings">Paramètres</string>
+    <string name="exit">Quitter</string>
+    <string name="thread">Sujet XDA</string>
+    <string name="libraries">Bibliothèques (dev)</string>
+    <string name="close">Fermer</string>
+    <string name="option7">Activer l\'analyse des erreurs</string>
+    <string name="option7desc">Envoyer un rapport anonyme au développeur si l\'application crash</string>
+    <string name="download_started">Le téléchargement a commencé...</string>
+    <string name="search">Rechercher</string>
+    <string name="cancel">Annuler</string>
+
+
+</resources>

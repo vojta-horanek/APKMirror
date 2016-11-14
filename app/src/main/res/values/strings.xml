@@ -17,7 +17,7 @@
     <string name="developers">Developers</string>
     <string name="latest_uploads">Upload</string>
     <string name="option6">Allow screen rotation</string>
-    <string name="option6desc">Rotate the screen on change orientation</string>
+    <string name="option6desc">Rotate the screen on orientation change</string>
     <string name="download">Downloaded</string>
     <string name="open">Open</string>
     <string name="error">Error</string>
@@ -26,7 +26,7 @@
     <string name="thread">XDA Thread</string>
     <string name="libraries">Libraries</string>
     <string name="close">Close</string>
-    <string name="option7">Enable analýzu chyb</string>
+    <string name="option7">Enable crashlytics</string>
     <string name="option7desc">Send anonymous report to the developer if app crashes</string>
     <string name="download_started">Download started...</string>
     <string name="search">Search</string>
