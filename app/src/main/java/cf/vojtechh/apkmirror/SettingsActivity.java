@@ -32,10 +32,11 @@ import io.fabric.sdk.android.Fabric;
 
 public class SettingsActivity extends AppCompatActivity {
 
-
+    boolean hasAnythingChanged;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hasAnythingChanged = false;
         SharedPreferences sharedPrefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
 
         boolean crashlyticsSwitch = sharedPrefs.getBoolean("crashlytics", true);
@@ -95,8 +96,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     disableCache();
                 }else{
+                    hasAnythingChanged = true;
                     enableCache();
                 }
             }
@@ -108,9 +111,12 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if(isChecked){
+                    hasAnythingChanged = true;
                     disableJavascript();
                 }else{
+                    hasAnythingChanged = true;
                     enableJavascript();
                 }
             }
@@ -123,8 +129,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     showActionbar();
                 }else{
+                    hasAnythingChanged = true;
                     hideActionbar();
                 }
             }
@@ -137,8 +145,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     showTitle();
                 }else{
+                    hasAnythingChanged = true;
                     showFilename();
                 }
             }
@@ -149,8 +159,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     darkEnabled();
                 }else{
+                    hasAnythingChanged = true;
                     darkDisabled();
                 }
             }
@@ -160,8 +172,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     orientationEnabled();
                 }else{
+                    hasAnythingChanged = true;
                     orientationDisabled();
                     setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
@@ -172,8 +186,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+                    hasAnythingChanged = true;
                     crashlyticsEnabled();
                 }else{
+                    hasAnythingChanged = true;
                     crashlyticsDisabled();
                 }
             }
@@ -327,11 +343,18 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
+        if(hasAnythingChanged){
             Toast.makeText(this, R.string.settingsrestart, Toast.LENGTH_SHORT).show();
 
             Intent i = new Intent(SettingsActivity.this, MainActivity.class);
             startActivity(i);
             finish();
+
+        }else {
+            MainActivity.bottomBar.selectTabAtPosition(0);
+
+            finish();
+        }
 
         }
 }

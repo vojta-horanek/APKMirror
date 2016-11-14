@@ -7,6 +7,7 @@ import android.app.ActivityManager;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -21,21 +22,22 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity  {
     public ProgressBar Pbar;
     public ProgressBar PbarSplash;
     String url;
+    public String pageColor;
     public static BottomBar bottomBar;
     private static final String TAG = MainActivity.class.getSimpleName();
     private String mCM;
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled"})
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,8 +129,10 @@ public class MainActivity extends AppCompatActivity  {
         createShortcuts();
 
 
-        //all of the recources
+        //all of the resources
         Pbar = (ProgressBar) findViewById(R.id.loading);
+        //sets the height of progressbar
+        Pbar.setScaleY(2f);
         PbarSplash = (ProgressBar) findViewById(progress);
         final ImageButton settingsbutt = (ImageButton) findViewById(R.id.settingsButton);
 
@@ -264,7 +269,7 @@ public class MainActivity extends AppCompatActivity  {
                 request.setMimeType("application/vnd.android.package-archive");
                 DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                Snackbar.make(findViewById(R.id.fab), R.string.download_started + "(" + fileName + ")", 1500)
+                Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + fileName + ")", 1500)
                         .show();
 
                 final String dwn = getResources().getString(R.string.download);
@@ -328,6 +333,8 @@ public class MainActivity extends AppCompatActivity  {
             }
             CookieSyncManager.getInstance().sync();
             updateRecents();
+            //updateInterfaceColor();
+
         }
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon)
@@ -400,6 +407,13 @@ public class MainActivity extends AppCompatActivity  {
             startActivityForResult(chooserIntent, FCR);
             return true;
         }
+
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            Log.d("PageColor!", message);
+            result.confirm();
+            pageColor = message;
+            return true;
+        }
     }
 
     //settings opening
@@ -408,7 +422,6 @@ public class MainActivity extends AppCompatActivity  {
                 (MainActivity.this, SettingsActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
-        finish();
 
     }
     //back key
@@ -429,7 +442,21 @@ public class MainActivity extends AppCompatActivity  {
         if(requestCode == REQUEST_WRITE_STORAGE_RESULT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
             }else{
-                Toast.makeText(this,R.string.storage_access_denied, Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("RESTART!");
+                alertDialog.setMessage(getString(R.string.storage_access) + ". " + getString(R.string.storage_access_denied));
+                alertDialog.setCancelable(false);
+                alertDialog.setCanceledOnTouchOutside(false);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = getBaseContext().getPackageManager()
+                                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+                        });
+                alertDialog.show();
             }
         }else{
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -533,6 +560,11 @@ public class MainActivity extends AppCompatActivity  {
             Log.w("Javascript error", "Incorrect bottombar update");
         }
     }
+
+    public void updateInterfaceColor(){
+        mWebView.loadUrl("javascript:alert($(\"#masthead\").css(\"background\"))");
+    }
+
 
     public void search(View view){
         mWebView.loadUrl("javascript:document.getElementById(\"searchButtonMobile\").click();");

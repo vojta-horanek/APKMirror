@@ -7,7 +7,7 @@
     <string name="option2desc">Nedoporučováno, ale nastavit to jde</string>
     <string name="settingsrestart">Restartuji</string>
     <string name="storage_access">Tato aplkace potřebuje mít přístup na úložitě aby mohla stahovat soubory</string>
-    <string name="storage_access_denied">Nyní nebzdete moci stahovat, prosím restartujte aplikaci.</string>
+    <string name="storage_access_denied">Nyní nebudete moci stahovat, prosím restartujte aplikaci.</string>
     <string name="title_activity_settings">Nastavení</string>
     <string name="option3">Obarvit navigační lištu</string>
     <string name="option3desc">Možnost obarvit navigační lištu</string>
