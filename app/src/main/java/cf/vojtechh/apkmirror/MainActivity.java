@@ -24,6 +24,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -131,9 +132,9 @@ public class MainActivity extends AppCompatActivity  {
 
         //all of the resources
         Pbar = (ProgressBar) findViewById(R.id.loading);
+        PbarSplash = (ProgressBar) findViewById(progress);
         //sets the height of progressbar
         Pbar.setScaleY(2f);
-        PbarSplash = (ProgressBar) findViewById(progress);
         final ImageButton settingsbutt = (ImageButton) findViewById(R.id.settingsButton);
 
         settingsbutt.setOnClickListener(new View.OnClickListener() {
@@ -551,10 +552,8 @@ public class MainActivity extends AppCompatActivity  {
                 bottomBar.selectTabAtPosition(1);
             } else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2) {
                 bottomBar.selectTabAtPosition(2);
-            } else if (mWebView.getUrl().contains("http://www.apkmirror.com/?s=")) {
-
             } else if (!mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 0) {
-                bottomBar.selectTabAtPosition(0);
+
             }
         }catch (NullPointerException e){
             Log.w("Javascript error", "Incorrect bottombar update");

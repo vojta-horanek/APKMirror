@@ -352,7 +352,11 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
 
         }else {
-            MainActivity.bottomBar.selectTabAtPosition(0);
+            try {
+                MainActivity.bottomBar.selectTabAtPosition(0);
+            }catch (NullPointerException e){
+                Log.d("Error:", "Started from shortcut crash");
+            }
             finish();
         }
 
