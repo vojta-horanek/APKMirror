@@ -511,11 +511,29 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onTabReSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_homepage) {
-                    mWebView.scrollTo(0,0);
+                    int Y = mWebView.getScrollY();
+                    int X = mWebView.getScrollX();
+                    if(Y == 0 && X == 0){
+                        mWebView.loadUrl("http://www.apkmirror.com/");
+                    }else{
+                        mWebView.scrollTo(0,0);
+                    }
                 }if (tabId == R.id.tab_devs) {
-                    mWebView.scrollTo(0,0);
+                    int Y = mWebView.getScrollY();
+                    int X = mWebView.getScrollX();
+                    if(Y == 0 && X == 0){
+                        mWebView.loadUrl("http://www.apkmirror.com/developers/");
+                    }else{
+                        mWebView.scrollTo(0,0);
+                    }
                 }if (tabId == R.id.tab_upload) {
-                    mWebView.scrollTo(0,0);
+                    int Y = mWebView.getScrollY();
+                    int X = mWebView.getScrollX();
+                    if(Y == 0 && X == 0){
+                        mWebView.loadUrl("http://www.apkmirror.com/apk-upload/");
+                    }else{
+                        mWebView.scrollTo(0,0);
+                    }
                 }
             }
         });
