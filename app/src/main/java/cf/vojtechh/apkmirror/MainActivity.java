@@ -1,6 +1,9 @@
 package cf.vojtechh.apkmirror;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -34,6 +37,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -135,13 +139,6 @@ public class MainActivity extends AppCompatActivity  {
         PbarSplash = (ProgressBar) findViewById(progress);
         //sets the height of progressbar
         Pbar.setScaleY(2f);
-        final ImageButton settingsbutt = (ImageButton) findViewById(R.id.settingsButton);
-
-        settingsbutt.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                openSettings();
-            }
-        });
         //checking for permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {}
@@ -327,24 +324,39 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public void onPageFinished(WebView view, String url) {
             if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE) {
-                // show webview
-                findViewById(R.id.main_view).setVisibility(View.VISIBLE);
-                // hide splash screen
-                findViewById(R.id.splash_screen).setVisibility(View.GONE);
+                crossfade(findViewById(R.id.splash_screen),findViewById(R.id.main_view));
             }
             CookieSyncManager.getInstance().sync();
             updateRecents();
             //updateInterfaceColor();
 
+
+            Pbar.animate()
+                    .alpha(0f)
+                    .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            Pbar.setVisibility(View.GONE);
+                        }
+                    });
+
         }
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon)
         {
+            Pbar.animate()
+                    .alpha(1f)
+                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                    .setListener(null);
+            Pbar.setVisibility(ProgressBar.VISIBLE);
+
             updateBottomBar();
         }
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
             //This will make the user able to login to disqus with twitter,google,disqus or facebook account
             if (!url.contains("apkmirror.com")) {
                 try {
@@ -361,6 +373,11 @@ public class MainActivity extends AppCompatActivity  {
                 return true;
             }
         }
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            mWebView.loadUrl("file:///android_asset/errorpage.html");
+        }
 
     }
 
@@ -368,15 +385,18 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         public void onProgressChanged(WebView view, int progress) {
             //Webview progressbar
-            if(progress < 100 && Pbar.getVisibility() == ProgressBar.GONE){
-                Pbar.setVisibility(ProgressBar.VISIBLE);
-            }
-            Pbar.setProgress(progress);
-            if(progress == 100) {
-                Pbar.setVisibility(ProgressBar.GONE);
-            }
+            //update the progressbar value
+            ObjectAnimator animation = ObjectAnimator.ofInt(Pbar, "progress", progress);
+            animation.setDuration(100); // 0.5 second
+            animation.setInterpolator(new DecelerateInterpolator());
+            animation.start();
+
             //splash screen progress bar
-            PbarSplash.setProgress(progress);
+            // will update the "progress" propriety of seekbar until it reaches progress
+            ObjectAnimator animation2 = ObjectAnimator.ofInt(PbarSplash, "progress", progress);
+            animation2.setDuration(500); // 0.5 second
+            animation2.setInterpolator(new DecelerateInterpolator());
+            animation2.start();
         }
 
 
@@ -568,6 +588,34 @@ public class MainActivity extends AppCompatActivity  {
     public void search(View view){
         mWebView.loadUrl("javascript:document.getElementById(\"searchButtonMobile\").click();");
         mWebView.loadUrl("javascript:document.getElementById(\"searchbox-sidebar\").focus();");
+    }
+
+    public void crossfade(final View loadingView, View screen) {
+
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+        screen.setAlpha(0f);
+        screen.setVisibility(View.VISIBLE);
+
+        // Animate the content view to 100% opacity, and clear any animation
+        // listener set on the view.
+        screen.animate()
+                .alpha(1f)
+                .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime))
+                .setListener(null);
+
+        // Animate the loading view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        loadingView.animate()
+                .alpha(0f)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        loadingView.setVisibility(View.GONE);
+                    }
+                });
     }
 
 }
