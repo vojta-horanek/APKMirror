@@ -134,6 +134,21 @@ public class MainActivity extends AppCompatActivity  {
         splash.startAnimation(fadeInAnimation);
 
         Intent Openedfromexternallink = getIntent();
+        //this has to be done becuse the recents color will stay orange which looks ugly
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);
+            ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.colorPrimaryDark));
+            this.setTaskDescription(taskDesc);
+        }else {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
+                this.setTaskDescription(taskDesc);
+            }
+
+        }
+
+
         createShortcuts();
 
 
@@ -352,8 +367,7 @@ public class MainActivity extends AppCompatActivity  {
 
         }
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon)
-        {
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
             Pbar.animate()
                     .alpha(1f)
                     .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
@@ -540,16 +554,29 @@ public class MainActivity extends AppCompatActivity  {
     public void updateRecents(){
 
         if (mWebView.getUrl().matches("http://www.apkmirror.com/")){
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.colorPrimaryDark));
                 this.setTaskDescription(taskDesc);
+            }else {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
+                    this.setTaskDescription(taskDesc);
+                }
             }
         }else{
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(mWebView.getTitle(), bm, getResources().getColor(R.color.Recents));
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);
+                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(mWebView.getTitle(), bm, getResources().getColor(R.color.colorPrimaryDark));
                 this.setTaskDescription(taskDesc);
+            }else {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                    ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(mWebView.getTitle(), bm, getResources().getColor(R.color.Recents));
+                    this.setTaskDescription(taskDesc);
+                }
+
             }
 
         }
@@ -617,7 +644,7 @@ public class MainActivity extends AppCompatActivity  {
         // listener set on the view.
         screen.animate()
                 .alpha(1f)
-                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setDuration(0)
                 .setListener(null);
 
         // Animate the loading view to 0% opacity. After the animation ends,
@@ -633,5 +660,6 @@ public class MainActivity extends AppCompatActivity  {
                     }
                 });
     }
+
 
 }
