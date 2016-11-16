@@ -1,7 +1,5 @@
 package cf.vojtechh.apkmirror;
 
-import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,19 +7,14 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -34,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     boolean hasAnythingChanged;
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hasAnythingChanged = false;
@@ -130,11 +124,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    hasAnythingChanged = true;
-                    showActionbar();
+                    colorNavBar();
                 }else{
-                    hasAnythingChanged = true;
-                    hideActionbar();
+                    dontColorNavBar();
                 }
             }
         });
@@ -160,10 +152,8 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    hasAnythingChanged = true;
                     darkEnabled();
                 }else{
-                    hasAnythingChanged = true;
                     darkDisabled();
                 }
             }
@@ -261,20 +251,22 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    public void showActionbar() {
+    public void colorNavBar() {
 
         SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
         editor.putBoolean("navcolor", true);
         editor.apply();
         recreate();
 
+
     }
 
-    public void hideActionbar() {
+    public void dontColorNavBar() {
         SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
         editor.putBoolean("navcolor", false);
         editor.apply();
         recreate();
+
 
     }
 
@@ -301,6 +293,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.apply();
         this.setTheme(R.style.DarkSettings);
         recreate();
+
     }
 
     public void darkDisabled() {
@@ -310,6 +303,8 @@ public class SettingsActivity extends AppCompatActivity {
         editor.apply();
         this.setTheme(R.style.Settings);
         recreate();
+
+
     }
 
     public void orientationEnabled() {
@@ -352,12 +347,13 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
 
         }else {
-            try {
+            try{
                 MainActivity.bottomBar.selectTabAtPosition(0);
             }catch (NullPointerException e){
                 Log.d("Error:", "Started from shortcut crash");
             }
             finish();
+
         }
 
         }

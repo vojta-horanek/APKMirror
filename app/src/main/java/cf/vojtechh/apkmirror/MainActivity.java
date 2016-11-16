@@ -23,48 +23,46 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
-import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.view.KeyEvent;
 import android.webkit.WebViewClient;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.crashlytics.android.Crashlytics;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import io.fabric.sdk.android.Fabric;
-import io.fabric.sdk.android.services.common.CommonUtils;
-import io.fabric.sdk.android.services.concurrency.DependsOn;
-
 import java.io.File;
-
 import java.util.Arrays;
+
+import io.fabric.sdk.android.Fabric;
 
 import static cf.vojtechh.apkmirror.R.id.progress;
 
@@ -120,6 +118,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
+    @SuppressWarnings("deprecation")
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,6 +129,10 @@ public class MainActivity extends AppCompatActivity  {
             Fabric.with(this, new Crashlytics());
         }
         setContentView(R.layout.activity_main);
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        View splash = findViewById(R.id.splash_screen);
+        splash.startAnimation(fadeInAnimation);
+
         Intent Openedfromexternallink = getIntent();
         createShortcuts();
 
@@ -141,8 +144,7 @@ public class MainActivity extends AppCompatActivity  {
         Pbar.setScaleY(2f);
         //checking for permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {}
-            else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     Toast.makeText(this, R.string.storage_access, Toast.LENGTH_SHORT).show();
                 }
@@ -189,7 +191,11 @@ public class MainActivity extends AppCompatActivity  {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mWebView.reload();
+                if(mWebView.getUrl().equals("file:///android_asset/errorpage.html")){
+                    mWebView.loadUrl(url);
+                }else {
+                    mWebView.reload();
+                }
 
                 //i know this is wrong, im sorry but idk how to do it
                 new Handler().postDelayed(new Runnable() {
@@ -320,12 +326,15 @@ public class MainActivity extends AppCompatActivity  {
         });
 
     }
+
     private class mWebClient extends WebViewClient {
         @Override
+        @SuppressWarnings("deprecation")
         public void onPageFinished(WebView view, String url) {
             if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE) {
                 crossfade(findViewById(R.id.splash_screen),findViewById(R.id.main_view));
             }
+
             CookieSyncManager.getInstance().sync();
             updateRecents();
             //updateInterfaceColor();
@@ -400,16 +409,6 @@ public class MainActivity extends AppCompatActivity  {
         }
 
 
-        //For Android 4.1+
-        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture){
-            mUM = uploadMsg;
-            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-            i.addCategory(Intent.CATEGORY_OPENABLE);
-            i.setType("application/vnd.android.package-archive");
-            MainActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), MainActivity.FCR);
-        }
-
-
         //For Android 5.0+
         public boolean onShowFileChooser(
                 WebView webView, ValueCallback<Uri[]> filePathCallback,
@@ -421,7 +420,6 @@ public class MainActivity extends AppCompatActivity  {
             Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
             contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
             contentSelectionIntent.setType("application/vnd.android.package-archive");
-            Intent[] intentArray;
             Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
             chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
             chooserIntent.putExtra(Intent.EXTRA_TITLE, "Choose APK");
@@ -443,7 +441,6 @@ public class MainActivity extends AppCompatActivity  {
                 (MainActivity.this, SettingsActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
-
     }
     //back key
     @Override
@@ -459,10 +456,9 @@ public class MainActivity extends AppCompatActivity  {
     }
     //requesting the permission to write to external storage
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
         if(requestCode == REQUEST_WRITE_STORAGE_RESULT) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            }else{
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED){
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("RESTART!");
                 alertDialog.setMessage(getString(R.string.storage_access) + ". " + getString(R.string.storage_access_denied));
@@ -478,6 +474,7 @@ public class MainActivity extends AppCompatActivity  {
                             }
                         });
                 alertDialog.show();
+
             }
         }else{
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -539,7 +536,9 @@ public class MainActivity extends AppCompatActivity  {
         });
 
     }
+    @SuppressWarnings("deprecation")
     public void updateRecents(){
+
         if (mWebView.getUrl().matches("http://www.apkmirror.com/")){
             if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -582,7 +581,6 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-
     public void updateBottomBar(){
         //Try-catch prevents the app from crashing duo to loading some custom javascript (see above)
         try {
@@ -591,16 +589,16 @@ public class MainActivity extends AppCompatActivity  {
             } else if (mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 2) {
                 bottomBar.selectTabAtPosition(2);
             } else if (!mWebView.getUrl().matches("http://www.apkmirror.com/developers/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/") && bottomBar.getCurrentTabPosition() != 0) {
-
+                Log.d("Hi!", ":)");
             }
         }catch (NullPointerException e){
             Log.w("Javascript error", "Incorrect bottombar update");
         }
     }
 
-    public void updateInterfaceColor(){
-        mWebView.loadUrl("javascript:alert($(\"#masthead\").css(\"background\"))");
-    }
+    //public void updateInterfaceColor(){
+    //    mWebView.loadUrl("javascript:alert($(\"#masthead\").css(\"background\"))");
+    //}
 
 
     public void search(View view){
@@ -619,7 +617,7 @@ public class MainActivity extends AppCompatActivity  {
         // listener set on the view.
         screen.animate()
                 .alpha(1f)
-                .setDuration(getResources().getInteger(android.R.integer.config_longAnimTime))
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
                 .setListener(null);
 
         // Animate the loading view to 0% opacity. After the animation ends,
