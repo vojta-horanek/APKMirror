@@ -18,33 +18,39 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
-import android.webkit.JsResult;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -59,14 +65,29 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import net.htmlparser.jericho.Element;
+import net.htmlparser.jericho.Source;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.List;
+import java.net.URL;
 
 import io.fabric.sdk.android.Fabric;
 
+
 import static cf.vojtechh.apkmirror.R.id.progress;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends Activity  {
+    private String mCM;
+    private ValueCallback<Uri> mUM;
+    private ValueCallback<Uri[]> mUMA;
+    private final static int FCR=1;
     private final static int REQUEST_WRITE_STORAGE_RESULT = 112;
     public WebView mWebView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -74,12 +95,14 @@ public class MainActivity extends AppCompatActivity  {
     public ProgressBar PbarSplash;
     String url;
     public String pageColor;
+    FloatingActionButton fab;
+    boolean navbarSwitch;
+    Drawable drawable;
     public static BottomBar bottomBar;
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private String mCM;
-    private ValueCallback<Uri> mUM;
-    private ValueCallback<Uri[]> mUMA;
-    private final static int FCR=1;
+    StringBuilder html;
+    String ColorDark = "#f47d20";
+    String currentUrl;
+    int themeColor;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
@@ -123,10 +146,18 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         SharedPreferences prefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
         boolean crashlyticsSwitch = prefs.getBoolean("crashlytics", true);
+        navbarSwitch = prefs.getBoolean("navcolor", true);
         if (crashlyticsSwitch) {
             Fabric.with(this, new Crashlytics());
+        }
+        if (navbarSwitch){
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+            }
         }
         setContentView(R.layout.activity_main);
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -148,13 +179,15 @@ public class MainActivity extends AppCompatActivity  {
 
         }
 
-
         createShortcuts();
+
 
 
         //all of the resources
         Pbar = (ProgressBar) findViewById(R.id.loading);
         PbarSplash = (ProgressBar) findViewById(progress);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        drawable = Pbar.getProgressDrawable();
         //sets the height of progressbar
         Pbar.setScaleY(2f);
         //checking for permission
@@ -167,6 +200,8 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
         createBottomBar();
+
+
         //Support for external links
         Uri data = Openedfromexternallink.getData();
         if (data != null){
@@ -242,7 +277,6 @@ public class MainActivity extends AppCompatActivity  {
 
         boolean cacheSwitch = prefs.getBoolean("cache", false);
         boolean javascriptSwitch = prefs.getBoolean("javascript", false);
-        boolean navbarSwitch = prefs.getBoolean("navcolor", true);
         final boolean titleSwitch = prefs.getBoolean("title", false);
         boolean orientationSwitch = prefs.getBoolean("orientation", false);
 
@@ -268,12 +302,7 @@ public class MainActivity extends AppCompatActivity  {
             mWebView.getSettings().setJavaScriptEnabled(true);
         }
 
-        if (navbarSwitch){
 
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-            }
-        }
 
         if (!orientationSwitch){
             setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -349,11 +378,9 @@ public class MainActivity extends AppCompatActivity  {
             if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE) {
                 crossfade(findViewById(R.id.splash_screen),findViewById(R.id.main_view));
             }
-
+            currentUrl=mWebView.getUrl();
             CookieSyncManager.getInstance().sync();
             updateRecents();
-            //updateInterfaceColor();
-
 
             Pbar.animate()
                     .alpha(0f)
@@ -365,9 +392,31 @@ public class MainActivity extends AppCompatActivity  {
                         }
                     });
 
+
+            if (mWebView.getUrl().matches("http://www.apkmirror.com/") || mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/")
+                    || mWebView.getUrl().matches("http://www.apkmirror.com/developers/")){
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Window window = MainActivity.this.getWindow();
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.setStatusBarColor(Color.parseColor(ColorDark));
+                    if (navbarSwitch) {
+                        window.setNavigationBarColor(Color.parseColor(ColorDark));
+                    }
+                }
+                fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(ColorDark)));
+                drawable.setColorFilter(new LightingColorFilter(0xFF000000, Color.parseColor(ColorDark)));
+            }
+
+
+
+
+
         }
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            currentUrl = mWebView.getUrl();
+            Toast.makeText(MainActivity.this, mWebView.getOriginalUrl(),Toast.LENGTH_LONG).show();
             Pbar.animate()
                     .alpha(1f)
                     .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
@@ -375,12 +424,14 @@ public class MainActivity extends AppCompatActivity  {
             Pbar.setVisibility(ProgressBar.VISIBLE);
 
             updateBottomBar();
+            extractThemeColor.run();
+
+
         }
         @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            //This will make the user able to login to disqus with twitter,google,disqus or facebook account
             if (!url.contains("apkmirror.com")) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -441,13 +492,10 @@ public class MainActivity extends AppCompatActivity  {
             return true;
         }
 
-        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            Log.d("PageColor!", message);
-            result.confirm();
-            pageColor = message;
-            return true;
-        }
     }
+
+
+
 
     //settings opening
     public void openSettings(){
@@ -623,10 +671,83 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    //public void updateInterfaceColor(){
-    //    mWebView.loadUrl("javascript:alert($(\"#masthead\").css(\"background\"))");
-    //}
 
+    Thread extractThemeColor = new Thread() {
+        @Override
+        public void run() {
+            try {
+                URLConnection connection = (new URL(currentUrl)).openConnection();
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+                connection.connect();
+
+                // Read and store the result line by line then return the entire string.
+                InputStream in = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                html = new StringBuilder();
+                for (String line; (line = reader.readLine()) != null; ) {
+                    html.append(line);
+                }
+                in.close();
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            Source source = new Source(html.toString());
+            String strData = "";
+            List<Element> elements = source.getAllElements("meta");
+            for (Element element : elements) {
+                final String id = element.getAttributeValue("name"); // Get Attribute 'id'
+                if (id != null && id.equals("theme-color")) {
+                    strData = element.getAttributeValue("content");
+                }
+            }
+            pageColor=strData;
+            float[] hsv = new float[3];
+            int color = Color.parseColor(pageColor);
+            Color.colorToHSV(color, hsv);
+            hsv[2] *= 0.8f; // value component
+            themeColor = Color.HSVToColor(hsv);
+            try {
+
+                if (!mWebView.getUrl().matches("http://www.apkmirror.com/") && !mWebView.getUrl().matches("http://www.apkmirror.com/apk-upload/")
+                        && !mWebView.getUrl().matches("http://www.apkmirror.com/developers/")) {
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Window window = MainActivity.this.getWindow();
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        window.setStatusBarColor(themeColor);
+                        if (navbarSwitch) {
+                            window.setNavigationBarColor(themeColor);
+                        }
+                    }
+
+                    fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(pageColor)));
+                    drawable.setColorFilter(new LightingColorFilter(0xFF000000, Color.parseColor(pageColor)));
+
+                } else {
+                    if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Window window = MainActivity.this.getWindow();
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        window.setStatusBarColor(Color.parseColor(ColorDark));
+                        if (navbarSwitch) {
+                            window.setNavigationBarColor(Color.parseColor(ColorDark));
+                        }
+                    }
+                    fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(ColorDark)));
+                    drawable.setColorFilter(new LightingColorFilter(0xFF000000, Color.parseColor(ColorDark)));
+
+
+                }
+
+            }catch (IndexOutOfBoundsException e){
+                Log.d("Error","Out of bounds");
+            }
+
+        }
+    };
 
     public void search(View view){
         mWebView.loadUrl("javascript:document.getElementById(\"searchButtonMobile\").click();");

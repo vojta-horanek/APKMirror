@@ -104,7 +104,7 @@
             app:bb_inActiveTabAlpha="0.6"
             app:bb_activeTabAlpha="1"
             app:bb_behavior="shifting"
-            app:bb_showShadow="false" />
+            app:bb_showShadow="false"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
