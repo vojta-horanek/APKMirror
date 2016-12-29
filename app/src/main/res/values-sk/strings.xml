@@ -13,8 +13,8 @@
     <string name="option4">Zobraziť názov aplikácie v upozornení</string>
     <string name="option4desc">Pri sťahovaní zobrazí názov aplikácie namiesto názvu súboru.</string>
     <string name="settingsrestart">Reštartovanie</string>
-    <string name="use_dark_theme">Použiť tmavú tému v nastaveniach</string>
-    <string name="for_those_who_want_to_join_the_dark_side">Pre tých, ktorí sa chcú pridať na temnú stranu.</string>
+    <string name="option5">Použiť tmavú tému v nastaveniach</string>
+    <string name="option5desc">Pre tých, ktorí sa chcú pridať na temnú stranu.</string>
     <string name="developers">Vývojári</string>
     <string name="latest_uploads">Nahrať</string>
     <string name="option6desc">Otočiť obsah obrazovky pri zmene orientácie</string>
@@ -32,5 +32,7 @@
     <string name="download_started">Sťahujem...</string>
     <string name="search">Hľadať</string>
     <string name="cancel">Zrušiť</string>
+    <string name="author">Vojtěch Hořánek</string>
+    <string name="about">O Aplikáciu</string>
 
 </resources>

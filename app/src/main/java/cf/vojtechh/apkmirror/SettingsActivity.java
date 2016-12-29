@@ -1,360 +1,146 @@
 package cf.vojtechh.apkmirror;
 
-import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
+import de.psdev.licensesdialog.LicensesDialog;
+import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
+import de.psdev.licensesdialog.licenses.GnuLesserGeneralPublicLicense21;
+import de.psdev.licensesdialog.model.Notice;
+import de.psdev.licensesdialog.model.Notices;
 import io.fabric.sdk.android.Fabric;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends PreferenceActivity {
 
-    boolean hasAnythingChanged;
+
     @Override
-    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (prefs.getBoolean("darktheme", true)) setTheme(R.style.DarkSettings); else setTheme(R.style.Settings);  //i know its ugly but line saving
+        if (prefs.getBoolean("crashlytics", true)) Fabric.with(this, new Crashlytics());
+
         super.onCreate(savedInstanceState);
-        hasAnythingChanged = false;
-
-        SharedPreferences sharedPrefs = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE);
-
-        boolean crashlyticsSwitch = sharedPrefs.getBoolean("crashlytics", true);
-        if (crashlyticsSwitch) {
-            Fabric.with(this, new Crashlytics());
-        }
-        boolean darkSwitch = sharedPrefs.getBoolean("dark", true);
-        boolean orientationSwitch = sharedPrefs.getBoolean("orientation", true);
-        if(darkSwitch){
-            this.setTheme(R.style.DarkSettings);
-        }
-        else{
-            this.setTheme(R.style.Settings);
-        }
-        if (!orientationSwitch){
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        }
-
         setContentView(R.layout.activity_settings);
 
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, getResources().getColor(R.color.Recents));
-            this.setTaskDescription(taskDesc);
-        }
-
-
-        boolean navbarSwitch = sharedPrefs.getBoolean("navcolor", true);
-        if (navbarSwitch){
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-                getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-            }
-        }
-
-        final Switch option1switch = (Switch) findViewById(R.id.optionswitch1);
-        final Switch option2switch = (Switch) findViewById(R.id.optionswitch2);
-        final Switch option3switch = (Switch) findViewById(R.id.optionswitch3);
-        final Switch option4switch = (Switch) findViewById(R.id.optionswitch4);
-        final Switch option5switch = (Switch) findViewById(R.id.optionswitch5);
-        final Switch option6switch = (Switch) findViewById(R.id.optionswitch6);
-        final Switch option7switch = (Switch) findViewById(R.id.optionswitch7);
-
-        option1switch.setChecked(sharedPrefs.getBoolean("cache", true));
-        option2switch.setChecked(sharedPrefs.getBoolean("javascript", true));
-        option3switch.setChecked(sharedPrefs.getBoolean("navcolor", false));
-        option4switch.setChecked(sharedPrefs.getBoolean("title", true));
-        option5switch.setChecked(sharedPrefs.getBoolean("dark", true));
-        option6switch.setChecked(sharedPrefs.getBoolean("orientation", true));
-        option7switch.setChecked(sharedPrefs.getBoolean("crashlytics", true));
-
-        //setting switch1
-
-        option1switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    hasAnythingChanged = true;
-                    disableCache();
-                }else{
-                    hasAnythingChanged = true;
-                    enableCache();
-                }
-            }
-        });
-
-        //setting switch2
-
-        option2switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(isChecked){
-                    hasAnythingChanged = true;
-                    disableJavascript();
-                }else{
-                    hasAnythingChanged = true;
-                    enableJavascript();
-                }
-            }
-        });
-
-        //setting switch3
-
-        option3switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    colorNavBar();
-                }else{
-                    dontColorNavBar();
-                }
-            }
-        });
-
-        //setting switch4
-
-        option4switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    hasAnythingChanged = true;
-                    showTitle();
-                }else{
-                    hasAnythingChanged = true;
-                    showFilename();
-                }
-            }
-        });
-
-        option5switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    darkEnabled();
-                }else{
-                    darkDisabled();
-                }
-            }
-        });
-        option6switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    hasAnythingChanged = true;
-                    orientationEnabled();
-                }else{
-                    hasAnythingChanged = true;
-                    orientationDisabled();
-                    setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                }
-            }
-        });
-        option7switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    hasAnythingChanged = true;
-                    crashlyticsEnabled();
-                }else{
-                    hasAnythingChanged = true;
-                    crashlyticsDisabled();
-                }
-            }
-        });
-
+        ImageView closeButton = (ImageView) findViewById(R.id.closeButton);
+        closeButton.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {restart();}}); //line saving
     }
 
-    public void openGitHub(View view) {
-        Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vojta-horanek/APKMirror"));
-        startActivity(githubIntent);
+    public void restart(){
+        Toast.makeText(this, R.string.settingsrestart, Toast.LENGTH_SHORT).show();
 
-    }
-    public void openLibs(View view) {
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.libraries);
-
-        alert.setView(R.layout.libsdialog);
-        alert.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();
-
-    }
-    public void openThread(View view) {
-        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
-        startActivity(threadIntent);
-
-    }
-    public void lib1(View view) {
-        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.android.com/topic/libraries/support-library/index.html"));
-        startActivity(threadIntent);
-
-    }
-    public void lib2(View view) {
-        Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/roughike/BottomBar"));
-        startActivity(threadIntent);
-
-    }
-    public void disableCache() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("cache", true);
-        editor.apply();
-    }
-
-    public void enableCache() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("cache", false);
-        editor.apply();
-    }
-
-    public void disableJavascript() {
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("javascript", true);
-        editor.apply();
-
-    }
-
-    public void enableJavascript() {
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("javascript", false);
-        editor.apply();
-
-    }
-
-    public void colorNavBar() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("navcolor", true);
-        editor.apply();
-        recreate();
-
-
-    }
-
-    public void dontColorNavBar() {
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("navcolor", false);
-        editor.apply();
-        recreate();
-
-
-    }
-
-    public void showTitle() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("title", true);
-        editor.apply();
-
-    }
-
-    public void showFilename() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("title", false);
-        editor.apply();
-
-    }
-
-    public void darkEnabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("dark", true);
-        editor.apply();
-        this.setTheme(R.style.DarkSettings);
-        recreate();
-
-    }
-
-    public void darkDisabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("dark", false);
-        editor.apply();
-        this.setTheme(R.style.Settings);
-        recreate();
-
-
-    }
-
-    public void orientationEnabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("orientation", true);
-        editor.apply();
-
-    }
-
-    public void orientationDisabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("orientation", false);
-        editor.apply();
-
-    }
-
-    public void crashlyticsEnabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("crashlytics", true);
-        editor.apply();
-
-    }
-    public void crashlyticsDisabled() {
-
-        SharedPreferences.Editor editor = getSharedPreferences("cf.vojtechh.apkmirror", MODE_PRIVATE).edit();
-        editor.putBoolean("crashlytics", false);
-        editor.apply();
+        Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+        startActivity(i);
+        finish();
 
     }
 
     public void onBackPressed() {
-        if(hasAnythingChanged){
-            Toast.makeText(this, R.string.settingsrestart, Toast.LENGTH_SHORT).show();
+        restart();
+    }
 
-            Intent i = new Intent(SettingsActivity.this, MainActivity.class);
-            startActivity(i);
-            finish();
 
-        }else {
-            try{
-                MainActivity.bottomBar.selectTabAtPosition(0);
-            }catch (NullPointerException e){
-                Log.d("Error:", "Started from shortcut crash");
+    public static class PreferencesFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        SharedPreferences prefsFragment;
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.preferences);
+            prefsFragment = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+
+            Preference github = findPreference("github");
+            Preference libs = findPreference("libs");
+            Preference xda = findPreference("xda");
+
+            github.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+                    Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vojta-horanek/APKMirror"));
+                    startActivity(githubIntent);
+                    return true;
+                }
+            });
+
+            libs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+                    final Notices notices = new Notices();
+                    notices.addNotice(new Notice("BottomBar library for Android", "http://github.com/roughike", "Copyright (c) 2016 Iiro Krankka", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("Jericho HTML Parser", "http://jericho.htmlparser.net/docs/index.html", "Copyright 2013 Philip Schiffer", new GnuLesserGeneralPublicLicense21()));
+                    notices.addNotice(new Notice("Butter Knife", "https://github.com/JakeWharton/butterknife", "Copyright 2013 Jake Wharton", new ApacheSoftwareLicense20()));
+                    notices.addNotice(new Notice("LicensesDialog", "http://psdev.de", "Copyright 2013 Philip Schiffer <admin@psdev.de>", new ApacheSoftwareLicense20()));
+
+                    new LicensesDialog.Builder(getActivity())
+                            .setNotices(notices)
+                            .setTitle(getString(R.string.libraries))
+                            .build()
+                            .show();
+                    return true;
+                }
+            });
+
+            xda.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
+                public boolean onPreferenceClick(Preference pref)
+                {
+
+                    Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
+                    startActivity(threadIntent);
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            // Set up a listener whenever a key changes
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            // Set up a listener whenever a key changes
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+            if (key.matches("navbarcolor")){
+                getActivity().recreate();
+            }else if (key.matches("darktheme")) {
+                if (sharedPreferences.getBoolean("darktheme", true)) {
+                    //theme is dark
+                    getActivity().setTheme(R.style.DarkSettings);
+                    getActivity().recreate();
+                } else if (!sharedPreferences.getBoolean("darktheme", true)) {
+                    //theme isn't dark
+                    getActivity().setTheme(R.style.Settings);
+                    getActivity().recreate();
+                }
+
             }
-            finish();
 
         }
 
-        }
+    }
+
 }

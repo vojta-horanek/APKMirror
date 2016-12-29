@@ -13,8 +13,8 @@
     <string name="option4">Montrer le nom de l\'application dans les notifications de téléchargement</string>
     <string name="option4desc">Une option pour choisir de montrer soit le titre du fichier (désactivé), ou le nom de l\'application dans les notifications de téléchargement</string>
     <string name="settingsrestart">Redémarrage</string>
-    <string name="use_dark_theme">Utiliser le thème sombre pour les paramètres</string>
-    <string name="for_those_who_want_to_join_the_dark_side">Pour ceux qui veulent joindre le côté obscure</string>
+    <string name="option5">Utiliser le thème sombre pour les paramètres</string>
+    <string name="option5desc">Pour ceux qui veulent joindre le côté obscure</string>
     <string name="developers">Développeurs</string>
     <string name="latest_uploads">Mettre en ligne</string>
     <string name="option6">Autoriser la rotation de l\'écran</string>
@@ -32,6 +32,8 @@
     <string name="download_started">Le téléchargement a commencé...</string>
     <string name="search">Rechercher</string>
     <string name="cancel">Annuler</string>
+    <string name="author">Vojtěch Hořánek</string>
+    <string name="about">Sur</string>
 
 
 </resources>
