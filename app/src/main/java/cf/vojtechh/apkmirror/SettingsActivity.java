@@ -16,6 +16,7 @@ import com.crashlytics.android.Crashlytics;
 
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
+import de.psdev.licensesdialog.licenses.GnuGeneralPublicLicense20;
 import de.psdev.licensesdialog.licenses.GnuLesserGeneralPublicLicense21;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
@@ -65,6 +66,11 @@ public class SettingsActivity extends PreferenceActivity {
             Preference github = findPreference("github");
             Preference libs = findPreference("libs");
             Preference xda = findPreference("xda");
+            Preference copy = findPreference("copy");
+            Preference evo = findPreference("evo");
+            Preference jasom = findPreference("ja_som");
+            Preference nuke = findPreference("nuke");
+            Preference nin = findPreference("nin");
 
             github.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
             {
@@ -81,7 +87,6 @@ public class SettingsActivity extends PreferenceActivity {
                 public boolean onPreferenceClick(Preference pref)
                 {
                     final Notices notices = new Notices();
-                    notices.addNotice(new Notice("BottomBar library for Android", "http://github.com/roughike", "Copyright (c) 2016 Iiro Krankka", new ApacheSoftwareLicense20()));
                     notices.addNotice(new Notice("Jericho HTML Parser", "http://jericho.htmlparser.net/docs/index.html", "Copyright 2013 Philip Schiffer", new GnuLesserGeneralPublicLicense21()));
                     notices.addNotice(new Notice("Butter Knife", "https://github.com/JakeWharton/butterknife", "Copyright 2013 Jake Wharton", new ApacheSoftwareLicense20()));
                     notices.addNotice(new Notice("LicensesDialog", "http://psdev.de", "Copyright 2013 Philip Schiffer <admin@psdev.de>", new ApacheSoftwareLicense20()));
@@ -101,6 +106,55 @@ public class SettingsActivity extends PreferenceActivity {
                 {
 
                     Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
+                    startActivity(threadIntent);
+                    return true;
+                }
+            });
+
+            copy.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    final Notices notices = new Notices();
+                    notices.addNotice(new Notice("APKMirror", "http://vojtechh.cf", "Copyleft 2016 Vojtěch Hořánek", new GnuGeneralPublicLicense20()));
+
+                    new LicensesDialog.Builder(getActivity())
+                            .setNotices(notices)
+                            .setTitle(getString(R.string.app_name))
+                            .build()
+                            .show();
+
+                    return true;
+                }
+            });
+
+            evo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=5366167"));
+                    startActivity(threadIntent);
+                    return true;
+                }
+            });
+            jasom.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=5201515"));
+                    startActivity(threadIntent);
+                    return true;
+                }
+            });
+            nuke.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=6243385"));
+                    startActivity(threadIntent);
+                    return true;
+                }
+            });
+            nin.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=6002018"));
                     startActivity(threadIntent);
                     return true;
                 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/tab_homepage"
+        android:title="@string/app_name"
+        android:icon="@drawable/icon_main" />
+
+    <item android:id="@+id/tab_devs"
+        android:title="@string/developers"
+        android:icon="@drawable/ic_people" />
+
+    <item android:id="@+id/tab_upload"
+        android:title="@string/latest_uploads"
+        android:icon="@drawable/ic_upload" />
+
+    <item
+        android:id="@+id/tab_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings" />
+
+    <item
+        android:id="@+id/tab_exit"
+        android:icon="@drawable/ic_exit"
+        android:title="@string/exit" />
+
+</menu>

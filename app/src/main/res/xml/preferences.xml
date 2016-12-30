@@ -22,7 +22,7 @@
             android:key="title"
             android:summary="@string/option4desc" />
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:title="@string/option5"
             android:key="darktheme"
             android:summary="@string/option5desc" />
@@ -36,6 +36,11 @@
             android:title="@string/option7"
             android:key="crashlytics"
             android:summary="@string/option7desc" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/option7"
+            android:key="colorupdate"
+            android:summary="@string/option7desc" />
 
 
     <PreferenceCategory android:title="@string/about"/>
@@ -45,4 +50,18 @@
             android:key="libs"/>
         <Preference android:title="@string/thread"
             android:key="xda"/>
+        <Preference android:title="Copyleft 2016 Vojtěch Hořánek"
+            android:key="copy"/>
+
+    <PreferenceCategory
+        android:title="With thanks to the following people:"/>
+        <Preference android:title="EvoWizz"
+            android:key="evo"/>
+        <Preference android:title="ja_som"
+            android:key="ja_som"/>
+        <Preference android:title="LuckyNuke1310"
+            android:key="nuke"/>
+        <Preference android:title="Ninnix96"
+            android:key="nin"/>
+
 </PreferenceScreen>

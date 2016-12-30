@@ -31,8 +31,10 @@
     <string name="download_started">Download started…</string>
     <string name="search">Search</string>
     <string name="cancel">Cancel</string>
-    <string name="author">Vojtěch Hořánek</string>
+    <string name="author" translatable="false">Vojtěch Hořánek</string>
     <string name="github" translatable="false">GitHub</string>
     <string name="about">About</string>
+    <string name="option8">Enable interface coloring</string>
+    <string name="option8desc">Disabling this will save data</string>
 
 </resources>

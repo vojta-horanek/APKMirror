@@ -32,6 +32,7 @@
     <string name="download_started">Stahuji...</string>
     <string name="search">Hledat</string>
     <string name="cancel">Zrušit</string>
-    <string name="author">Vojtěch Hořánek</string>
     <string name="about">O Aplikaci</string>
+    <string name="option8">Zabarvovat rozhraní</string>
+    <string name="option8desc">Vypnutím se šetří data</string>
 </resources>

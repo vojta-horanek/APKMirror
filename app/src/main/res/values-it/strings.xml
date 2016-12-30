@@ -32,8 +32,9 @@
     <string name="search">Ricerca</string>
     <string name="cancel">Annulla</string>
     <string name="download_started">Scarica iniziato...</string>
-    <string name="author">Vojtěch Hořánek</string>
     <string name="about">Di</string>
+    <string name="option8">Abilita colorazione interfaccia</string>
+    <string name="option8desc">Disattivazione salverà i dati</string>
 
 
 </resources>

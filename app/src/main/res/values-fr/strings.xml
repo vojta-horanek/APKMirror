@@ -32,8 +32,9 @@
     <string name="download_started">Le téléchargement a commencé...</string>
     <string name="search">Rechercher</string>
     <string name="cancel">Annuler</string>
-    <string name="author">Vojtěch Hořánek</string>
     <string name="about">Sur</string>
+    <string name="option8">Activer la coloration de l\'interface</string>
+    <string name="option8desc">Désactiver cette option économisera la data</string>
 
 
 </resources>
