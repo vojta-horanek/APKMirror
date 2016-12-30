@@ -38,9 +38,9 @@
             android:summary="@string/option7desc" />
         <SwitchPreference
             android:defaultValue="true"
-            android:title="@string/option7"
+            android:title="@string/option8"
             android:key="colorupdate"
-            android:summary="@string/option7desc" />
+            android:summary="@string/option8desc" />
 
 
     <PreferenceCategory android:title="@string/about"/>
