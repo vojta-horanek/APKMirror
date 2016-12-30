@@ -23,8 +23,8 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 35
-        versionName "2.6.0"
+        versionCode 37
+        versionName "2.7.1"
     }
     buildTypes {
         release {
@@ -42,9 +42,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
-    compile 'net.htmlparser.jericho:jericho-html:3.3'
+    compile 'net.htmlparser.jericho:jericho-html:3.4'
     compile('de.psdev.licensesdialog:licensesdialog:1.8.1')
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'

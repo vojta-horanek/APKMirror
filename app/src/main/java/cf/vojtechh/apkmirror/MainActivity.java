@@ -370,7 +370,7 @@ public class MainActivity extends Activity  {
             updateBottomBar();
             if (interfaceUpdating) {
                 themeColorTask runner = new themeColorTask();
-                runner.execute(currentUrl);
+                runner.execute(url);
             }
 
 
@@ -741,13 +741,13 @@ public class MainActivity extends Activity  {
         protected void onPostExecute(Integer result) {
             // updating interface
             if (isLollipop) {
-                setSystemBarColor(themeColor);
+                setSystemBarColor(result);
             }
 
-            fab.setBackgroundTintList(ColorStateList.valueOf(themeColor));
-            drawable.setColorFilter(new LightingColorFilter(0xFF000000, themeColor));
-            bottomBar.setBackgroundColor(themeColor);
-            swipeRefreshLayout.setColorSchemeColors(themeColor,themeColor,themeColor);
+            fab.setBackgroundTintList(ColorStateList.valueOf(result));
+            drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
+            bottomBar.setBackgroundColor(result);
+            swipeRefreshLayout.setColorSchemeColors(result,result,result);
 
             //updating recents
 
@@ -764,10 +764,10 @@ public class MainActivity extends Activity  {
                     }
                 } else {
                     if (isNougat_MR1) {
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, themeColor);
+                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, result);
                         MainActivity.this.setTaskDescription(taskDesc);
                     } else {
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, themeColor);
+                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, result);
                         MainActivity.this.setTaskDescription(taskDesc);
                     }
 
