@@ -52,6 +52,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -93,12 +94,12 @@ public class MainActivity extends Activity  {
     String ColorDarkTheme = "#f47d20";
     public String htmlSource;
     public String appName;
-    public String faviconURL = "http://www.apkmirror.com/favicon.ico";
 
     private final static int FCR = 1;
     private final static int REQUEST_WRITE_STORAGE_RESULT = 112;
 
     int themeColor = Color.parseColor("#f47d20");
+    int darkThemeColor = Color.parseColor("#f47d20");
 
     private ValueCallback<Uri> mUM;
     private ValueCallback<Uri[]> mUMA;
@@ -159,6 +160,7 @@ public class MainActivity extends Activity  {
     }
 
     @SuppressLint({"SetJavaScriptEnabled"})
+    @JavascriptInterface
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -304,23 +306,41 @@ public class MainActivity extends Activity  {
 
             DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
-            Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + fileName + ")", 1500)
-                    .show();
+            if (title) {
+                request.setTitle(appName + ".apk");
+            }
+            if (title){
+                Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + appName + ")", 1500)
+                        .show();
 
+            }else {
+                Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + fileName + ")", 1500)
+                        .show();
+            }
             final View.OnClickListener opendown = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     if (isNougat_MR1) {
+                        File apk;
                         File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                        File apk = new File(downloads, fileName);
+                        if (title) {
+                            apk = new File(downloads, appName);
+                        }else {
+                            apk = new File(downloads, fileName);
+                        }
                         Uri apkUri = FileProvider.getUriForFile(MainActivity.this, "cf.vojtechh.apkmirror.provider", apk);
                         Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
                         intent.setData(apkUri);
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivity(intent);
                     } else {
-                        File apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
+                        File apkfile;
+                        if (title) {
+                            apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + appName);
+                        }else {
+                            apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
+                        }
                         Uri apkUri = Uri.fromFile(apkfile);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
@@ -331,26 +351,23 @@ public class MainActivity extends Activity  {
                 }
             };
 
+
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
-                    Snackbar.make(findViewById(R.id.fab), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
-                            .setAction(R.string.open, opendown)
-                            .show();
+                    if (title){
+                        Snackbar.make(findViewById(R.id.fab), getResources().getString(R.string.download) + " " + appName, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.open, opendown)
+                                .show();
+
+                    }else {
+                        Snackbar.make(findViewById(R.id.fab), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
+                                .setAction(R.string.open, opendown)
+                                .show();
+                    }
                 }
             };
 
             registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
-            if (title) {
-                String regex = "\\bAPK\\b";
-                String regex2 = "\\bDownload\\b\\s*";
-                String title = mWebView.getTitle();
-                String title1 = title.replaceAll(regex, "");
-                String title2 = title1.replaceAll(regex2, "");
-
-                request.setTitle(title2 + ".apk");
-
-            }
 
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
             manager.enqueue(request);
@@ -369,8 +386,7 @@ public class MainActivity extends Activity  {
             Pbar.setVisibility(ProgressBar.VISIBLE);
             updateBottomBar();
             if (interfaceUpdating) {
-                themeColorTask runner = new themeColorTask();
-                runner.execute(url);
+                new themeColorTask().execute(url);
             }
 
 
@@ -427,6 +443,7 @@ public class MainActivity extends Activity  {
             if (errorCode==-2) //this is the error code for no network
                 mWebView.loadUrl("file:///android_asset/errorpage.html");
         }
+
     }
 
     private class mChromeClient extends WebChromeClient {
@@ -474,6 +491,7 @@ public class MainActivity extends Activity  {
             return true;
         }
 
+
     }
 
     public void openSettings(){
@@ -489,8 +507,6 @@ public class MainActivity extends Activity  {
         // Check if the key event was the Back button and if there's history
         if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
             mWebView.goBack();
-            themeColorTask runner = new themeColorTask();
-            runner.execute(mWebView.getOriginalUrl());
 
             return true;
         }
@@ -531,38 +547,31 @@ public class MainActivity extends Activity  {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int Y = mWebView.getScrollY();
-                int X = mWebView.getScrollX();
                 switch (item.getItemId()) {
                     case R.id.tab_homepage:
                         if (!bottomBar.getMenu().getItem(0).isChecked()){
                             mWebView.loadUrl(urlFrontPage);
                             currentUrl = urlFrontPage;
-
                         }else {
                             if (Y != 0)
                                 mWebView.scrollTo(0,0);
                             else {
                                 mWebView.loadUrl(urlFrontPage);
                                 currentUrl = urlFrontPage;
-
                             }
                         }
-
                         break;
                     case R.id.tab_devs:
                         if (!bottomBar.getMenu().getItem(1).isChecked()){
                             mWebView.loadUrl(urlDev);
                             currentUrl = urlDev;
-
                         }else {
                             if (Y != 0)
                                 mWebView.scrollTo(0,0);
                             else {
                                 mWebView.loadUrl(urlDev);
                                 currentUrl = urlDev;
-
                             }
-
                         }
 
                         break;
@@ -570,17 +579,14 @@ public class MainActivity extends Activity  {
                         if (!bottomBar.getMenu().getItem(2).isChecked()){
                             mWebView.loadUrl(urlUp);
                             currentUrl = urlUp;
-
                         }else {
                             if (Y != 0)
                                 mWebView.scrollTo(0,0);
                             else {
                                 mWebView.loadUrl(urlUp);
                                 currentUrl = urlUp;
-
                             }
                         }
-
                         break;
                     case R.id.tab_settings:
                         openSettings();
@@ -644,142 +650,128 @@ public class MainActivity extends Activity  {
 
 
 
-
-
     private class themeColorTask extends AsyncTask<String, Integer, Integer> {
 
 
         @Override
         protected Integer doInBackground(String... url) {
-            try {
-                // Downloading html source
-                URLConnection connection = (new URL(url[0])).openConnection();
-                connection.setConnectTimeout(5000);
-                connection.setReadTimeout(5000);
-                connection.connect();
+                try {
 
-                // Read and store the result line by line then return the entire string.
-                InputStream in = connection.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder html = new StringBuilder();
-                for (String line; (line = reader.readLine()) != null; ) {
-                    html.append(line);
-                }
-                in.close();
+                    // Downloading html source
+                    URLConnection connection = (new URL(url[0])).openConnection();
+                    connection.setConnectTimeout(5000);
+                    connection.setReadTimeout(5000);
+                    connection.connect();
 
-                Source source = new Source(html.toString());
 
-                //theme color
-                String extractedThemeColor = ColorDarkTheme;
-                List<Element> elements = source.getAllElements("meta");
-                for (Element element : elements) {
-                    final String id = element.getAttributeValue("name"); // Get Attribute 'id'
-                    if (id != null && id.equals("theme-color")) {
-                        extractedThemeColor = element.getAttributeValue("content");
+                    // Read and store the result line by line then return the entire string.
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder html = new StringBuilder();
+                    for (String line; (line = reader.readLine()) != null; ) {
+                        html.append(line);
                     }
-                }
+                    in.close();
 
-                //App title
-                appName = "APKMirror";
-                List<Element> h1elements = source.getAllElements("h1");
-                for (Element element : h1elements) {
-                    final String id = element.getAttributeValue("class"); // Get Attribute 'id'
-                    if (id != null && id.contains("app-title")) {
-                        appName = element.getAttributeValue("title");
+                    Source source = new Source(html.toString());
+
+                    //theme color
+                    String extractedThemeColor = null;
+                    List<Element> elements = source.getAllElements("meta");
+                    for (Element element : elements) {
+                        final String id = element.getAttributeValue("name"); // Get Attribute 'id'
+                        if (id != null && id.equals("theme-color")) {
+                            extractedThemeColor = element.getAttributeValue("content");
+                        }
                     }
-                }
-                if (appName == null){
-                    appName = "APKMirror";
-                }
 
-                //Favicon
-                List<Element> IMGelements = source.getAllElements("img");
-                for (Element element : IMGelements) {
-                    final String id = element.getAttributeValue("style"); // Get Attribute 'id'
-                    if (id != null && id.matches("width:96px; height:96px;")) {
-                        faviconURL = "http://www.apkmirror.com" + element.getAttributeValue("src");
+                    //App title
+                    String appTitle = "APKMirror";
+                    List<Element> h1elements = source.getAllElements("h1");
+                    for (Element element : h1elements) {
+                        final String id = element.getAttributeValue("class"); // Get Attribute 'id'
+                        if (id != null && id.contains("app-title")) {
+                            appTitle = element.getAttributeValue("title");
+                        }
                     }
+                    if (appTitle == null){
+                        appTitle = "APKMirror";
+                    }
+                    appName = appTitle;
+
+                    //Favicon
+                    String faviconURL = "http://www.apkmirror.com/favicon.ico";
+
+                    List<Element> IMGelements = source.getAllElements("img");
+                    for (Element element : IMGelements) {
+                        final String id = element.getAttributeValue("style"); // Get Attribute 'id'
+                        if (id != null && id.matches("width:96px; height:96px;")) {
+                            faviconURL = "http://www.apkmirror.com" + element.getAttributeValue("src");
+                        }
+                    }
+
+                    // Favicon download
+                    URLConnection favIconDownload = (new URL(faviconURL)).openConnection();
+                    favIconDownload.setConnectTimeout(5000);
+                    favIconDownload.setReadTimeout(5000);
+                    favIconDownload.connect();
+
+                    InputStream favIconDownloadStream = favIconDownload.getInputStream();
+                    favico = BitmapFactory.decodeStream(favIconDownloadStream);
+                    favIconDownloadStream.close();
+
+
+                    if (extractedThemeColor != null) {
+                        return Color.parseColor(extractedThemeColor);
+                    } else {
+                        //if color is not found we will return null and handle it in onPostExecute
+                        return null;
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //if error we will return null and handle it in onPostExecute
+                    return null;
                 }
-
-
-                // Favicon download
-                URLConnection favIconDownload = (new URL(faviconURL)).openConnection();
-                favIconDownload.setConnectTimeout(5000);
-                favIconDownload.setReadTimeout(5000);
-                favIconDownload.connect();
-
-                // Read and store the result line by line then return the entire string.
-                InputStream favIconDownloadStream = favIconDownload.getInputStream();
-                favico = BitmapFactory.decodeStream(favIconDownloadStream);
-
-
-                if (extractedThemeColor != null && !extractedThemeColor.matches("#FF8B14")){
-                    //convert the color to darker color so its nice and material
-                    float[] hsv = new float[3];
-                    int color = Color.parseColor(extractedThemeColor);
-                    Color.colorToHSV(color, hsv);
-                    hsv[2] *= 0.8f; // value component
-                    themeColor = Color.HSVToColor(hsv);
-                    return themeColor;
-                }
-                else {
-                    //if color is not found we will return orange color
-                    return Color.parseColor(ColorDarkTheme);
-                }
-
-
-
-            }catch (IOException e){
-                e.printStackTrace();
-                return null;
             }
-
-        }
 
 
         @Override
         protected void onPostExecute(Integer result) {
-            // updating interface
-            if (isLollipop) {
-                setSystemBarColor(result);
-            }
 
-            fab.setBackgroundTintList(ColorStateList.valueOf(result));
-            drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
-            bottomBar.setBackgroundColor(result);
-            swipeRefreshLayout.setColorSchemeColors(result,result,result);
+            if (result != null) {
+                // updating interface
 
-            //updating recents
+                fab.setBackgroundTintList(ColorStateList.valueOf(result));
+                drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
+                bottomBar.setBackgroundColor(result);
+                swipeRefreshLayout.setColorSchemeColors(result, result, result);
 
-            if (isLollipop) {
-                if (currentUrl.matches(urlFrontPage)) {
-                    if (isNougat_MR1) {
-                        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-                        MainActivity.this.setTaskDescription(taskDesc);
+                //updating recents
+
+                if (isLollipop) {
+
+                    ActivityManager.TaskDescription taskDesc;
+
+                    if (currentUrl.matches(urlFrontPage)) {
+                        favico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);  //for frontpage
+                        taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), favico, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                     } else {
-                        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, ContextCompat.getColor(getApplicationContext(), R.color.Recents));
-                        MainActivity.this.setTaskDescription(taskDesc);
+                        taskDesc = new ActivityManager.TaskDescription(appName, favico, result); //setting the
                     }
-                } else {
-                    if (isNougat_MR1) {
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, result);
-                        MainActivity.this.setTaskDescription(taskDesc);
-                    } else {
-                        ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(appName, favico, result);
-                        MainActivity.this.setTaskDescription(taskDesc);
-                    }
+                    MainActivity.this.setTaskDescription(taskDesc);
 
+                    setSystemBarColor(result);
                 }
+                //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
+                favico.recycle();
+
             }
-
-
         }
 
+
     }
-
-
 
     public void search(View view){
         mWebView.scrollTo(0,0);
@@ -823,12 +815,18 @@ public class MainActivity extends Activity  {
     }
 
     private void setSystemBarColor(int color){
+
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.8f; // value component
+        int clr = Color.HSVToColor(hsv);
+
         Window window = MainActivity.this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(color);
+        window.setStatusBarColor(clr);
         if (navbar) {
-            window.setNavigationBarColor(color);
+            window.setNavigationBarColor(clr);
         }
 
     }

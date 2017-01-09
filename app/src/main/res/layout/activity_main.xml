@@ -96,7 +96,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="49dp"
+        android:layout_marginBottom="50dp"
         android:theme="@style/progress2"/>
 
     <android.support.design.widget.CoordinatorLayout

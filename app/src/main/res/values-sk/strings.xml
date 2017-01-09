@@ -33,7 +33,7 @@
     <string name="search">Hľadať</string>
     <string name="cancel">Zrušiť</string>
     <string name="about">O aplikácií</string>
-    <string name="option8">Aktivovať sfarbenie rozhranie</string>
-    <string name="option8desc">Vypnutím sa šetrí dáta</string>
+    <string name="option8">Aktivovať zafarbenie rozhrania</string>
+    <string name="option8desc">Vypnutím sa šetria dáta</string>
 
 </resources>
