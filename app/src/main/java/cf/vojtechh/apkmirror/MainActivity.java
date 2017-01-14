@@ -18,7 +18,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
-import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,7 +30,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,11 +42,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -59,8 +59,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -89,17 +91,13 @@ public class MainActivity extends Activity  {
     private String urlDev = "http://www.apkmirror.com/developers/";
     private String urlUp = "http://www.apkmirror.com/apk-upload/";
     private String currentUrl;
-    private String mCM;
-    String fileName;
-    String ColorDarkTheme = "#f47d20";
-    public String htmlSource;
+    private String mCM = null;
     public String appName;
 
     private final static int FCR = 1;
     private final static int REQUEST_WRITE_STORAGE_RESULT = 112;
 
     int themeColor = Color.parseColor("#f47d20");
-    int darkThemeColor = Color.parseColor("#f47d20");
 
     private ValueCallback<Uri> mUM;
     private ValueCallback<Uri[]> mUMA;
@@ -109,6 +107,7 @@ public class MainActivity extends Activity  {
     boolean interfaceUpdating;
     boolean isLollipop;
     boolean isNougat_MR1;
+    boolean isNougat;
 
     Drawable drawable;
 
@@ -116,12 +115,15 @@ public class MainActivity extends Activity  {
 
     @BindView(R.id.loading) ProgressBar Pbar;
     @BindView(R.id.progress) ProgressBar PbarSplash;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.fab_search) FloatingActionButton fab;
+    @BindView(R.id.fab_share) FloatingActionButton fabShare;
     @BindView(R.id.logo) ImageView Logo;
     @BindView(R.id.splash_screen) View splash;
-    @BindView(R.id.apkmirror) WebView mWebView;
+    @BindView(R.id.apkmirror) ObservableWebView mWebView;
     @BindView(R.id.swiperefresh) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.bottom_navigation) BottomNavigationView bottomBar;
+    @BindView(R.id.settings_layout_fragment) View settingsFragment;
+    @BindView(R.id.items) RelativeLayout items;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
@@ -161,6 +163,7 @@ public class MainActivity extends Activity  {
 
     @SuppressLint({"SetJavaScriptEnabled"})
     @JavascriptInterface
+    @SuppressWarnings({"deprecation"})
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -169,9 +172,6 @@ public class MainActivity extends Activity  {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
 
         //SharedPreferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -189,35 +189,16 @@ public class MainActivity extends Activity  {
         WebSettings WebViewSettings = mWebView.getSettings();
         isLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
         isNougat_MR1 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+        isNougat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
 
         if (!rotation) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (crashlytics) Fabric.with(this, new Crashlytics());
 
         if (navbar && isLollipop)
-            getWindow().setNavigationBarColor(themeColor);
+            getWindow().setNavigationBarColor(Color.parseColor("#cc6f10"));
 
-        //this has to be done because the recents color will stay orange which looks ugly
-        if (isNougat_MR1) {
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);
-            ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-            this.setTaskDescription(taskDesc);
-        } else {
-            if (isLollipop) {
-                Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-                ActivityManager.TaskDescription taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), bm, ContextCompat.getColor(getApplicationContext(), R.color.Recents));
-                this.setTaskDescription(taskDesc);
-            }
-        }
 
-        try {
-            Logo.setImageBitmap(getBitmapFromAsset("logo.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //sets the height of progressbar
-        Pbar.setScaleY(2f);
         //checking for permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -230,6 +211,7 @@ public class MainActivity extends Activity  {
         createBottomBar();
         //Support for external links
         Uri data = OpenedFromExternalLink.getData();
+
         if (data != null)
             url = data.toString();
         else if (data == Uri.parse(urlDev))
@@ -250,6 +232,7 @@ public class MainActivity extends Activity  {
         mWebView.setWebViewClient(new mWebClient());
         mWebView.setWebChromeClient(new mChromeClient());
         mWebView.setDownloadListener(new mDownloadManager());
+        mWebView.setOnScrollChangedCallback(new mScrollCallback());
         WebViewSettings.setAllowFileAccess(true);
         WebViewSettings.setAllowFileAccessFromFileURLs(true);
         CookieManager.getInstance().setAcceptCookie(true);
@@ -290,15 +273,58 @@ public class MainActivity extends Activity  {
 
         else
             WebViewSettings.setJavaScriptEnabled(true);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search();
+            }
+        });
+
+        fabShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share(mWebView.getUrl());
+            }
+        });
     }
 
+    private class mScrollCallback implements ObservableWebView.OnScrollChangedCallback{
 
+        private int oldNumber = 0;
+        private boolean isHidden = false;
+        @Override
+        public void onScroll(int l, int t) {
+            if(t > oldNumber + 10){
+                //user scrolled down
+                if (!isHidden){
+                    items.animate().translationY(items.getHeight()).setDuration(1000);
+
+                    isHidden = true;
+                }
+            }
+            else if (t < oldNumber - 10){
+                //user scrolled up
+                if (isHidden) {
+                    items.animate().translationY(0).setDuration(350);
+                    isHidden = false;
+                }
+
+            }
+            oldNumber = t;
+
+        }
+    }
     private class mDownloadManager implements DownloadListener {
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-
-            fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+            final String fileName;
+            if (title) {
+                fileName=appName + ".apk";
+            }else {
+                fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+            }
 
             final DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setMimeType("application/vnd.android.package-archive");
@@ -307,28 +333,23 @@ public class MainActivity extends Activity  {
             DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
             if (title) {
-                request.setTitle(appName + ".apk");
-            }
-            if (title){
-                Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + appName + ")", 1500)
-                        .show();
-
+                request.setTitle(fileName);
             }else {
-                Snackbar.make(findViewById(R.id.fab), getString(R.string.download_started) + "  (" + fileName + ")", 1500)
-                        .show();
+                request.setTitle(fileName + ".apk");
             }
+
+
+
+            Snackbar.make(findViewById(R.id.fab_search), getString(R.string.download_started) + "  (" + fileName + ")", 1500).show();
+
             final View.OnClickListener opendown = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (isNougat_MR1) {
+                    if (isNougat) {
                         File apk;
                         File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                        if (title) {
-                            apk = new File(downloads, appName);
-                        }else {
-                            apk = new File(downloads, fileName);
-                        }
+                        apk = new File(downloads, fileName);
                         Uri apkUri = FileProvider.getUriForFile(MainActivity.this, "cf.vojtechh.apkmirror.provider", apk);
                         Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
                         intent.setData(apkUri);
@@ -336,11 +357,7 @@ public class MainActivity extends Activity  {
                         startActivity(intent);
                     } else {
                         File apkfile;
-                        if (title) {
-                            apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + appName);
-                        }else {
-                            apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
-                        }
+                        apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
                         Uri apkUri = Uri.fromFile(apkfile);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
@@ -354,16 +371,10 @@ public class MainActivity extends Activity  {
 
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
-                    if (title){
-                        Snackbar.make(findViewById(R.id.fab), getResources().getString(R.string.download) + " " + appName, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.open, opendown)
-                                .show();
 
-                    }else {
-                        Snackbar.make(findViewById(R.id.fab), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
+                        Snackbar.make(findViewById(R.id.fab_search), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
                                 .setAction(R.string.open, opendown)
                                 .show();
-                    }
                 }
             };
 
@@ -374,9 +385,13 @@ public class MainActivity extends Activity  {
         }
     }
     private class mWebClient extends WebViewClient {
+
+        private String mainURL;
+
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             currentUrl = url;
+            mainURL = url;
 
             Pbar.animate()
                     .alpha(1f)
@@ -385,12 +400,21 @@ public class MainActivity extends Activity  {
 
             Pbar.setVisibility(ProgressBar.VISIBLE);
             updateBottomBar();
+
+
+
+
+        }
+
+        @Override
+        public void onLoadResource(WebView view, String url) {
+            // Workaround this issue by checking if the URL matches .
             if (interfaceUpdating) {
-                new themeColorTask().execute(url);
+                if (mainURL.equals(url)) {
+                    new themeColorTask().execute(url);
+                }
+
             }
-
-
-
         }
 
         @Override
@@ -420,7 +444,7 @@ public class MainActivity extends Activity  {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            if (!url.contains("apkmirror.com")) {
+            if (!url.contains("apkmirror.com") || url.contains("market://")) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
@@ -430,10 +454,9 @@ public class MainActivity extends Activity  {
                     e.printStackTrace();
                 }
                 return true;
-            }
-            else {
+            }else {
                 mWebView.loadUrl(url);
-                return true;
+                return false;
             }
         }
 
@@ -457,17 +480,22 @@ public class MainActivity extends Activity  {
             animation.setInterpolator(new DecelerateInterpolator());
             animation.start();
 
-            //splash screen progress bar
-            // will update the "progress" propriety of progressbar until it reaches progress
-            ObjectAnimator animation2 = ObjectAnimator.ofInt(PbarSplash, "progress", progress);
-            animation2.setDuration(500); // 0.5 second
-            animation2.setInterpolator(new DecelerateInterpolator());
-            animation2.start();
+            if(splash.getVisibility() == View.VISIBLE) {
+                //splash screen progress bar
+                // will update the "progress" propriety of progressbar until it reaches progress
+                ObjectAnimator animation2 = ObjectAnimator.ofInt(PbarSplash, "progress", progress);
+                animation2.setDuration(500); // 0.5 second
+                animation2.setInterpolator(new DecelerateInterpolator());
+                animation2.start();
+            }
 
 
 
-            if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE && progress >= 85) //makes the webview visible before ads load for faster experience
-                crossfade(findViewById(R.id.splash_screen), findViewById(R.id.main_view));
+            if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE && progress >= 90){
+                //makes the webview visible before ads load for faster experience
+                splash.setVisibility(View.GONE);
+                findViewById(R.id.main_view).setVisibility(View.VISIBLE);
+            }
 
 
         }
@@ -494,13 +522,7 @@ public class MainActivity extends Activity  {
 
     }
 
-    public void openSettings(){
-        Intent i = new Intent
-                (MainActivity.this, SettingsActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-        finish();
-    }
+
     //back key
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -542,11 +564,17 @@ public class MainActivity extends Activity  {
     }
 
 
-    public void createBottomBar(){
+    private void createBottomBar(){
         bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int Y = mWebView.getScrollY();
+
+                if (settingsFragment.getVisibility() == View.VISIBLE && item.getItemId() != R.id.tab_settings && item.getItemId() != R.id.tab_exit){
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.settingsrestart), Toast.LENGTH_SHORT).show();
+                    MainActivity.this.recreate();
+                }
+
                 switch (item.getItemId()) {
                     case R.id.tab_homepage:
                         if (!bottomBar.getMenu().getItem(0).isChecked()){
@@ -562,6 +590,7 @@ public class MainActivity extends Activity  {
                         }
                         break;
                     case R.id.tab_devs:
+
                         if (!bottomBar.getMenu().getItem(1).isChecked()){
                             mWebView.loadUrl(urlDev);
                             currentUrl = urlDev;
@@ -576,6 +605,8 @@ public class MainActivity extends Activity  {
 
                         break;
                     case R.id.tab_upload:
+
+
                         if (!bottomBar.getMenu().getItem(2).isChecked()){
                             mWebView.loadUrl(urlUp);
                             currentUrl = urlUp;
@@ -588,13 +619,41 @@ public class MainActivity extends Activity  {
                             }
                         }
                         break;
+
                     case R.id.tab_settings:
-                        openSettings();
+                        swipeRefreshLayout.setVisibility(View.GONE);
+                        Pbar.setVisibility(View.GONE);
+                        fab.hide();
+                        fabShare.hide();
+
+                        bottomBar.setBackgroundColor(Color.parseColor("#f47d20"));
+
+                        //updating recents
+
+                        if (isLollipop) {
+
+                            ActivityManager.TaskDescription taskDesc;
+
+                            favico = BitmapFactory.decodeResource(getResources(), R.drawable.ic_settings_recents);
+                            taskDesc = new ActivityManager.TaskDescription(getString(R.string.settings), favico, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
+                            MainActivity.this.setTaskDescription(taskDesc);
+
+                            setSystemBarColor(Color.parseColor("#f47d20"));
+                        }
+                        //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
+                        if(favico!=null) {
+                            favico.recycle();
+                        }
+
+                        settingsFragment.setVisibility(View.VISIBLE);
+
                         break;
+
                     case R.id.tab_exit:
                         finish();
                         break;
                 }
+
                 return true;
             }
         });
@@ -656,9 +715,15 @@ public class MainActivity extends Activity  {
         @Override
         protected Integer doInBackground(String... url) {
                 try {
+                    String correctUlr = url[0];
+                    for (String something : url){
+                        if (something != null){
+                            correctUlr = something;
+                        }
+                    }
 
                     // Downloading html source
-                    URLConnection connection = (new URL(url[0])).openConnection();
+                    URLConnection connection = (new URL(correctUlr)).openConnection();
                     connection.setConnectTimeout(5000);
                     connection.setReadTimeout(5000);
                     connection.connect();
@@ -724,8 +789,10 @@ public class MainActivity extends Activity  {
                     if (extractedThemeColor != null) {
                         return Color.parseColor(extractedThemeColor);
                     } else {
+                        Log.d("ThemeColor:","No color");
                         //if color is not found we will return null and handle it in onPostExecute
                         return null;
+
                     }
 
 
@@ -744,6 +811,7 @@ public class MainActivity extends Activity  {
                 // updating interface
 
                 fab.setBackgroundTintList(ColorStateList.valueOf(result));
+                fabShare.setBackgroundTintList(ColorStateList.valueOf(result));
                 drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
                 bottomBar.setBackgroundColor(result);
                 swipeRefreshLayout.setColorSchemeColors(result, result, result);
@@ -755,7 +823,7 @@ public class MainActivity extends Activity  {
                     ActivityManager.TaskDescription taskDesc;
 
                     if (currentUrl.matches(urlFrontPage)) {
-                        favico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_circle);  //for frontpage
+                        favico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);  //for frontpage
                         taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), favico, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                     } else {
                         taskDesc = new ActivityManager.TaskDescription(appName, favico, result); //setting the
@@ -765,7 +833,9 @@ public class MainActivity extends Activity  {
                     setSystemBarColor(result);
                 }
                 //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
-                favico.recycle();
+                if(favico!=null) {
+                    favico.recycle();
+                }
 
             }
         }
@@ -773,46 +843,57 @@ public class MainActivity extends Activity  {
 
     }
 
-    public void search(View view){
-        mWebView.scrollTo(0,0);
-        mWebView.loadUrl("javascript:document.getElementById(\"searchButtonMobile\").click();");
-        mWebView.loadUrl("javascript:document.getElementById(\"searchbox-sidebar\").focus();");
-    }
+    private void share(String text){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, null));    }
 
-    public void crossfade(final View loadingView, View screen) {
 
-        // Set the content view to 0% opacity but visible, so that it is visible
-        // (but fully transparent) during the animation.
-        screen.setAlpha(0f);
-        screen.setVisibility(View.VISIBLE);
+    private void search(){
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.search_relative_layout);
 
-        // Animate the content view to 100% opacity, and clear any animation
-        // listener set on the view.
-        screen.animate()
-                .alpha(1f)
-                .setDuration(0)
-                .setListener(null);
+        LayoutInflater inflater = getLayoutInflater();
+        View alertLayout = inflater.inflate(R.layout.search_dialog, rl, false);
 
-        // Animate the loading view to 0% opacity. After the animation ends,
-        // set its visibility to GONE as an optimization step (it won't
-        // participate in layout passes, etc.)
-        loadingView.animate()
-                .alpha(0f)
-                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-                .setListener(new AnimatorListenerAdapter() {
+
+        final EditText editText = (EditText) alertLayout.findViewById(R.id.textViewSearch);
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setView(alertLayout);
+        alertDialogBuilder.setTitle(R.string.search);
+
+
+        final InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+
+
+        editText.requestFocus();
+        alertDialogBuilder.setPositiveButton(R.string.search, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if(mWebView != null){
+                    mWebView.loadUrl("http://www.apkmirror.com/?s=" + editText.getText());
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+                }
+            }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+            }
+        }).setOnCancelListener(
+                new DialogInterface.OnCancelListener() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        loadingView.setVisibility(View.GONE);
+                    public void onCancel(DialogInterface dialog) {
+                        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
                     }
-                });
+                }
+        ).show();
     }
 
-    private Bitmap getBitmapFromAsset(String asset) throws IOException
-    {
-        AssetManager assetManager = getAssets();
-        InputStream stream = assetManager.open(asset);
-        return BitmapFactory.decodeStream(stream);
-    }
+
 
     private void setSystemBarColor(int color){
 

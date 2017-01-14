@@ -12,6 +12,8 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
+    jcenter()
 }
 
 
@@ -23,8 +25,8 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 38
-        versionName "2.7.2"
+        versionCode 39
+        versionName "2.8.1"
     }
     buildTypes {
         release {
@@ -38,16 +40,16 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:design:25.1.0'
 
-    compile 'net.htmlparser.jericho:jericho-html:3.4'
-    compile('de.psdev.licensesdialog:licensesdialog:1.8.1')
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'net.htmlparser.jericho:jericho-html:3.4'
+    compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

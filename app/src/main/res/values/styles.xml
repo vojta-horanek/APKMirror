@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#cc6f10</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/SplashScreen</item>
     </style>
     <style name="Settings" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

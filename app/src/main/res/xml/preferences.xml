@@ -17,15 +17,15 @@
             android:key="navbarcolor"
             android:summary="@string/option3desc" />
         <SwitchPreference
+            android:defaultValue="true"
+            android:title="@string/option8"
+            android:key="colorupdate"
+            android:summary="@string/option8desc" />
+    <SwitchPreference
             android:defaultValue="false"
             android:title="@string/option4"
             android:key="title"
             android:summary="@string/option4desc" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/option5"
-            android:key="darktheme"
-            android:summary="@string/option5desc" />
         <SwitchPreference
             android:defaultValue="false"
             android:title="@string/option6"
@@ -36,12 +36,6 @@
             android:title="@string/option7"
             android:key="crashlytics"
             android:summary="@string/option7desc" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/option8"
-            android:key="colorupdate"
-            android:summary="@string/option8desc" />
-
 
     <PreferenceCategory android:title="@string/about"/>
         <Preference android:title="@string/github"

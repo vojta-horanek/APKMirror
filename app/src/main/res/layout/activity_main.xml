@@ -6,7 +6,8 @@
     android:layout_width="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="0px">
+    android:layout_marginTop="0px"
+    android:animateLayoutChanges="true">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,11 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/logo"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:paddingBottom="150dp"
             android:contentDescription="@string/app_name"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +63,28 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:visibility="invisible"
-        android:layout_marginTop="0px">
+        android:layout_marginTop="0dp">
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <cf.vojtechh.apkmirror.ObservableWebView android:id="@+id/apkmirror"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollbars="vertical" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/items">
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
@@ -70,36 +93,11 @@
             app:itemIconTint="#ffffff"
             app:itemTextColor="#ffffff"
             app:menu="@menu/bottombar"
-            android:layout_height="56dp" />
+            android:layout_height="56dp"
+            android:background="@color/colorPrimary"/>
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_navigation">
-        <WebView android:id="@+id/apkmirror"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:scrollbars="vertical" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:theme="@style/progress2"/>
-
-    <android.support.design.widget.CoordinatorLayout
+            <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/snackbar_place"
         android:layout_width="match_parent"
@@ -109,23 +107,61 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="56dp"
-        android:id="@+id/fab_cor">
+        android:layout_marginBottom="56dp">
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/bottomBar"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_search"
-            android:id="@+id/fab"
-            android:onClick="search" />
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_search" />
+
+        <View
+            android:id="@+id/dummy"
+            android:layout_width="1dp"
+            android:layout_height="16dp"
+            app:layout_anchor="@id/fab_search"
+            app:layout_anchorGravity="top|right|end" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_share"
+            app:layout_anchor="@id/dummy"
+            app:layout_anchorGravity="top|right|end"
+            app:fabSize="normal"/>
+
     </android.support.design.widget.CoordinatorLayout>
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:scaleY="2"
+                android:theme="@style/progress2"
+                android:layout_marginBottom="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@id/bottom_navigation"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/settings_layout_fragment"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="cf.vojtechh.apkmirror.PreferencesFragment"
+                android:id="@+id/settings_fragment_main"
+                tools:layout="@android:layout/preference_category" />
+
+        </RelativeLayout>
     </RelativeLayout>
-
-
-
 
 </LinearLayout>
