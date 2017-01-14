@@ -393,6 +393,12 @@ public class MainActivity extends Activity  {
             currentUrl = url;
             mainURL = url;
 
+            if (!url.equals(urlFrontPage) && !url.equals(urlDev) && !url.equals(urlUp)){
+                fabShare.show();
+            }else {
+                fabShare.hide();
+            }
+
             Pbar.animate()
                     .alpha(1f)
                     .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
@@ -408,7 +414,7 @@ public class MainActivity extends Activity  {
 
         @Override
         public void onLoadResource(WebView view, String url) {
-            // Workaround this issue by checking if the URL matches .
+            // Workaround this issue by checking if the URL equals .
             if (interfaceUpdating) {
                 if (mainURL.equals(url)) {
                     new themeColorTask().execute(url);
@@ -626,7 +632,7 @@ public class MainActivity extends Activity  {
                         fab.hide();
                         fabShare.hide();
 
-                        bottomBar.setBackgroundColor(Color.parseColor("#f47d20"));
+                        bottomBar.setBackgroundColor(Color.parseColor("ff8b14"));
 
                         //updating recents
 
@@ -634,11 +640,11 @@ public class MainActivity extends Activity  {
 
                             ActivityManager.TaskDescription taskDesc;
 
-                            favico = BitmapFactory.decodeResource(getResources(), R.drawable.ic_settings_recents);
+                            favico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);
                             taskDesc = new ActivityManager.TaskDescription(getString(R.string.settings), favico, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                             MainActivity.this.setTaskDescription(taskDesc);
 
-                            setSystemBarColor(Color.parseColor("#f47d20"));
+                            setSystemBarColor(Color.parseColor("#ff8b14"));
                         }
                         //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
                         if(favico!=null) {
@@ -663,11 +669,11 @@ public class MainActivity extends Activity  {
     public void updateBottomBar(){
         //Try-catch prevents the app from crashing duo to loading some custom javascript (see above)
         try {
-            if (currentUrl.matches(urlDev) && !bottomBar.getMenu().getItem(1).isChecked()) {
+            if (currentUrl.equals(urlDev) && !bottomBar.getMenu().getItem(1).isChecked()) {
                 bottomBar.getMenu().getItem(1).setChecked(true);
-            } else if (currentUrl.matches(urlUp) && !bottomBar.getMenu().getItem(2).isChecked()) {
+            } else if (currentUrl.equals(urlUp) && !bottomBar.getMenu().getItem(2).isChecked()) {
                 bottomBar.getMenu().getItem(2).setChecked(true);
-            } else if (!currentUrl.matches(urlDev) && !currentUrl.matches(urlUp) && !bottomBar.getMenu().getItem(0).isChecked()) {
+            } else if (!currentUrl.equals(urlDev) && !currentUrl.equals(urlUp) && !bottomBar.getMenu().getItem(0).isChecked()) {
                 Log.d("Hi!", ":)");
             }
         }catch (NullPointerException e){
@@ -770,7 +776,7 @@ public class MainActivity extends Activity  {
                     List<Element> IMGelements = source.getAllElements("img");
                     for (Element element : IMGelements) {
                         final String id = element.getAttributeValue("style"); // Get Attribute 'id'
-                        if (id != null && id.matches("width:96px; height:96px;")) {
+                        if (id != null && id.equals("width:96px; height:96px;")) {
                             faviconURL = "http://www.apkmirror.com" + element.getAttributeValue("src");
                         }
                     }
@@ -822,7 +828,7 @@ public class MainActivity extends Activity  {
 
                     ActivityManager.TaskDescription taskDesc;
 
-                    if (currentUrl.matches(urlFrontPage)) {
+                    if (currentUrl.equals(urlFrontPage)) {
                         favico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_round);  //for frontpage
                         taskDesc = new ActivityManager.TaskDescription(getString(R.string.app_name), favico, ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
                     } else {

@@ -132,7 +132,8 @@
             android:src="@drawable/ic_share"
             app:layout_anchor="@id/dummy"
             app:layout_anchorGravity="top|right|end"
-            app:fabSize="normal"/>
+            app:fabSize="normal"
+            android:visibility="gone" />
 
     </android.support.design.widget.CoordinatorLayout>
 
