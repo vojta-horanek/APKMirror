@@ -34,20 +34,16 @@ public class PreferencesFragment extends PreferenceFragment implements SharedPre
         Preference nuke = findPreference("nuke");
         Preference nin = findPreference("nin");
 
-        github.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            public boolean onPreferenceClick(Preference pref)
-            {
+        github.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference pref) {
                 Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/vojta-horanek/APKMirror"));
                 startActivity(githubIntent);
                 return true;
             }
         });
 
-        libs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            public boolean onPreferenceClick(Preference pref)
-            {
+        libs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference pref) {
                 final Notices notices = new Notices();
                 notices.addNotice(new Notice("Jericho HTML Parser", "http://jericho.htmlparser.net/docs/index.html", "Copyright 2013 Philip Schiffer", new GnuLesserGeneralPublicLicense21()));
                 notices.addNotice(new Notice("Butter Knife", "https://github.com/JakeWharton/butterknife", "Copyright 2013 Jake Wharton", new ApacheSoftwareLicense20()));
@@ -62,10 +58,8 @@ public class PreferencesFragment extends PreferenceFragment implements SharedPre
             }
         });
 
-        xda.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
-        {
-            public boolean onPreferenceClick(Preference pref)
-            {
+        xda.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference pref) {
 
                 Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
                 startActivity(threadIntent);
@@ -140,9 +134,9 @@ public class PreferencesFragment extends PreferenceFragment implements SharedPre
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.matches("navbarcolor")){
+        if (key.equals("navbarcolor")) {
             getActivity().recreate();
-        }else if (key.matches("darktheme")) {
+        } else if (key.equals("darktheme")) {
             if (sharedPreferences.getBoolean("darktheme", true)) {
                 //theme is dark
                 getActivity().setTheme(R.style.DarkSettings);

@@ -1,33 +1,61 @@
 <resources>
 
-        <string name="app_name">APKMirror</string>
-        <string name="storage_access">Quest\'app richiede permessi di scrittura sulla memoria esterna per salvare i files.</string>
-        <string name="storage_access_denied">Non sarai in grado di scaricare ora, riavvia l\'applicazione.</string>
-        <string name="title_activity_settings">Impostazioni</string>
-        <string name="option1">Non mantenere la cache</string>
-        <string name="option1desc">Riduce le dimesioni dell\'app, ma il sito potrebbe caricare più lentamente</string>
-        <string name="option2">Disabilita JavaScript</string>
-        <string name="option2desc">Non raccomandato, ma l\'opzione è qui</string>
-        <string name="option3">Colora la barra di navigazione</string>
-        <string name="option3desc">Un opzione per colorare la barra di navigazione</string>
-        <string name="option4">Mostra il titolo nella notifica di download</string>
-        <string name="option4desc">Scegli se mostrare il nome (disabilitato) o il titolo (attivato) nella notifica di download</string>
-        <string name="settingsrestart">Riavvio</string>
-        <string name="option5">Usa tema scuro per le impostazioni</string>
-        <string name="option5desc">Per quelli che vogliono scegliere il lato oscuro</string>
-        <string name="developers">Sviluppatori</string>
-        <string name="latest_uploads">Caricamento</string>
-        <string name="option6">Permetti la rotazione schermo</string>
-        <string name="option6desc">Ruota lo schermo al cambio di orientamento</string>
-        <string name="download">Scaricato</string>
-        <string name="open">Apri</string>
-        <string name="error">Errore</string>
-        <string name="settings">Impostazioni</string>
-        <string name="exit">Esci</string>
-        <string name="thread">Thread XDA</string>
-        <string name="libraries">Librerie</string>
-        <string name="close">Chiudi</string>
-        <string name="option7">Attiva il debug sui crash</string>
+        
+    <string name="app_name">APKMirror</string>
+        
+    <string name="storage_access">Quest\'app richiede permessi di scrittura sulla memoria esterna per salvare i files.</string>
+        
+    <string name="storage_access_denied">Non sarai in grado di scaricare ora, riavvia l\'applicazione.</string>
+        
+    <string name="title_activity_settings">Impostazioni</string>
+        
+    <string name="option1">Non mantenere la cache</string>
+        
+    <string name="option1desc">Riduce le dimesioni dell\'app, ma il sito potrebbe caricare più lentamente</string>
+        
+    <string name="option2">Disabilita JavaScript</string>
+        
+    <string name="option2desc">Non raccomandato, ma l\'opzione è qui</string>
+        
+    <string name="option3">Colora la barra di navigazione</string>
+        
+    <string name="option3desc">Un opzione per colorare la barra di navigazione</string>
+        
+    <string name="option4">Mostra il titolo nella notifica di download</string>
+        
+    <string name="option4desc">Scegli se mostrare il nome (disabilitato) o il titolo (attivato) nella notifica di download</string>
+        
+    <string name="settingsrestart">Riavvio</string>
+        
+    <string name="option5">Usa tema scuro per le impostazioni</string>
+        
+    <string name="option5desc">Per quelli che vogliono scegliere il lato oscuro</string>
+        
+    <string name="developers">Sviluppatori</string>
+        
+    <string name="latest_uploads">Caricamento</string>
+        
+    <string name="option6">Permetti la rotazione schermo</string>
+        
+    <string name="option6desc">Ruota lo schermo al cambio di orientamento</string>
+        
+    <string name="download">Scaricato</string>
+        
+    <string name="open">Apri</string>
+        
+    <string name="error">Errore</string>
+        
+    <string name="settings">Impostazioni</string>
+        
+    <string name="exit">Esci</string>
+        
+    <string name="thread">Thread XDA</string>
+        
+    <string name="libraries">Librerie</string>
+        
+    <string name="close">Chiudi</string>
+        
+    <string name="option7">Attiva il debug sui crash</string>
     <string name="option7desc">Invia rapporti anonimamente allo sviluppatore in caso di crash</string>
     <string name="search">Ricerca</string>
     <string name="cancel">Annulla</string>
@@ -35,6 +63,7 @@
     <string name="about">Di</string>
     <string name="option8">Abilita colorazione interfaccia</string>
     <string name="option8desc">Disattivazione salverà i dati</string>
+    <string name="please_enter_text">Si prega di inserire il testo</string>
 
 
 </resources>

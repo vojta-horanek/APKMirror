@@ -57,7 +57,8 @@
             android:name="io.fabric.ApiKey"
             android:value="a0676d5da87962bd19a50108ed8daab0f6841dbd" />
 
-        <activity android:name=".SearchActivity"
+        <activity
+            android:name=".SearchActivity"
             android:theme="@style/search" />
     </application>
 

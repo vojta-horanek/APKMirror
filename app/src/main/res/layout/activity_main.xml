@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
@@ -9,8 +8,7 @@
     android:layout_marginTop="0px"
     android:animateLayoutChanges="true">
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/splash_screen"
@@ -39,7 +37,7 @@
             android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
 
         <ProgressBar
@@ -51,7 +49,7 @@
             android:layout_above="@id/author"
             android:layout_centerHorizontal="true"
             android:indeterminate="false"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="32dp" />
 
 
     </RelativeLayout>
@@ -66,13 +64,13 @@
         android:layout_marginTop="0dp">
 
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <cf.vojtechh.apkmirror.ObservableWebView android:id="@+id/apkmirror"
+            <cf.vojtechh.apkmirror.ObservableWebView
+                android:id="@+id/apkmirror"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:focusable="true"
@@ -86,56 +84,56 @@
             android:layout_height="match_parent"
             android:id="@+id/items">
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            app:itemIconTint="#ffffff"
-            app:itemTextColor="#ffffff"
-            app:menu="@menu/bottombar"
-            android:layout_height="56dp"
-            android:background="@color/colorPrimary"/>
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                app:itemIconTint="#ffffff"
+                app:itemTextColor="#ffffff"
+                app:menu="@menu/bottombar"
+                android:layout_height="56dp"
+                android:background="@color/colorPrimary" />
 
+
+            <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/snackbar_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="56dp" />
 
             <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/snackbar_place"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="56dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="56dp">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="56dp">
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_search" />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_search" />
 
-        <View
-            android:id="@+id/dummy"
-            android:layout_width="1dp"
-            android:layout_height="16dp"
-            app:layout_anchor="@id/fab_search"
-            app:layout_anchorGravity="top|right|end" />
+                <View
+                    android:id="@+id/dummy"
+                    android:layout_width="1dp"
+                    android:layout_height="16dp"
+                    app:layout_anchor="@id/fab_search"
+                    app:layout_anchorGravity="top|right|end" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center|end"
-            android:layout_margin="16dp"
-            android:src="@drawable/ic_share"
-            app:layout_anchor="@id/dummy"
-            app:layout_anchorGravity="top|right|end"
-            app:fabSize="normal"
-            android:visibility="gone" />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center|end"
+                    android:layout_margin="16dp"
+                    android:src="@drawable/ic_share"
+                    app:layout_anchor="@id/dummy"
+                    app:layout_anchorGravity="top|right|end"
+                    app:fabSize="normal"
+                    android:visibility="gone" />
 
-    </android.support.design.widget.CoordinatorLayout>
+            </android.support.design.widget.CoordinatorLayout>
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -146,7 +144,7 @@
                 android:theme="@style/progress2"
                 android:layout_marginBottom="50dp"
                 android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/bottom_navigation"/>
+                android:layout_alignBottom="@id/bottom_navigation" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -155,6 +153,7 @@
             android:id="@+id/settings_layout_fragment"
             android:layout_marginBottom="50dp"
             android:visibility="gone">
+
             <fragment
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

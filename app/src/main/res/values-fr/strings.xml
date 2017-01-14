@@ -35,6 +35,7 @@
     <string name="about">Sur</string>
     <string name="option8">Activer la coloration de l\'interface</string>
     <string name="option8desc">Désactiver cette option économisera la data</string>
+    <string name="please_enter_text">Entrez le texte</string>
 
 
 </resources>

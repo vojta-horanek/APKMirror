@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 public class SearchActivity extends Activity {
 
@@ -17,8 +18,9 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.search_relative_layout);
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.search_dialog, null);
+        View alertLayout = inflater.inflate(R.layout.search_dialog, rl, false);
         final EditText editText = (EditText) alertLayout.findViewById(R.id.textViewSearch);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(R.string.search);
@@ -44,6 +46,8 @@ public class SearchActivity extends Activity {
 
                 startActivity(i);
                 finish();
+
+
             }
         });
         alert.show();

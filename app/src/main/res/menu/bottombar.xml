@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/tab_homepage"
+    <item
+        android:id="@+id/tab_homepage"
         android:title="@string/app_name"
         android:icon="@drawable/icon_main" />
 
-    <item android:id="@+id/tab_devs"
+    <item
+        android:id="@+id/tab_devs"
         android:title="@string/developers"
         android:icon="@drawable/ic_people" />
 
-    <item android:id="@+id/tab_upload"
+    <item
+        android:id="@+id/tab_upload"
         android:title="@string/latest_uploads"
         android:icon="@drawable/ic_upload" />
 

@@ -6,11 +6,13 @@
         <item name="colorPrimaryDark">#cc6f10</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="Settings" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="DarkSettings" parent="Theme.AppCompat">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -20,6 +22,7 @@
     <style name="progress" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">#fff</item>
     </style>
+
     <style name="progress2" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>

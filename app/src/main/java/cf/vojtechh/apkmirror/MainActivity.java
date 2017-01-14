@@ -84,7 +84,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends Activity  {
+public class MainActivity extends Activity {
 
     private String url;
     private String urlFrontPage = "http://www.apkmirror.com/";
@@ -113,37 +113,48 @@ public class MainActivity extends Activity  {
 
     Bitmap favico;
 
-    @BindView(R.id.loading) ProgressBar Pbar;
-    @BindView(R.id.progress) ProgressBar PbarSplash;
-    @BindView(R.id.fab_search) FloatingActionButton fab;
-    @BindView(R.id.fab_share) FloatingActionButton fabShare;
-    @BindView(R.id.logo) ImageView Logo;
-    @BindView(R.id.splash_screen) View splash;
-    @BindView(R.id.apkmirror) ObservableWebView mWebView;
-    @BindView(R.id.swiperefresh) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.bottom_navigation) BottomNavigationView bottomBar;
-    @BindView(R.id.settings_layout_fragment) View settingsFragment;
-    @BindView(R.id.items) RelativeLayout items;
+    @BindView(R.id.loading)
+    ProgressBar Pbar;
+    @BindView(R.id.progress)
+    ProgressBar PbarSplash;
+    @BindView(R.id.fab_search)
+    FloatingActionButton fab;
+    @BindView(R.id.fab_share)
+    FloatingActionButton fabShare;
+    @BindView(R.id.logo)
+    ImageView Logo;
+    @BindView(R.id.splash_screen)
+    View splash;
+    @BindView(R.id.apkmirror)
+    ObservableWebView mWebView;
+    @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomBar;
+    @BindView(R.id.settings_layout_fragment)
+    View settingsFragment;
+    @BindView(R.id.items)
+    RelativeLayout items;
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if(Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT >= 21) {
             Uri[] results = null;
             //Check if response is positive
-            if(resultCode== Activity.RESULT_OK){
-                if(requestCode == FCR){
-                    if(null == mUMA){
+            if (resultCode == Activity.RESULT_OK) {
+                if (requestCode == FCR) {
+                    if (null == mUMA) {
                         return;
                     }
-                    if(intent == null){
+                    if (intent == null) {
                         //if no file available
-                        if(mCM != null){
+                        if (mCM != null) {
                             results = new Uri[]{Uri.parse(mCM)};
                         }
-                    }else{
+                    } else {
                         String dataString = intent.getDataString();
-                        if(dataString != null){
+                        if (dataString != null) {
                             results = new Uri[]{Uri.parse(dataString)};
                         }
                     }
@@ -151,9 +162,9 @@ public class MainActivity extends Activity  {
             }
             mUMA.onReceiveValue(results);
             mUMA = null;
-        }else{
-            if(requestCode == FCR){
-                if(null == mUM) return;
+        } else {
+            if (requestCode == FCR) {
+                if (null == mUM) return;
                 Uri result = intent == null || resultCode != RESULT_OK ? null : intent.getData();
                 mUM.onReceiveValue(result);
                 mUM = null;
@@ -254,7 +265,7 @@ public class MainActivity extends Activity  {
             }
 
         });
-        swipeRefreshLayout.setColorSchemeColors(themeColor,themeColor,themeColor);
+        swipeRefreshLayout.setColorSchemeColors(themeColor, themeColor, themeColor);
 
         if (cache) {
             WebViewSettings.setAppCacheEnabled(false);
@@ -289,21 +300,21 @@ public class MainActivity extends Activity  {
         });
     }
 
-    private class mScrollCallback implements ObservableWebView.OnScrollChangedCallback{
+    private class mScrollCallback implements ObservableWebView.OnScrollChangedCallback {
 
         private int oldNumber = 0;
         private boolean isHidden = false;
+
         @Override
         public void onScroll(int l, int t) {
-            if(t > oldNumber + 10){
+            if (t > oldNumber + 10) {
                 //user scrolled down
-                if (!isHidden){
+                if (!isHidden) {
                     items.animate().translationY(items.getHeight()).setDuration(1000);
 
                     isHidden = true;
                 }
-            }
-            else if (t < oldNumber - 10){
+            } else if (t < oldNumber - 10) {
                 //user scrolled up
                 if (isHidden) {
                     items.animate().translationY(0).setDuration(350);
@@ -315,14 +326,15 @@ public class MainActivity extends Activity  {
 
         }
     }
+
     private class mDownloadManager implements DownloadListener {
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
             final String fileName;
             if (title) {
-                fileName=appName + ".apk";
-            }else {
+                fileName = appName + ".apk";
+            } else {
                 fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
             }
 
@@ -334,10 +346,9 @@ public class MainActivity extends Activity  {
 
             if (title) {
                 request.setTitle(fileName);
-            }else {
+            } else {
                 request.setTitle(fileName + ".apk");
             }
-
 
 
             Snackbar.make(findViewById(R.id.fab_search), getString(R.string.download_started) + "  (" + fileName + ")", 1500).show();
@@ -372,9 +383,9 @@ public class MainActivity extends Activity  {
             BroadcastReceiver onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
 
-                        Snackbar.make(findViewById(R.id.fab_search), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
-                                .setAction(R.string.open, opendown)
-                                .show();
+                    Snackbar.make(findViewById(R.id.fab_search), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.open, opendown)
+                            .show();
                 }
             };
 
@@ -384,6 +395,7 @@ public class MainActivity extends Activity  {
             manager.enqueue(request);
         }
     }
+
     private class mWebClient extends WebViewClient {
 
         private String mainURL;
@@ -393,9 +405,9 @@ public class MainActivity extends Activity  {
             currentUrl = url;
             mainURL = url;
 
-            if (!url.equals(urlFrontPage) && !url.equals(urlDev) && !url.equals(urlUp)){
+            if (!url.equals(urlFrontPage) && !url.equals(urlDev) && !url.equals(urlUp)) {
                 fabShare.show();
-            }else {
+            } else {
                 fabShare.hide();
             }
 
@@ -406,8 +418,6 @@ public class MainActivity extends Activity  {
 
             Pbar.setVisibility(ProgressBar.VISIBLE);
             updateBottomBar();
-
-
 
 
         }
@@ -460,7 +470,7 @@ public class MainActivity extends Activity  {
                     e.printStackTrace();
                 }
                 return true;
-            }else {
+            } else {
                 mWebView.loadUrl(url);
                 return false;
             }
@@ -469,7 +479,7 @@ public class MainActivity extends Activity  {
         @SuppressWarnings("deprecation")
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            if (errorCode==-2) //this is the error code for no network
+            if (errorCode == -2) //this is the error code for no network
                 mWebView.loadUrl("file:///android_asset/errorpage.html");
         }
 
@@ -486,7 +496,7 @@ public class MainActivity extends Activity  {
             animation.setInterpolator(new DecelerateInterpolator());
             animation.start();
 
-            if(splash.getVisibility() == View.VISIBLE) {
+            if (splash.getVisibility() == View.VISIBLE) {
                 //splash screen progress bar
                 // will update the "progress" propriety of progressbar until it reaches progress
                 ObjectAnimator animation2 = ObjectAnimator.ofInt(PbarSplash, "progress", progress);
@@ -496,8 +506,7 @@ public class MainActivity extends Activity  {
             }
 
 
-
-            if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE && progress >= 90){
+            if (findViewById(R.id.splash_screen).getVisibility() == View.VISIBLE && progress >= 90) {
                 //makes the webview visible before ads load for faster experience
                 splash.setVisibility(View.GONE);
                 findViewById(R.id.main_view).setVisibility(View.VISIBLE);
@@ -510,8 +519,8 @@ public class MainActivity extends Activity  {
         //For Android 5.0+
         public boolean onShowFileChooser(
                 WebView webView, ValueCallback<Uri[]> filePathCallback,
-                WebChromeClient.FileChooserParams fileChooserParams){
-            if(mUMA != null){
+                WebChromeClient.FileChooserParams fileChooserParams) {
+            if (mUMA != null) {
                 mUMA.onReceiveValue(null);
             }
             mUMA = filePathCallback;
@@ -542,11 +551,12 @@ public class MainActivity extends Activity  {
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
     }
+
     //requesting the permission to write to external storage
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        if(requestCode == REQUEST_WRITE_STORAGE_RESULT) {
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_WRITE_STORAGE_RESULT) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("RESTART!");
                 alertDialog.setMessage(getString(R.string.storage_access) + ". " + getString(R.string.storage_access_denied));
@@ -556,7 +566,7 @@ public class MainActivity extends Activity  {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent i = getBaseContext().getPackageManager()
-                                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }
@@ -564,31 +574,31 @@ public class MainActivity extends Activity  {
                 alertDialog.show();
 
             }
-        }else{
+        } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
 
-    private void createBottomBar(){
+    private void createBottomBar() {
         bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int Y = mWebView.getScrollY();
 
-                if (settingsFragment.getVisibility() == View.VISIBLE && item.getItemId() != R.id.tab_settings && item.getItemId() != R.id.tab_exit){
+                if (settingsFragment.getVisibility() == View.VISIBLE && item.getItemId() != R.id.tab_settings && item.getItemId() != R.id.tab_exit) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.settingsrestart), Toast.LENGTH_SHORT).show();
                     MainActivity.this.recreate();
                 }
 
                 switch (item.getItemId()) {
                     case R.id.tab_homepage:
-                        if (!bottomBar.getMenu().getItem(0).isChecked()){
+                        if (!bottomBar.getMenu().getItem(0).isChecked()) {
                             mWebView.loadUrl(urlFrontPage);
                             currentUrl = urlFrontPage;
-                        }else {
+                        } else {
                             if (Y != 0)
-                                mWebView.scrollTo(0,0);
+                                mWebView.scrollTo(0, 0);
                             else {
                                 mWebView.loadUrl(urlFrontPage);
                                 currentUrl = urlFrontPage;
@@ -597,12 +607,12 @@ public class MainActivity extends Activity  {
                         break;
                     case R.id.tab_devs:
 
-                        if (!bottomBar.getMenu().getItem(1).isChecked()){
+                        if (!bottomBar.getMenu().getItem(1).isChecked()) {
                             mWebView.loadUrl(urlDev);
                             currentUrl = urlDev;
-                        }else {
+                        } else {
                             if (Y != 0)
-                                mWebView.scrollTo(0,0);
+                                mWebView.scrollTo(0, 0);
                             else {
                                 mWebView.loadUrl(urlDev);
                                 currentUrl = urlDev;
@@ -613,12 +623,12 @@ public class MainActivity extends Activity  {
                     case R.id.tab_upload:
 
 
-                        if (!bottomBar.getMenu().getItem(2).isChecked()){
+                        if (!bottomBar.getMenu().getItem(2).isChecked()) {
                             mWebView.loadUrl(urlUp);
                             currentUrl = urlUp;
-                        }else {
+                        } else {
                             if (Y != 0)
-                                mWebView.scrollTo(0,0);
+                                mWebView.scrollTo(0, 0);
                             else {
                                 mWebView.loadUrl(urlUp);
                                 currentUrl = urlUp;
@@ -647,7 +657,7 @@ public class MainActivity extends Activity  {
                             setSystemBarColor(Color.parseColor("#ff8b14"));
                         }
                         //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
-                        if(favico!=null) {
+                        if (favico != null) {
                             favico.recycle();
                         }
 
@@ -666,7 +676,7 @@ public class MainActivity extends Activity  {
 
     }
 
-    public void updateBottomBar(){
+    public void updateBottomBar() {
         //Try-catch prevents the app from crashing duo to loading some custom javascript (see above)
         try {
             if (currentUrl.equals(urlDev) && !bottomBar.getMenu().getItem(1).isChecked()) {
@@ -676,29 +686,26 @@ public class MainActivity extends Activity  {
             } else if (!currentUrl.equals(urlDev) && !currentUrl.equals(urlUp) && !bottomBar.getMenu().getItem(0).isChecked()) {
                 Log.d("Hi!", ":)");
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.w("Javascript error", "Incorrect bottombar update");
         }
     }
 
 
-
-
-
     public void createShortcuts() {
         if (isNougat_MR1) {
 
-            Context context = getBaseContext    ();
+            Context context = getBaseContext();
             ShortcutManager shortcutManager;
             shortcutManager = getSystemService(ShortcutManager.class);
 
             ShortcutInfo shortcut = new ShortcutInfo.Builder(this, "id1")
-                        .setShortLabel(getString(R.string.latest_uploads))
-                        .setLongLabel(getString(R.string.latest_uploads))
-                        .setIcon(Icon.createWithResource(context, R.drawable.ic_upload_shortcut))
-                        .setIntent(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(urlUp)))
-                        .build();
+                    .setShortLabel(getString(R.string.latest_uploads))
+                    .setLongLabel(getString(R.string.latest_uploads))
+                    .setIcon(Icon.createWithResource(context, R.drawable.ic_upload_shortcut))
+                    .setIntent(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(urlUp)))
+                    .build();
             ShortcutInfo shortcut2 = new ShortcutInfo.Builder(this, "id2")
                     .setShortLabel(getString(R.string.developers))
                     .setLongLabel(getString(R.string.developers))
@@ -714,100 +721,99 @@ public class MainActivity extends Activity  {
     }
 
 
-
     private class themeColorTask extends AsyncTask<String, Integer, Integer> {
 
 
         @Override
         protected Integer doInBackground(String... url) {
-                try {
-                    String correctUlr = url[0];
-                    for (String something : url){
-                        if (something != null){
-                            correctUlr = something;
-                        }
+            try {
+                String correctUlr = url[0];
+                for (String something : url) {
+                    if (something != null) {
+                        correctUlr = something;
                     }
-
-                    // Downloading html source
-                    URLConnection connection = (new URL(correctUlr)).openConnection();
-                    connection.setConnectTimeout(5000);
-                    connection.setReadTimeout(5000);
-                    connection.connect();
-
-
-                    // Read and store the result line by line then return the entire string.
-                    InputStream in = connection.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder html = new StringBuilder();
-                    for (String line; (line = reader.readLine()) != null; ) {
-                        html.append(line);
-                    }
-                    in.close();
-
-                    Source source = new Source(html.toString());
-
-                    //theme color
-                    String extractedThemeColor = null;
-                    List<Element> elements = source.getAllElements("meta");
-                    for (Element element : elements) {
-                        final String id = element.getAttributeValue("name"); // Get Attribute 'id'
-                        if (id != null && id.equals("theme-color")) {
-                            extractedThemeColor = element.getAttributeValue("content");
-                        }
-                    }
-
-                    //App title
-                    String appTitle = "APKMirror";
-                    List<Element> h1elements = source.getAllElements("h1");
-                    for (Element element : h1elements) {
-                        final String id = element.getAttributeValue("class"); // Get Attribute 'id'
-                        if (id != null && id.contains("app-title")) {
-                            appTitle = element.getAttributeValue("title");
-                        }
-                    }
-                    if (appTitle == null){
-                        appTitle = "APKMirror";
-                    }
-                    appName = appTitle;
-
-                    //Favicon
-                    String faviconURL = "http://www.apkmirror.com/favicon.ico";
-
-                    List<Element> IMGelements = source.getAllElements("img");
-                    for (Element element : IMGelements) {
-                        final String id = element.getAttributeValue("style"); // Get Attribute 'id'
-                        if (id != null && id.equals("width:96px; height:96px;")) {
-                            faviconURL = "http://www.apkmirror.com" + element.getAttributeValue("src");
-                        }
-                    }
-
-                    // Favicon download
-                    URLConnection favIconDownload = (new URL(faviconURL)).openConnection();
-                    favIconDownload.setConnectTimeout(5000);
-                    favIconDownload.setReadTimeout(5000);
-                    favIconDownload.connect();
-
-                    InputStream favIconDownloadStream = favIconDownload.getInputStream();
-                    favico = BitmapFactory.decodeStream(favIconDownloadStream);
-                    favIconDownloadStream.close();
-
-
-                    if (extractedThemeColor != null) {
-                        return Color.parseColor(extractedThemeColor);
-                    } else {
-                        Log.d("ThemeColor:","No color");
-                        //if color is not found we will return null and handle it in onPostExecute
-                        return null;
-
-                    }
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    //if error we will return null and handle it in onPostExecute
-                    return null;
                 }
+
+                // Downloading html source
+                URLConnection connection = (new URL(correctUlr)).openConnection();
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
+                connection.connect();
+
+
+                // Read and store the result line by line then return the entire string.
+                InputStream in = connection.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder html = new StringBuilder();
+                for (String line; (line = reader.readLine()) != null; ) {
+                    html.append(line);
+                }
+                in.close();
+
+                Source source = new Source(html.toString());
+
+                //theme color
+                String extractedThemeColor = null;
+                List<Element> elements = source.getAllElements("meta");
+                for (Element element : elements) {
+                    final String id = element.getAttributeValue("name"); // Get Attribute 'id'
+                    if (id != null && id.equals("theme-color")) {
+                        extractedThemeColor = element.getAttributeValue("content");
+                    }
+                }
+
+                //App title
+                String appTitle = "APKMirror";
+                List<Element> h1elements = source.getAllElements("h1");
+                for (Element element : h1elements) {
+                    final String id = element.getAttributeValue("class"); // Get Attribute 'id'
+                    if (id != null && id.contains("app-title")) {
+                        appTitle = element.getAttributeValue("title");
+                    }
+                }
+                if (appTitle == null) {
+                    appTitle = "APKMirror";
+                }
+                appName = appTitle;
+
+                //Favicon
+                String faviconURL = "http://www.apkmirror.com/favicon.ico";
+
+                List<Element> IMGelements = source.getAllElements("img");
+                for (Element element : IMGelements) {
+                    final String id = element.getAttributeValue("style"); // Get Attribute 'id'
+                    if (id != null && id.equals("width:96px; height:96px;")) {
+                        faviconURL = "http://www.apkmirror.com" + element.getAttributeValue("src");
+                    }
+                }
+
+                // Favicon download
+                URLConnection favIconDownload = (new URL(faviconURL)).openConnection();
+                favIconDownload.setConnectTimeout(5000);
+                favIconDownload.setReadTimeout(5000);
+                favIconDownload.connect();
+
+                InputStream favIconDownloadStream = favIconDownload.getInputStream();
+                favico = BitmapFactory.decodeStream(favIconDownloadStream);
+                favIconDownloadStream.close();
+
+
+                if (extractedThemeColor != null) {
+                    return Color.parseColor(extractedThemeColor);
+                } else {
+                    Log.d("ThemeColor:", "No color");
+                    //if color is not found we will return null and handle it in onPostExecute
+                    return null;
+
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                //if error we will return null and handle it in onPostExecute
+                return null;
             }
+        }
 
 
         @Override
@@ -839,7 +845,7 @@ public class MainActivity extends Activity  {
                     setSystemBarColor(result);
                 }
                 //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
-                if(favico!=null) {
+                if (favico != null) {
                     favico.recycle();
                 }
 
@@ -849,20 +855,19 @@ public class MainActivity extends Activity  {
 
     }
 
-    private void share(String text){
+    private void share(String text) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, text);
         sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, null));    }
+        startActivity(Intent.createChooser(sendIntent, null));
+    }
 
 
-    private void search(){
+    private void search() {
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.search_relative_layout);
-
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.search_dialog, rl, false);
-
 
         final EditText editText = (EditText) alertLayout.findViewById(R.id.textViewSearch);
 
@@ -871,37 +876,40 @@ public class MainActivity extends Activity  {
         alertDialogBuilder.setView(alertLayout);
         alertDialogBuilder.setTitle(R.string.search);
 
-
-        final InputMethodManager inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
-
-
+        final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
         editText.requestFocus();
+
         alertDialogBuilder.setPositiveButton(R.string.search, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if(mWebView != null){
+                if (mWebView != null) {
                     mWebView.loadUrl("http://www.apkmirror.com/?s=" + editText.getText());
-                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                 }
             }
-        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        });
+
+        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
             }
-        }).setOnCancelListener(
+        });
+
+        alertDialogBuilder.setOnCancelListener(
                 new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
-                        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS,0);
+                        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                     }
                 }
-        ).show();
+        );
+
+        alertDialogBuilder.show();
     }
 
 
-
-    private void setSystemBarColor(int color){
+    private void setSystemBarColor(int color) {
 
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);

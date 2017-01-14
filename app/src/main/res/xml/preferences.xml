@@ -1,61 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/settings"/>
+    <PreferenceCategory android:title="@string/settings" />
     <SwitchPreference
-            android:defaultValue="false"
-            android:title="@string/option1"
-            android:key="cache"
-            android:summary="@string/option1desc" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:title="@string/option2"
-            android:key="javascript"
-            android:summary="@string/option2desc" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/option3"
-            android:key="navbarcolor"
-            android:summary="@string/option3desc" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/option8"
-            android:key="colorupdate"
-            android:summary="@string/option8desc" />
+        android:defaultValue="false"
+        android:title="@string/option1"
+        android:key="cache"
+        android:summary="@string/option1desc" />
     <SwitchPreference
-            android:defaultValue="false"
-            android:title="@string/option4"
-            android:key="title"
-            android:summary="@string/option4desc" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:title="@string/option6"
-            android:key="rotation"
-            android:summary="@string/option6desc" />
-        <SwitchPreference
-            android:defaultValue="true"
-            android:title="@string/option7"
-            android:key="crashlytics"
-            android:summary="@string/option7desc" />
+        android:defaultValue="false"
+        android:title="@string/option2"
+        android:key="javascript"
+        android:summary="@string/option2desc" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:title="@string/option3"
+        android:key="navbarcolor"
+        android:summary="@string/option3desc" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:title="@string/option8"
+        android:key="colorupdate"
+        android:summary="@string/option8desc" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:title="@string/option4"
+        android:key="title"
+        android:summary="@string/option4desc" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:title="@string/option6"
+        android:key="rotation"
+        android:summary="@string/option6desc" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:title="@string/option7"
+        android:key="crashlytics"
+        android:summary="@string/option7desc" />
 
-    <PreferenceCategory android:title="@string/about"/>
-        <Preference android:title="@string/github"
-            android:key="github"/>
-        <Preference android:title="@string/libraries"
-            android:key="libs"/>
-        <Preference android:title="@string/thread"
-            android:key="xda"/>
-        <Preference android:title="Copyleft 2016 Vojtěch Hořánek"
-            android:key="copy"/>
+    <PreferenceCategory android:title="@string/about" />
+    <Preference
+        android:title="@string/github"
+        android:key="github" />
+    <Preference
+        android:title="@string/libraries"
+        android:key="libs" />
+    <Preference
+        android:title="@string/thread"
+        android:key="xda" />
+    <Preference
+        android:title="Copyleft 2016 Vojtěch Hořánek"
+        android:key="copy" />
 
-    <PreferenceCategory
-        android:title="With thanks to the following people:"/>
-        <Preference android:title="EvoWizz"
-            android:key="evo"/>
-        <Preference android:title="ja_som"
-            android:key="ja_som"/>
-        <Preference android:title="LuckyNuke1310"
-            android:key="nuke"/>
-        <Preference android:title="Ninnix96"
-            android:key="nin"/>
+    <PreferenceCategory android:title="With thanks to the following people:" />
+    <Preference
+        android:title="EvoWizz"
+        android:key="evo" />
+    <Preference
+        android:title="ja_som"
+        android:key="ja_som" />
+    <Preference
+        android:title="LuckyNuke1310"
+        android:key="nuke" />
+    <Preference
+        android:title="Ninnix96"
+        android:key="nin" />
 
 </PreferenceScreen>

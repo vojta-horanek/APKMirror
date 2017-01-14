@@ -35,4 +35,5 @@
     <string name="about">O Aplikaci</string>
     <string name="option8">Zabarvovat rozhraní</string>
     <string name="option8desc">Vypnutím se šetří data</string>
+    <string name="please_enter_text">Vložte prosím text</string>
 </resources>
