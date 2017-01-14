@@ -344,11 +344,7 @@ public class MainActivity extends Activity {
 
             DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
-            if (title) {
-                request.setTitle(fileName);
-            } else {
-                request.setTitle(fileName + ".apk");
-            }
+            request.setTitle(fileName);
 
 
             Snackbar.make(findViewById(R.id.fab_search), getString(R.string.download_started) + "  (" + fileName + ")", 1500).show();
