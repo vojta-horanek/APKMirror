@@ -18,6 +18,7 @@ import de.psdev.licensesdialog.model.Notices;
 public class PreferencesFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     SharedPreferences prefsFragment;
+    public static boolean shouldRestart = false;
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -134,21 +135,9 @@ public class PreferencesFragment extends PreferenceFragment implements SharedPre
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.equals("navbarcolor")) {
-            getActivity().recreate();
-        } else if (key.equals("darktheme")) {
-            if (sharedPreferences.getBoolean("darktheme", true)) {
-                //theme is dark
-                getActivity().setTheme(R.style.DarkSettings);
-                getActivity().recreate();
-            } else if (!sharedPreferences.getBoolean("darktheme", true)) {
-                //theme isn't dark
-                getActivity().setTheme(R.style.Settings);
-                getActivity().recreate();
-            }
+        shouldRestart=true;
 
         }
 
     }
 
-}

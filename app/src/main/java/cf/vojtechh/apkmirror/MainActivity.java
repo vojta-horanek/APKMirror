@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
@@ -113,6 +112,8 @@ public class MainActivity extends Activity {
 
     Bitmap favico;
 
+    BroadcastReceiver onComplete;
+
     @BindView(R.id.loading)
     ProgressBar Pbar;
     @BindView(R.id.progress)
@@ -190,7 +191,6 @@ public class MainActivity extends Activity {
         boolean crashlytics = prefs.getBoolean("crashlytics", true);
         boolean cache = prefs.getBoolean("cache", false);
         boolean javascript = prefs.getBoolean("javascript", false);
-        boolean rotation = prefs.getBoolean("rotation", false);
         navbar = prefs.getBoolean("navbarcolor", true);
         title = prefs.getBoolean("title", false);
         interfaceUpdating = prefs.getBoolean("colorupdate", true);
@@ -201,8 +201,6 @@ public class MainActivity extends Activity {
         isLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
         isNougat_MR1 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
         isNougat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
-
-        if (!rotation) setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         if (crashlytics) Fabric.with(this, new Crashlytics());
 
@@ -300,6 +298,36 @@ public class MainActivity extends Activity {
         });
     }
 
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+    }
+    @Override
+    protected void onDestroy(){
+        if (favico != null && !favico.isRecycled()) {
+            favico.recycle();
+            favico = null;
+        }
+
+        super.onDestroy();
+    }
+    @Override
+    protected void onStop() {
+        if (onComplete != null){
+            unregisterReceiver(onComplete);
+        }
+
+        super.onStop();
+    }
+
+
     private class mScrollCallback implements ObservableWebView.OnScrollChangedCallback {
 
         private int oldNumber = 0;
@@ -338,31 +366,28 @@ public class MainActivity extends Activity {
                 fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
             }
 
+            DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
             final DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
             request.setMimeType("application/vnd.android.package-archive");
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
-            DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
             request.setTitle(fileName);
-
 
             Snackbar.make(findViewById(R.id.fab_search), getString(R.string.download_started) + "  (" + fileName + ")", 1500).show();
 
             final View.OnClickListener opendown = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     if (isNougat) {
-                        File apk;
-                        File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                        apk = new File(downloads, fileName);
-                        Uri apkUri = FileProvider.getUriForFile(MainActivity.this, "cf.vojtechh.apkmirror.provider", apk);
+                       Uri apkURI = FileProvider.getUriForFile(MainActivity.this,
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                         Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
-                        intent.setData(apkUri);
+                        intent.setData(apkURI);
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivity(intent);
-                    } else {
+
+                    }else {
                         File apkfile;
                         apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
                         Uri apkUri = Uri.fromFile(apkfile);
@@ -376,7 +401,7 @@ public class MainActivity extends Activity {
             };
 
 
-            BroadcastReceiver onComplete = new BroadcastReceiver() {
+            onComplete = new BroadcastReceiver() {
                 public void onReceive(Context ctxt, Intent intent) {
 
                     Snackbar.make(findViewById(R.id.fab_search), getResources().getString(R.string.download) + " " + fileName, Snackbar.LENGTH_LONG)
@@ -389,7 +414,9 @@ public class MainActivity extends Activity {
 
             request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
             manager.enqueue(request);
+
         }
+
     }
 
     private class mWebClient extends WebViewClient {
@@ -413,7 +440,7 @@ public class MainActivity extends Activity {
                     .setListener(null);
 
             Pbar.setVisibility(ProgressBar.VISIBLE);
-            updateBottomBar();
+            updateBottomBar(url);
 
 
         }
@@ -475,8 +502,9 @@ public class MainActivity extends Activity {
         @SuppressWarnings("deprecation")
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            if (errorCode == -2) //this is the error code for no network
+            if (errorCode == -2) { //this is the error code for no network
                 mWebView.loadUrl("file:///android_asset/errorpage.html");
+            }
         }
 
     }
@@ -511,8 +539,6 @@ public class MainActivity extends Activity {
 
         }
 
-
-        //For Android 5.0+
         public boolean onShowFileChooser(
                 WebView webView, ValueCallback<Uri[]> filePathCallback,
                 WebChromeClient.FileChooserParams fileChooserParams) {
@@ -582,9 +608,16 @@ public class MainActivity extends Activity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int Y = mWebView.getScrollY();
 
-                if (settingsFragment.getVisibility() == View.VISIBLE && item.getItemId() != R.id.tab_settings && item.getItemId() != R.id.tab_exit) {
+                if (settingsFragment.getVisibility() == View.VISIBLE && item.getItemId() != R.id.tab_settings && item.getItemId() != R.id.tab_exit && PreferencesFragment.shouldRestart) {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.settingsrestart), Toast.LENGTH_SHORT).show();
-                    MainActivity.this.recreate();
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+                }else if(settingsFragment.getVisibility() == View.VISIBLE){
+                    settingsFragment.setVisibility(View.GONE);
+                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    Pbar.setVisibility(View.VISIBLE);
+                    fab.show();
+                    fabShare.show();
                 }
 
                 switch (item.getItemId()) {
@@ -638,7 +671,7 @@ public class MainActivity extends Activity {
                         fab.hide();
                         fabShare.hide();
 
-                        bottomBar.setBackgroundColor(Color.parseColor("ff8b14"));
+                        bottomBar.setBackgroundColor(Color.parseColor("#ff8b14"));
 
                         //updating recents
 
@@ -672,14 +705,14 @@ public class MainActivity extends Activity {
 
     }
 
-    public void updateBottomBar() {
-        //Try-catch prevents the app from crashing duo to loading some custom javascript (see above)
+    public void updateBottomBar(String ulr) {
+        //Try-catch prevents the app from crashing duo to loading some javascript (see above)
         try {
-            if (currentUrl.equals(urlDev) && !bottomBar.getMenu().getItem(1).isChecked()) {
+            if (ulr.contains(urlDev) && !bottomBar.getMenu().getItem(1).isChecked()) {
                 bottomBar.getMenu().getItem(1).setChecked(true);
-            } else if (currentUrl.equals(urlUp) && !bottomBar.getMenu().getItem(2).isChecked()) {
+            } else if (currentUrl.contains(urlUp) && !bottomBar.getMenu().getItem(2).isChecked()) {
                 bottomBar.getMenu().getItem(2).setChecked(true);
-            } else if (!currentUrl.equals(urlDev) && !currentUrl.equals(urlUp) && !bottomBar.getMenu().getItem(0).isChecked()) {
+            } else if (!currentUrl.contains(urlDev) && !currentUrl.contains(urlUp) && !bottomBar.getMenu().getItem(0).isChecked()) {
                 Log.d("Hi!", ":)");
             }
         } catch (NullPointerException e) {
@@ -823,10 +856,12 @@ public class MainActivity extends Activity {
                 drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
                 bottomBar.setBackgroundColor(result);
                 swipeRefreshLayout.setColorSchemeColors(result, result, result);
-
+                String bottomobarTitle = appName.replaceAll("[0-9.]", "");
+                bottomobarTitle = bottomobarTitle.replaceAll("\\s*\\bbeta\\b\\s*","");
+                bottomBar.getMenu().getItem(0).setTitle(bottomobarTitle);
                 //updating recents
 
-                if (isLollipop) {
+                if (isLollipop && favico != null && !favico.isRecycled()) {
 
                     ActivityManager.TaskDescription taskDesc;
 
@@ -841,8 +876,9 @@ public class MainActivity extends Activity {
                     setSystemBarColor(result);
                 }
                 //recycling the favicon bitmap so the app wont crash -- http://stackoverflow.com/questions/41401548/asynctask-memory-crash/
-                if (favico != null) {
+                if (favico != null && !favico.isRecycled()) {
                     favico.recycle();
+                    favico = null;
                 }
 
             }
@@ -920,6 +956,16 @@ public class MainActivity extends Activity {
             window.setNavigationBarColor(clr);
         }
 
+    }
+
+    private int getBottomBarSelectedItem(){
+        for (int i =0; i<=bottomBar.getMenu().size();i++){
+            if (bottomBar.getMenu().getItem(i).isChecked()){
+                return i;
+            }
+
+        }
+        return 0;
     }
 
 
