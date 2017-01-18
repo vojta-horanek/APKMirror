@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="storage_access">Diese App braucht Schreibzugriff auf die SD-Karte, um dort Dateien zu speichern.</string>
+    <string name="storage_access_denied">Download ist noch nicht möglich, bitte starten Sie die App neu.</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="option1">Cache nicht verwenden</string>
+    <string name="option1desc">Macht die App kleiner, aber die Seite lädt vielleicht langsamer</string>
+    <string name="option2">JavaScript deaktivieren</string>
+    <string name="option2desc">Nicht empfohlen, aber möglich</string>
+    <string name="option3">Eingefärbte Navigation Bar</string>
+    <string name="option3desc">Möglichkeit, die Navigation Bar einzufärben</string>
+    <string name="option4">Name in der Downloadbenachrichtigung anzeigen</string>
+    <string name="option4desc">Einstellung, um entweder den Datei- oder Appnamen in der Benachrichtigung anzuzeigen</string>
+    <string name="settingsrestart">Starte neu</string>
+    <string name="option5">Dunkles Thema für die Einstellungen nutzen</string>
+    <string name="option5desc">Für Leute, die der dunklen Seite beitreten möchten</string>
+    <string name="developers">Entwickler</string>
+    <string name="latest_uploads">Upload</string>
+    <string name="option6">Displaydrehung erlauben</string>
+    <string name="option6desc">Den Bildschirminhalt drehen, wenn das Gerät geschwenkt wird</string>
+    <string name="download">Heruntergeladen</string>
+    <string name="open">Öffnen</string>
+    <string name="error">Fehler</string>
+    <string name="settings">Einstellungen</string>
+    <string name="exit">Verlassen</string>
+    <string name="thread">XDA Thread</string>
+    <string name="libraries">Bibliotheken</string>
+    <string name="close">Schließen</string>
+    <string name="option7">Crashlytics aktivieren</string>
+    <string name="option7desc">Anonym Informationen an den Entwickler senden, wenn sich die App aufhängt</string>
+    <string name="download_started">Download gestartet…</string>
+    <string name="search">Suche</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="author" translatable="false">Vojtěch Hořánek</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">Über</string>
+    <string name="option8">Interface einfärben</string>
+    <string name="option8desc">Ausschalten dieser Einstellung spart Daten</string>
+    <string name="please_enter_text">Bitte Text eingeben</string>
+
+
+</resources>
