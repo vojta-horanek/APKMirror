@@ -1,16 +1,14 @@
 package cf.vojtechh.apkmirror;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.support.annotation.NonNull;
 import android.view.Window;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 public class SearchActivity extends Activity {
 
@@ -18,40 +16,27 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.search_relative_layout);
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.search_dialog, rl, false);
-        final EditText editText = (EditText) alertLayout.findViewById(R.id.textViewSearch);
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.search);
-        // this is set the view from XML inside AlertDialog
-        alert.setView(alertLayout);
-        // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(false);
-        alert.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
+        new MaterialDialog.Builder(this)
+                .title(R.string.search)
+                .inputRangeRes(1, 100, R.color.Warning)
+                .input(R.string.search, R.string.nothing, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent i = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText()));
 
-        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String text = String.valueOf(editText.getText());
-                Intent i = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://www.apkmirror.com/?s=" + text));
-
-                startActivity(i);
-                finish();
-
-
-            }
-        });
-        alert.show();
-
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .negativeText(R.string.cancel)
+                .show();
     }
 
 
