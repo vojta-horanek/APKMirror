@@ -3,61 +3,64 @@
     <PreferenceCategory android:title="@string/settings" />
     <SwitchPreference
         android:defaultValue="false"
-        android:title="@string/option1"
         android:key="cache"
-        android:summary="@string/option1desc" />
+        android:summary="@string/option1desc"
+        android:title="@string/option1" />
     <SwitchPreference
         android:defaultValue="false"
-        android:title="@string/option2"
         android:key="javascript"
-        android:summary="@string/option2desc" />
+        android:summary="@string/option2desc"
+        android:title="@string/option2" />
     <SwitchPreference
         android:defaultValue="true"
-        android:title="@string/option3"
         android:key="navbarcolor"
-        android:summary="@string/option3desc" />
+        android:summary="@string/option3desc"
+        android:title="@string/option3" />
     <SwitchPreference
         android:defaultValue="true"
-        android:title="@string/option8"
         android:key="colorupdate"
-        android:summary="@string/option8desc" />
+        android:summary="@string/option8desc"
+        android:title="@string/option8" />
     <SwitchPreference
         android:defaultValue="false"
-        android:title="@string/option4"
         android:key="title"
-        android:summary="@string/option4desc" />
+        android:summary="@string/option4desc"
+        android:title="@string/option4" />
     <SwitchPreference
         android:defaultValue="true"
-        android:title="@string/option7"
         android:key="crashlytics"
-        android:summary="@string/option7desc" />
+        android:summary="@string/option7desc"
+        android:title="@string/option7" />
 
     <PreferenceCategory android:title="@string/about" />
     <Preference
-        android:title="@string/github"
-        android:key="github" />
+        android:key="github"
+        android:title="@string/github" />
     <Preference
-        android:title="@string/libraries"
-        android:key="libs" />
+        android:key="libs"
+        android:title="@string/libraries" />
     <Preference
-        android:title="@string/thread"
-        android:key="xda" />
+        android:key="xda"
+        android:title="@string/thread" />
     <Preference
-        android:title="Copyleft 2016 Vojtěch Hořánek"
-        android:key="copy" />
+        android:key="copy"
+        android:title="Copyleft 2017 Vojtěch Hořánek" />
 
     <PreferenceCategory android:title="With thanks to the following people:" />
     <Preference
-        android:title="EvoWizz"
-        android:key="evo" />
+        android:key="evo"
+        android:title="EvoWizz" />
     <Preference
-        android:title="ja_som"
-        android:key="ja_som" />
+        android:key="ja_som"
+        android:title="ja_som" />
     <Preference
-        android:title="LuckyNuke1310"
-        android:key="nuke" />
+        android:key="nuke"
+        android:title="LuckyNuke1310" />
     <Preference
-        android:title="Ninnix96"
-        android:key="nin" />
+        android:key="nin"
+        android:title="Ninnix96" />
+    <Preference
+        android:key="azalel"
+        android:title="Sandro Azalel" />
 
 </PreferenceScreen>

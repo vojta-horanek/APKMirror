@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_relative_layout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/search_relative_layout">
+    android:layout_height="wrap_content">
 
     <EditText
+        android:id="@+id/textViewSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewSearch"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:inputType="text"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="Query"
-        android:maxLines="1"
-        android:maxLength="100"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        android:focusable="true" />
+        android:inputType="text"
+        android:maxLength="100"
+        android:maxLines="1" />
 
 
 </RelativeLayout>

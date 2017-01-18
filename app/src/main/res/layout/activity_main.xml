@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_height="fill_parent"
-    android:layout_width="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_marginTop="0px"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,42 +14,43 @@
         android:id="@+id/splash_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="cf.vojtechh.apkmirror.MainActivity"
-        android:background="@color/SplashScreen">
+        android:background="@color/SplashScreen"
+        tools:context="cf.vojtechh.apkmirror.MainActivity">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/logo"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:paddingBottom="150dp"
-            android:contentDescription="@string/app_name"
             android:layout_centerInParent="true"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/app_name"
+            android:paddingBottom="150dp"
             android:src="@drawable/logo" />
 
         <TextView
+            android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/author"
-            android:id="@+id/author"
-            android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin" />
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/author"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
 
 
         <ProgressBar
+            android:id="@+id/progress"
             style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="146dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progress"
-            android:theme="@style/progress"
             android:layout_above="@id/author"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
             android:indeterminate="false"
-            android:layout_marginBottom="32dp" />
+            android:theme="@style/progress" />
 
 
     </RelativeLayout>
@@ -57,11 +58,11 @@
 
     <RelativeLayout
         android:id="@+id/main_view"
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="invisible"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
 
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -80,19 +81,19 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <RelativeLayout
+            android:id="@+id/items"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/items">
+            android:layout_height="match_parent">
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
+                android:layout_height="56dp"
                 android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
                 app:itemIconTint="#ffffff"
                 app:itemTextColor="#ffffff"
-                app:menu="@menu/bottombar"
-                android:layout_height="56dp"
-                android:background="@color/colorPrimary" />
+                app:menu="@menu/bottombar" />
 
 
             <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -128,37 +129,37 @@
                     android:layout_gravity="top|center|end"
                     android:layout_margin="16dp"
                     android:src="@drawable/ic_share"
-                    app:layout_anchor="@id/dummy"
-                    app:layout_anchorGravity="top|right|end"
+                    android:visibility="gone"
                     app:fabSize="normal"
-                    android:visibility="gone" />
+                    app:layout_anchor="@id/dummy"
+                    app:layout_anchorGravity="top|right|end" />
 
             </android.support.design.widget.CoordinatorLayout>
 
             <ProgressBar
                 android:id="@+id/loading"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:scaleY="2"
-                android:theme="@style/progress2"
-                android:layout_marginBottom="50dp"
+                android:layout_alignBottom="@id/bottom_navigation"
                 android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/bottom_navigation" />
+                android:layout_marginBottom="50dp"
+                android:scaleY="2"
+                android:theme="@style/progress2" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/settings_layout_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/settings_layout_fragment"
             android:layout_marginBottom="56dp"
             android:visibility="gone">
 
             <fragment
+                android:id="@+id/settings_fragment_main"
+                android:name="cf.vojtechh.apkmirror.PreferencesFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="cf.vojtechh.apkmirror.PreferencesFragment"
-                android:id="@+id/settings_fragment_main"
                 tools:layout="@android:layout/preference_category" />
 
         </RelativeLayout>

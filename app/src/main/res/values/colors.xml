@@ -6,4 +6,5 @@
     <color name="dark_background">#303030</color>
     <color name="Recents">#fff</color>
     <color name="SplashScreen">#FF8B14</color>
+    <color name="Warning">#f44336</color>
 </resources>

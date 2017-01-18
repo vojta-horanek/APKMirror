@@ -37,6 +37,7 @@
     <string name="option8">Enable interface coloring</string>
     <string name="option8desc">Disabling this will save data</string>
     <string name="please_enter_text">Please enter text</string>
+    <string name="nothing" translatable="false" />
 
 
 </resources>

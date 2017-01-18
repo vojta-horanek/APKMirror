@@ -31,8 +31,6 @@
     <string name="download_started">Download gestartet…</string>
     <string name="search">Suche</string>
     <string name="cancel">Abbrechen</string>
-    <string name="author" translatable="false">Vojtěch Hořánek</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">Über</string>
     <string name="option8">Interface einfärben</string>
     <string name="option8desc">Ausschalten dieser Einstellung spart Daten</string>

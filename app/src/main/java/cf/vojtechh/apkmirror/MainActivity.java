@@ -10,7 +10,6 @@ import android.app.ActivityManager;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -25,6 +24,9 @@ import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,16 +40,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
@@ -58,12 +57,13 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crashlytics.android.Crashlytics;
 
 import net.htmlparser.jericho.Element;
@@ -114,12 +114,14 @@ public class MainActivity extends Activity {
 
     BroadcastReceiver onComplete;
 
+    NfcAdapter nfc;
+
     @BindView(R.id.loading)
     ProgressBar Pbar;
     @BindView(R.id.progress)
     ProgressBar PbarSplash;
     @BindView(R.id.fab_search)
-    FloatingActionButton fab;
+    FloatingActionButton fabSearch;
     @BindView(R.id.fab_share)
     FloatingActionButton fabShare;
     @BindView(R.id.logo)
@@ -195,6 +197,7 @@ public class MainActivity extends Activity {
         title = prefs.getBoolean("title", false);
         interfaceUpdating = prefs.getBoolean("colorupdate", true);
 
+        nfc=NfcAdapter.getDefaultAdapter(this);
         drawable = Pbar.getProgressDrawable();
         Intent OpenedFromExternalLink = getIntent();
         WebSettings WebViewSettings = mWebView.getSettings();
@@ -283,7 +286,7 @@ public class MainActivity extends Activity {
         else
             WebViewSettings.setJavaScriptEnabled(true);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 search();
@@ -300,17 +303,19 @@ public class MainActivity extends Activity {
 
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
 
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         if (favico != null && !favico.isRecycled()) {
             favico.recycle();
             favico = null;
@@ -318,9 +323,10 @@ public class MainActivity extends Activity {
 
         super.onDestroy();
     }
+
     @Override
     protected void onStop() {
-        if (onComplete != null){
+        if (onComplete != null) {
             unregisterReceiver(onComplete);
         }
 
@@ -379,7 +385,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     if (isNougat) {
-                       Uri apkURI = FileProvider.getUriForFile(MainActivity.this,
+                        Uri apkURI = FileProvider.getUriForFile(MainActivity.this,
                                 BuildConfig.APPLICATION_ID + ".provider",
                                 new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName));
                         Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
@@ -387,7 +393,7 @@ public class MainActivity extends Activity {
                         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         startActivity(intent);
 
-                    }else {
+                    } else {
                         File apkfile;
                         apkfile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + Environment.DIRECTORY_DOWNLOADS + "/" + fileName);
                         Uri apkUri = Uri.fromFile(apkfile);
@@ -441,6 +447,7 @@ public class MainActivity extends Activity {
 
             Pbar.setVisibility(ProgressBar.VISIBLE);
             updateBottomBar(url);
+            setupNFC(url);
 
 
         }
@@ -579,28 +586,28 @@ public class MainActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_WRITE_STORAGE_RESULT) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                alertDialog.setTitle("RESTART!");
-                alertDialog.setMessage(getString(R.string.storage_access) + ". " + getString(R.string.storage_access_denied));
-                alertDialog.setCancelable(false);
-                alertDialog.setCanceledOnTouchOutside(false);
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Restart",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+
+                new MaterialDialog.Builder(this)
+                        .title("RESTART!")
+                        .content(getString(R.string.storage_access) + getString(R.string.storage_access_denied))
+                        .positiveText("Restart")
+                        .cancelable(false)
+                        .canceledOnTouchOutside(false)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 Intent i = getBaseContext().getPackageManager()
                                         .getLaunchIntentForPackage(getBaseContext().getPackageName());
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }
-                        });
-                alertDialog.show();
-
+                        })
+                        .show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 
     private void createBottomBar() {
         bottomBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -612,55 +619,67 @@ public class MainActivity extends Activity {
                     Toast.makeText(MainActivity.this, getResources().getString(R.string.settingsrestart), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, MainActivity.class));
                     finish();
-                }else if(settingsFragment.getVisibility() == View.VISIBLE){
+                } else if (settingsFragment.getVisibility() == View.VISIBLE) {
                     settingsFragment.setVisibility(View.GONE);
                     swipeRefreshLayout.setVisibility(View.VISIBLE);
                     Pbar.setVisibility(View.VISIBLE);
-                    fab.show();
-                    fabShare.show();
+                    fabSearch.show();
+                    if (!currentUrl.equals(urlFrontPage) && !currentUrl.equals(urlDev) && currentUrl.equals(urlUp)) {
+                        fabShare.show();
+
+                    }
                 }
 
                 switch (item.getItemId()) {
                     case R.id.tab_homepage:
-                        if (!bottomBar.getMenu().getItem(0).isChecked()) {
+
+                        if (!bottomBar.getMenu().getItem(0).isChecked() && !currentUrl.equals(urlFrontPage)) {
                             mWebView.loadUrl(urlFrontPage);
                             currentUrl = urlFrontPage;
+                            break;
                         } else {
-                            if (Y != 0)
+                            if (Y != 0) {
                                 mWebView.scrollTo(0, 0);
-                            else {
+                                break;
+                            } else if (!currentUrl.equals(urlFrontPage)) {
                                 mWebView.loadUrl(urlFrontPage);
                                 currentUrl = urlFrontPage;
+                                break;
                             }
                         }
                         break;
                     case R.id.tab_devs:
 
-                        if (!bottomBar.getMenu().getItem(1).isChecked()) {
+                        if (!bottomBar.getMenu().getItem(1).isChecked() && !currentUrl.equals(urlDev)) {
                             mWebView.loadUrl(urlDev);
                             currentUrl = urlDev;
+                            break;
                         } else {
-                            if (Y != 0)
+                            if (Y != 0) {
                                 mWebView.scrollTo(0, 0);
-                            else {
+                                break;
+                            } else if (!currentUrl.equals(urlFrontPage)) {
                                 mWebView.loadUrl(urlDev);
                                 currentUrl = urlDev;
+                                break;
                             }
                         }
 
                         break;
                     case R.id.tab_upload:
 
-
-                        if (!bottomBar.getMenu().getItem(2).isChecked()) {
+                        if (!bottomBar.getMenu().getItem(2).isChecked() && !currentUrl.equals(urlUp)) {
                             mWebView.loadUrl(urlUp);
                             currentUrl = urlUp;
+                            break;
                         } else {
-                            if (Y != 0)
+                            if (Y != 0) {
                                 mWebView.scrollTo(0, 0);
-                            else {
+                                break;
+                            } else if (!currentUrl.equals(urlFrontPage)) {
                                 mWebView.loadUrl(urlUp);
                                 currentUrl = urlUp;
+                                break;
                             }
                         }
                         break;
@@ -668,7 +687,7 @@ public class MainActivity extends Activity {
                     case R.id.tab_settings:
                         swipeRefreshLayout.setVisibility(View.GONE);
                         Pbar.setVisibility(View.GONE);
-                        fab.hide();
+                        fabSearch.hide();
                         fabShare.hide();
 
                         bottomBar.setBackgroundColor(Color.parseColor("#ff8b14"));
@@ -696,8 +715,8 @@ public class MainActivity extends Activity {
 
                     case R.id.tab_exit:
                         finish();
-                        break;
                 }
+
 
                 return true;
             }
@@ -851,13 +870,13 @@ public class MainActivity extends Activity {
             if (result != null) {
                 // updating interface
 
-                fab.setBackgroundTintList(ColorStateList.valueOf(result));
+                fabSearch.setBackgroundTintList(ColorStateList.valueOf(result));
                 fabShare.setBackgroundTintList(ColorStateList.valueOf(result));
                 drawable.setColorFilter(new LightingColorFilter(0xFF000000, result));
                 bottomBar.setBackgroundColor(result);
                 swipeRefreshLayout.setColorSchemeColors(result, result, result);
                 String bottomobarTitle = appName.replaceAll("[0-9.]", "");
-                bottomobarTitle = bottomobarTitle.replaceAll("\\s*\\bbeta\\b\\s*","");
+                bottomobarTitle = bottomobarTitle.replaceAll("\\s*\\bbeta\\b\\s*", "");
                 bottomBar.getMenu().getItem(0).setTitle(bottomobarTitle);
                 //updating recents
 
@@ -887,6 +906,16 @@ public class MainActivity extends Activity {
 
     }
 
+    private void setupNFC(String url){
+        if (nfc != null) { // in case there is no NFC
+            // create an NDEF message containing the current URL:
+            NdefRecord rec = NdefRecord.createUri(url); // url: current URL (String or Uri)
+            NdefMessage ndef = new NdefMessage(rec);
+            // make it available via Android Beam:
+            nfc.setNdefPushMessage(ndef, this, this);
+        }
+    }
+
     private void share(String text) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -895,49 +924,26 @@ public class MainActivity extends Activity {
         startActivity(Intent.createChooser(sendIntent, null));
     }
 
-
     private void search() {
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.search_relative_layout);
-        LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.search_dialog, rl, false);
 
-        final EditText editText = (EditText) alertLayout.findViewById(R.id.textViewSearch);
-
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        alertDialogBuilder.setView(alertLayout);
-        alertDialogBuilder.setTitle(R.string.search);
-
-        final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        editText.requestFocus();
-
-        alertDialogBuilder.setPositiveButton(R.string.search, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                if (mWebView != null) {
-                    mWebView.loadUrl("http://www.apkmirror.com/?s=" + editText.getText());
-                    inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-                }
-            }
-        });
-
-        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-            }
-        });
-
-        alertDialogBuilder.setOnCancelListener(
-                new DialogInterface.OnCancelListener() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.search)
+                .inputRangeRes(1, 100, R.color.Warning)
+                .input(R.string.search, R.string.nothing, new MaterialDialog.InputCallback() {
                     @Override
-                    public void onCancel(DialogInterface dialog) {
-                        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                     }
-                }
-        );
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        mWebView.loadUrl("http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
+                    }
+                })
+                .negativeText(R.string.cancel)
+                .show();
 
-        alertDialogBuilder.show();
+
     }
 
 
@@ -958,9 +964,9 @@ public class MainActivity extends Activity {
 
     }
 
-    private int getBottomBarSelectedItem(){
-        for (int i =0; i<=bottomBar.getMenu().size();i++){
-            if (bottomBar.getMenu().getItem(i).isChecked()){
+    private int getBottomBarSelectedItem() {
+        for (int i = 0; i <= bottomBar.getMenu().size(); i++) {
+            if (bottomBar.getMenu().getItem(i).isChecked()) {
                 return i;
             }
 
