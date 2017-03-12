@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cf.vojtechh.apkmirror.activities.MainActivity">
+
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:bb_showShadow="false"
+        android:elevation="8dp"
+        app:bb_tabXmlResource="@xml/navigation"
+        android:layout_alignParentBottom="true"/>
+
+    <LinearLayout
+        android:id="@+id/first_loading_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"/>
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/web_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_above="@id/navigation">
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <cf.vojtechh.apkmirror.classes.ObservableWebView
+                android:id="@+id/main_webview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollbars="vertical"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarSize="20dp" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <!--This removes the padding in progress bar-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="#FFFFFF"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/main_progress_bar_container">
+
+            <ProgressBar
+                android:id="@+id/main_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center" />
+
+        </FrameLayout>
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            app:fabSize="normal"
+            android:src="@drawable/ic_search_black_24dp"
+            android:tint="#FFFFFF"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_layout_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navigation"
+        android:visibility="gone">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/settings"
+            android:background="@color/colorPrimary"
+            android:id="@+id/settings_toolbar"
+            app:titleTextColor="#FFFFFF"
+            android:elevation="8dp"/>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/AD_MOB_SETTINGS_BANNER_AD_KEY">
+
+        </com.google.android.gms.ads.AdView>
+
+        <fragment
+            android:id="@+id/settings_fragment_main"
+            android:name="cf.vojtechh.apkmirror.fragments.PreferencesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/adView"
+            tools:layout="@android:layout/preference_category"
+            android:layout_below="@id/settings_toolbar" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

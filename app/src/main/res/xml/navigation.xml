@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/navigation_home"
+        icon="@drawable/ic_public_black_24dp"
+        title="@string/browse"
+        inActiveColor="#747474"
+        activeColor="#FF8B14"/>
+    <tab
+        id="@+id/navigation_upload"
+        icon="@drawable/ic_file_upload_black_24dp"
+        title="@string/upload"
+        inActiveColor="#747474"
+        activeColor="#FF8B14"/>
+    <tab
+        id="@+id/navigation_settings"
+        icon="@drawable/ic_settings_black_24dp"
+        title="@string/settings"
+        inActiveColor="#747474"
+        activeColor="#FF8B14"/>
+</tabs>

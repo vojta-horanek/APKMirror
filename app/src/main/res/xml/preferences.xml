@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="firebase"
+        android:summary="@string/firebase_pref_summ"
+        android:title="@string/firebase_pref" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="fab"
+        android:summary="@string/fab_pref_summ"
+        android:title="@string/fab_pref" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="save_url"
+        android:summary="@string/save_url_summ"
+        android:title="@string/save_url_pref" />
+
+    <PreferenceCategory android:title="@string/about" />
+    <Preference
+        android:key="github"
+        android:summary="@string/github_summ"
+        android:title="@string/github" />
+    <Preference
+        android:key="libs"
+        android:summary="@string/lib_summ"
+        android:title="@string/libraries" />
+    <Preference
+        android:key="xda"
+        android:summary="@string/xda_summ"
+        android:title="@string/thread" />
+    <Preference
+        android:key="ads_info"
+        android:summary="@string/ads_summ"
+        android:title="@string/ads_info" />
+
+    <PreferenceCategory android:title="@string/with_thanks" />
+    <Preference
+        android:key="evo"
+        android:summary="@string/evo_thx"
+        android:title="EvoWizz" />
+    <Preference
+        android:key="ja_som"
+        android:summary="@string/ja_som_thx"
+        android:title="ja_som" />
+    <Preference
+        android:key="nuke"
+        android:summary="@string/lucky_thx"
+        android:title="LuckyNuke1310" />
+    <Preference
+        android:key="nin"
+        android:summary="@string/nin_thx"
+        android:title="Ninnix96" />
+    <Preference
+        android:key="azalel"
+        android:summary="@string/azalel_thx"
+        android:title="Sandro Azalel" />
+
+</PreferenceScreen>
