@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="browse">Prezerať</string>
+    <string name="latest_uploads">Nahrať</string>
+    <string name="upload">Nahrať</string>
+    <string name="settings">Nastavenia</string>
+    
+    <string name="firebase_pref">Povoliť analytiku</string>
+    <string name="firebase_pref_summ">Odošle analytiku vývojárovi (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
+    <string name="fab_pref">Zobraziť tlačidlo pre vyhľadávanie</string>
+    <string name="fab_pref_summ">Zakázanie skryje plávajúce tlačidlo pre vyhľadávanie (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
+    <string name="save_url_pref">Zapamätať poslednú adresu</string>
+    <string name="save_url_summ">Chcete aby sa aplikácia otvorila na posledne použitej adrese?</string>
+    
+    <string name="about">O aplikácií</string>
+    <string name="github_summ">Zaujíma vás ako aplikácia funguje?</string>
+    <string name="libraries">Knižnice</string>
+    <string name="lib_summ">Zobraziť použité open source knižnice v tejto aplikácií</string>
+    <string name="thread">Téma na XDA</string>
+    <string name="xda_summ">Diskutujte o aplikácií s ďalšími používateľmi!</string>
+    <string name="ads_info">Informácie o reklamách</string>
+    <string name="ads_summ">Zobraziť informácie o reklamách, v peknom dialógovom okne s material dizajnom</string>
+    <string name="ads_info_dialog">Reklamy sú potrebné pre chod APKMirror, pretože je to bezplatná služba, ak ju chcete naďalej používať, prosím, zvážte zakázanie blokovania reklám. Avšak reklama v nastaveniach slúži na podporu vývojára, nie APKMirror.</string>
+    <string name="ok">OK</string>
+    
+    <string name="with_thanks">Vďaka týmto ľuďom:</string>
+    <string name="evo_thx">Za úžasnú ikonu, pomoc s dizajnom, preklad do francúzštiny a oveľa viac!</string>
+    <string name="ja_som_thx">Za pomoc a pravidelnú aktualizáciu slovenského prekladu</string>
+    <string name="lucky_thx">Za preklad do taliančiny</string>
+    <string name="nin_thx">Za pomoc s vývojom</string>
+    <string name="azalel_thx">Za preklad do nemčiny</string>
+
+    <string name="storage_access">Táto aplikácia vyžaduje povolenie pre zápis na úložisko, aby bolo možné ukladať súbory. (Musíte znova kliknúť na tlačidlo Download)</string>
+    <string name="request_permission">Vyžiadať povolenie</string>
+    <string name="write_permission">Povolenie pre zápis na úložisko</string>
+
+    <string name="error">Chyba</string>
+    <string name="error_while_loading_page">Pri načítaní stránky sa vyskytla chyba: </string>
+    <string name="cancel">Zrušiť</string>
+    <string name="refresh">Obnoviť</string>
+    <string name="cant_download">Sťahovanie nie je možné spustiť, prosím, uistite sa, že máte nainštalovanú aplikáciu pre správu sťahovania.</string>
+    <string name="close">Zavrieť</string>
+    <string name="download_started">Sťahovanie sa začalo…</string>
+    <string name="search">Hľadať</string>
+    <string name="please_enter_text">Prosím, zadajte text</string>
+    <string name="settingsrestart">Reštartovanie</string>
+
+</resources>
