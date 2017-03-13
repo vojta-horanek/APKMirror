@@ -4,6 +4,7 @@
     <string name="latest_uploads">Nahrať</string>
     <string name="upload">Nahrať</string>
     <string name="settings">Nastavenia</string>
+    <string name="exit">Exit</string>
     
     <string name="firebase_pref">Povoliť analytiku</string>
     <string name="firebase_pref_summ">Odošle analytiku vývojárovi (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
@@ -11,6 +12,8 @@
     <string name="fab_pref_summ">Zakázanie skryje plávajúce tlačidlo pre vyhľadávanie (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
     <string name="save_url_pref">Zapamätať poslednú adresu</string>
     <string name="save_url_summ">Chcete aby sa aplikácia otvorila na posledne použitej adrese?</string>
+    <string name="exit_summ">Do you want to show exit button in the bottom navigation? (restart is required in order to change this settings)</string>
+    <string name="exit_pref">Show exit button in navigation</string>
     
     <string name="about">O aplikácií</string>
     <string name="github_summ">Zaujíma vás ako aplikácia funguje?</string>

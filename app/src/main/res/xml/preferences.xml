@@ -20,6 +20,12 @@
         android:summary="@string/save_url_summ"
         android:title="@string/save_url_pref" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="show_exit"
+        android:summary="@string/exit_summ"
+        android:title="@string/exit_pref" />
+
     <PreferenceCategory android:title="@string/about" />
     <Preference
         android:key="github"

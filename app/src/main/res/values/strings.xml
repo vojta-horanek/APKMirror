@@ -3,6 +3,7 @@
     <string name="settings">Settings</string>
     <string name="upload">Upload</string>
     <string name="browse">Browse</string>
+    <string name="exit">Exit</string>
 
     <string name="storage_access">This app needs to have a permission to write to external storage in order to save files. (You need to click the download button again)</string>
     <string name="request_permission">Request permission</string>
@@ -31,6 +32,10 @@
     <string name="firebase_pref">Enable analytics</string>
     <string name="firebase_pref_summ">Send analytics to the developer (restart is required in order to change this settings)</string>
     <string name="cant_download">Can\'t start download, please make sure you have download manager installed.</string>
+    <string name="save_url_summ">Do you want to remember the last url on app exit? (restart is required in order to change this settings)</string>
+    <string name="save_url_pref">Remember last url</string>
+    <string name="exit_summ">Do you want to show exit button in the bottom navigation? (restart is required in order to change this settings)</string>
+    <string name="exit_pref">Show exit button in navigation</string>
     <string name="refresh">Refresh</string>
     <string name="with_thanks">With thanks to the following people:</string>
     <string name="evo_thx">For the amazing icon, help with design, French translation and much more!</string>
@@ -44,9 +49,6 @@
     <string name="ads_summ">View the info about ads, in a nice material dialog</string>
 
     <string name="nothing" translatable="false"/>
-    <string name="save_url_summ">Do you want remember the last url on app exit?</string>
-    <string name="save_url_pref">Remember last url</string>
-
 
 </resources>
 

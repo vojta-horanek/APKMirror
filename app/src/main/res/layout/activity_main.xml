@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="cf.vojtechh.apkmirror.activities.MainActivity">
 
+    <!--This makes null pointer in AS preview but allows to set dynamic items-->
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/navigation"
@@ -14,7 +15,6 @@
         android:layout_height="60dp"
         app:bb_showShadow="false"
         android:elevation="8dp"
-        app:bb_tabXmlResource="@xml/navigation"
         android:layout_alignParentBottom="true"/>
 
     <LinearLayout
@@ -23,19 +23,25 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/splash_image"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            android:maxHeight="130dp"
+            android:maxWidth="130dp"
+            android:minHeight="130dp"
+            android:minWidth="130dp"
+            android:layout_marginBottom="16dp"/>
 
         <ProgressBar
+
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true" />
 

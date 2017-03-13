@@ -111,9 +111,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         shortAnimDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        //Making the bottom navigation do something
-        navigation.setOnTabSelectListener(tabSelectListener);
-        navigation.setOnTabReselectListener(tabReselectListener);
+        initNavigation();
 
         //Ads
         MobileAds.initialize(getApplicationContext(), BuildConfig.AD_MOB_APP_KEY);
@@ -171,14 +169,29 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         //I know not the best solution xD
         if(!settingsShortcut) {
             firstLoadingView.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    crossFade(firstLoadingView, webContainer);
+                    if (firstLoadingView.getVisibility() == View.VISIBLE) {
+                        crossFade(firstLoadingView, webContainer);
+                    }
                 }
             }, 2000);
         }
+    }
+
+    private void initNavigation() {
+
+        //Making the bottom navigation do something
+        navigation.setOnTabSelectListener(tabSelectListener);
+        navigation.setOnTabReselectListener(tabReselectListener);
+
+        if (!sharedPreferences.getBoolean("show_exit", false)){
+            navigation.setItems(R.xml.navigation);
+        }else{
+            navigation.setItems(R.xml.navigation_exit);
+        }
+
     }
 
     private void initSearchFab() {
@@ -222,9 +235,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     protected void onPause() {
         //Doing this here for the app to have some time to save it
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("last_url", webView.getUrl());
-        editor.apply();
+        if (saveUrl) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("last_url", webView.getUrl());
+            editor.apply();
+        }
         webView.onPause();
         super.onPause();
     }
@@ -369,9 +384,14 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 }
             } else if (tabId == R.id.navigation_settings) {
                 //Settings pressed
+                if (firstLoadingView.getVisibility() ==  View.VISIBLE){
+                    firstLoadingView.setVisibility(View.GONE);
+                }
                 crossFade(webContainer, settingsLayoutFragment);
                 changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 
+            }else if (tabId == R.id.navigation_exit) {
+                finish();
             }
         }
     };
