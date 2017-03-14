@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="settings">Ayarlar</string>
+    <string name="upload">Yükle</string>
+    <string name="browse">Tara</string>
+    <string name="exit">Çıkış</string>
+
+    <string name="storage_access">Bu uygulama, dosyaları yerel depolamayı kullanabilmek için bazı izinler gerektirir. (İndir butonuna tekrar dokunmanız gerekecek)</string>
+  <string name="request_permission">İzin iste</string>
+    <string name="write_permission">Yazma isteği</string>
+
+    <string name="settingsrestart">Yeniden başlatılıyor</string>
+    <string name="latest_uploads">Yükle</string>
+    <string name="error">Hata</string>
+    <string name="error_while_loading_page">Sayfa yüklenirken bir hata oluştu: </string>
+    <string name="thread">XDA Konusu</string>
+    <string name="libraries">Kütüphaneler</string>
+    <string name="close">Kapat</string>
+    <string name="download_started">İndirme başladı…</string>
+    <string name="search">Ara</string>
+    <string name="cancel">İptal</string>
+    <string name="author" translatable="false">Vojtěch Hořánek</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">Hakkında</string>
+    <string name="please_enter_text">Lütfen metin girin</string>
+
+    <string name="ads_info">Reklâmlar hakkında bilgi</string>
+    <string name="ads_info_dialog">Reklâmlar, APKMirror'un çalışması için gereklidir çünkü bu servis ücretsizdir, eğer kullanmaya devam etmek istiyorsanız lütfen reklâm engelleyiciyi kapatma hakkında düşünün. Ayarlardaki reklâm, APKMirror'dansa, geliştiriciyi desteklemek için bulunmaktadır.</string>
+    <string name="ok">TAMAM</string>
+    <string name="fab_pref_summ">Bunu devredışı bırakmak yüzen arama düğmesini gizleyecek (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
+    <string name="fab_pref">Yüzen arama düğmesini göster</string>
+    <string name="firebase_pref">Analizi etkinleştir</string>
+    <string name="firebase_pref_summ">Analizleri ve sonuçlarını geliştiriciye gönder (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
+    <string name="cant_download">İndirme başlatılamadı, cihazınızda indirme yöneticisi olduğundan emin olun.</string>
+    <string name="save_url_summ">Uygulamadan çıkışta en son adresi hatırlamak istiyor musunuz? (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
+    <string name="save_url_pref">Son adresi hatırla</string>
+    <string name="exit_summ">Alt yönetim çubuğunda çıkış düğmesi göstermek istiyor musunuz? (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
+    <string name="exit_pref">Alt yönetim çubuğunda çıkış düğmesi göster</string>
+    <string name="refresh">Yenile</string>
+    <string name="with_thanks">Aşağıdaki kişilere teşekkürlerle:</string>
+    <string name="evo_thx">Harika simge, görünüm tasarımı yardımı, Fransızca çeviri ve daha fazlasına!</string>
+    <string name="ja_som_thx">Yardım ve Slovakça çeviri için</string>
+    <string name="lucky_thx">İtalyanca çeviri için</string>
+    <string name="nin_thx">Geliştirmedeki yardımı için</string>
+    <string name="azalel_thx">Almanca çeviri için</string>
+    <string name="github_summ">Bu uygulamanın nasıl çalıştığını mı merak ediyorsunuz?</string>
+    <string name="lib_summ">Bu uygulamada kullanılan açık kaynak kütüphanelerini gör</string>
+    <string name="xda_summ">Bunun hakkında diğer insanlarla tartış!</string>
+    <string name="ads_summ">Materyal diyalog içerisinde reklâmlar hakkında bilgi al</string>
+
+    <string name="nothing" translatable="false"/>
+
+</resources>
