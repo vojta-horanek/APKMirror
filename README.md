@@ -11,7 +11,7 @@ Quick loading (for the most part)
 
 <b>Screenshots:</b>
 
-<img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/1.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/3.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/4.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/5.png" width="25%" height=25%/>
+<img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/5.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/4.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/3.png" width="25%" height=25%/><img src="https://github.com/vojta-horanek/APKMirror/raw/master/screenshots/1.png" width="25%" height=25%/>
 
 
 ```
