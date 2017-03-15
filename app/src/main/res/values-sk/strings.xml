@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">APKMirror</string>
     <string name="browse">Prezerať</string>
-    <string name="latest_uploads">Nahrať</string>
     <string name="upload">Nahrať</string>
     <string name="settings">Nastavenia</string>
     <string name="exit">Ukončiť</string>
@@ -12,7 +11,12 @@
     <string name="fab_pref_summ">Zakázanie skryje plávajúce tlačidlo pre vyhľadávanie (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
     <string name="save_url_pref">Zapamätať poslednú adresu</string>
     <string name="exit_pref">Zobraziť tlačidlo ukončiť v navigačnej lište</string>
+  
+  
+    <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
+    <string name="external_download_pref">Use external download app</string>
     <string name="external_download_summ">Použiť aplikácie ako ADM alebo Download Accelerator pre stiahnutie apk</string>
+   
 
 
     <string name="about">O aplikácií</string>

@@ -30,7 +30,7 @@
         android:defaultValue="false"
         android:key="external_download"
         android:summary="@string/external_download_summ"
-        android:title="Use external download app" />
+        android:title="@string/external_download_pref" />
 
     <PreferenceCategory android:title="@string/about" />
     <Preference

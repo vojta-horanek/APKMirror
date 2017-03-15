@@ -10,7 +10,6 @@
     <string name="write_permission">Yazma isteği</string>
 
     <string name="settingsrestart">Yeniden başlatılıyor</string>
-    <string name="latest_uploads">Yükle</string>
     <string name="error">Hata</string>
     <string name="error_while_loading_page">Sayfa yüklenirken bir hata oluştu: </string>
     <string name="thread">XDA Konusu</string>
@@ -45,6 +44,8 @@
     <string name="ads_summ">Materyal diyalog içerisinde reklâmlar hakkında bilgi al</string>
     <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
     <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
+    <string name="external_download_pref">Use external download app</string>
+
 
 
 </resources>
