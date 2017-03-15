@@ -4,10 +4,10 @@ An unofficial apkmirror client/web application
 
 Features:
 
-Quick loading (for the most part)
-Custom download managers
-Clean material design
-Small apk size
+Quick loading (for the most part),
+,Custom download managers
+,Clean material design
+,Small apk size
 
 <b>Screenshots:</b>
 
