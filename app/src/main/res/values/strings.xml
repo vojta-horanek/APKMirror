@@ -10,7 +10,6 @@
     <string name="write_permission">Write permission</string>
 
     <string name="settingsrestart">Restarting</string>
-    <string name="latest_uploads">Upload</string>
     <string name="error">Error</string>
     <string name="error_while_loading_page">An error occurred while loading this page: </string>
     <string name="thread">XDA Thread</string>
@@ -49,6 +48,7 @@
 
     <string name="nothing" translatable="false"/>
     <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
+    <string name="external_download_pref">Use external download app</string>
 
 </resources>
 
