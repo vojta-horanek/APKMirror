@@ -39,8 +39,8 @@
     <string name="xda_summ">Bunun hakkında diğer insanlarla tartış!</string>
     <string name="ads_summ">Materyal diyalog içerisinde reklâmlar hakkında bilgi al</string>
     <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
-    <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
-    <string name="external_download_pref">Use external download app</string>
+    <string name="external_download_summ">Apk indirmek için gelişmiş İndirme Yöneticisi (ADM) ya da indirme hızlandırıcısı gibi uygulamalar kullanın</string>
+    <string name="external_download_pref">Harici indirici kullan</string>
 
 
 </resources>
