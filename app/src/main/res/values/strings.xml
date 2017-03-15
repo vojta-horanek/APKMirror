@@ -9,19 +9,14 @@
     <string name="request_permission">Request permission</string>
     <string name="write_permission">Write permission</string>
 
-    <string name="settingsrestart">Restarting</string>
     <string name="error">Error</string>
     <string name="error_while_loading_page">An error occurred while loading this page: </string>
     <string name="thread">XDA Thread</string>
     <string name="libraries">Libraries</string>
-    <string name="close">Close</string>
     <string name="download_started">Download started…</string>
     <string name="search">Search</string>
-    <string name="cancel">Cancel</string>
-    <string name="author" translatable="false">Vojtěch Hořánek</string>
     <string name="github" translatable="false">GitHub</string>
     <string name="about">About</string>
-    <string name="please_enter_text">Please enter text</string>
 
     <string name="ads_info">Information about ads</string>
     <string name="ads_info_dialog">Ads are needed for APKMirror to keep running because its a free service, so if you want to keep using it please consider disabling your Ad Blocker. However the ad in settings is displayed to support the developer, rather than APKMirror.</string>

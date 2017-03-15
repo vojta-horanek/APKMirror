@@ -34,7 +34,7 @@ public class ObservableWebView extends AdvancedWebView {
         mOnScrollChangedCallback = onScrollChangedCallback;
     }
 
-    public static interface OnScrollChangedCallback {
-        public void onScroll(int l, int t);
+    public interface OnScrollChangedCallback {
+        void onScroll(int l, int t);
     }
 }

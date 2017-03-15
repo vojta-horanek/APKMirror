@@ -118,8 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-;
-        //Analytics
+//Analytics
         if (sharedPreferences.getBoolean("firebase", true) || BuildConfig.DEBUG) {
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         }
@@ -318,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                         webView.loadUrl("http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
                     }
                 })
-                .negativeText(R.string.cancel)
+                .negativeText(android.R.string.cancel)
                 .show();
 
     }
@@ -567,7 +566,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 .title(R.string.error)
                 .content(getString(R.string.error_while_loading_page) + " " + failingUrl + "(" + String.valueOf(errorCode) + " " + description + ")")
                 .positiveText(R.string.refresh)
-                .negativeText(R.string.cancel)
+                .negativeText(android.R.string.cancel)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -596,7 +595,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                     .title(R.string.write_permission)
                     .content(R.string.storage_access)
                     .positiveText(R.string.request_permission)
-                    .negativeText(R.string.cancel)
+                    .negativeText(android.R.string.cancel)
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

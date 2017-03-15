@@ -23,7 +23,7 @@ public class SearchActivity extends Activity {
                 .title(R.string.search)
                 .inputRange(1, 100)
                 .theme(Theme.LIGHT)
-                .negativeText(R.string.cancel)
+                .negativeText(android.R.string.cancel)
                 .input(R.string.search, R.string.nothing, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {

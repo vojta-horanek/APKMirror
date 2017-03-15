@@ -9,17 +9,13 @@
   <string name="request_permission">İzin iste</string>
     <string name="write_permission">Yazma isteği</string>
 
-    <string name="settingsrestart">Yeniden başlatılıyor</string>
     <string name="error">Hata</string>
     <string name="error_while_loading_page">Sayfa yüklenirken bir hata oluştu: </string>
     <string name="thread">XDA Konusu</string>
     <string name="libraries">Kütüphaneler</string>
-    <string name="close">Kapat</string>
     <string name="download_started">İndirme başladı…</string>
     <string name="search">Ara</string>
-    <string name="cancel">İptal</string>
     <string name="about">Hakkında</string>
-    <string name="please_enter_text">Lütfen metin girin</string>
 
     <string name="ads_info">Reklâmlar hakkında bilgi</string>
     <string name="ads_info_dialog">Reklâmlar, APKMirror\'un çalışması için gereklidir çünkü bu servis ücretsizdir, eğer kullanmaya devam etmek istiyorsanız lütfen reklâm engelleyiciyi kapatma hakkında düşünün. Ayarlardaki reklâm, APKMirror\'dansa, geliştiriciyi desteklemek için bulunmaktadır.</string>
@@ -45,7 +41,6 @@
     <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
     <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
     <string name="external_download_pref">Use external download app</string>
-
 
 
 </resources>

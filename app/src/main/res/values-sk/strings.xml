@@ -40,14 +40,10 @@
 
     <string name="error">Chyba</string>
     <string name="error_while_loading_page">Pri načítaní stránky sa vyskytla chyba: </string>
-    <string name="cancel">Zrušiť</string>
     <string name="refresh">Obnoviť</string>
     <string name="cant_download">Sťahovanie nie je možné spustiť, prosím, uistite sa, že máte nainštalovanú aplikáciu pre správu sťahovania.</string>
-    <string name="close">Zavrieť</string>
     <string name="download_started">Sťahovanie sa začalo…</string>
     <string name="search">Hľadať</string>
-    <string name="please_enter_text">Prosím, zadajte text</string>
-    <string name="settingsrestart">Reštartovanie</string>
     <string name="restart_required">Pre aplikovanie zmien je potrebné reštartovať aplikáciu</string>
 
 
