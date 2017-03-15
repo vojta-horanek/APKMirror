@@ -32,9 +32,7 @@
     <string name="firebase_pref">Enable analytics</string>
     <string name="firebase_pref_summ">Send analytics to the developer (restart is required in order to change this settings)</string>
     <string name="cant_download">Can\'t start download, please make sure you have download manager installed.</string>
-    <string name="save_url_summ">Do you want to remember the last url on app exit? (restart is required in order to change this settings)</string>
     <string name="save_url_pref">Remember last url</string>
-    <string name="exit_summ">Do you want to show exit button in the bottom navigation? (restart is required in order to change this settings)</string>
     <string name="exit_pref">Show exit button in navigation</string>
     <string name="refresh">Refresh</string>
     <string name="with_thanks">With thanks to the following people:</string>
@@ -47,8 +45,10 @@
     <string name="lib_summ">View the used open source libraries in this app</string>
     <string name="xda_summ">Discuss about this with other people!</string>
     <string name="ads_summ">View the info about ads, in a nice material dialog</string>
+    <string name="restart_required">Restart is required in order to change this settings</string>
 
     <string name="nothing" translatable="false"/>
+    <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
 
 </resources>
 

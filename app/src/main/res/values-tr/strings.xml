@@ -19,22 +19,18 @@
     <string name="download_started">İndirme başladı…</string>
     <string name="search">Ara</string>
     <string name="cancel">İptal</string>
-    <string name="author" translatable="false">Vojtěch Hořánek</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">Hakkında</string>
     <string name="please_enter_text">Lütfen metin girin</string>
 
     <string name="ads_info">Reklâmlar hakkında bilgi</string>
-    <string name="ads_info_dialog">Reklâmlar, APKMirror'un çalışması için gereklidir çünkü bu servis ücretsizdir, eğer kullanmaya devam etmek istiyorsanız lütfen reklâm engelleyiciyi kapatma hakkında düşünün. Ayarlardaki reklâm, APKMirror'dansa, geliştiriciyi desteklemek için bulunmaktadır.</string>
+    <string name="ads_info_dialog">Reklâmlar, APKMirror\'un çalışması için gereklidir çünkü bu servis ücretsizdir, eğer kullanmaya devam etmek istiyorsanız lütfen reklâm engelleyiciyi kapatma hakkında düşünün. Ayarlardaki reklâm, APKMirror\'dansa, geliştiriciyi desteklemek için bulunmaktadır.</string>
     <string name="ok">TAMAM</string>
     <string name="fab_pref_summ">Bunu devredışı bırakmak yüzen arama düğmesini gizleyecek (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
     <string name="fab_pref">Yüzen arama düğmesini göster</string>
     <string name="firebase_pref">Analizi etkinleştir</string>
     <string name="firebase_pref_summ">Analizleri ve sonuçlarını geliştiriciye gönder (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
     <string name="cant_download">İndirme başlatılamadı, cihazınızda indirme yöneticisi olduğundan emin olun.</string>
-    <string name="save_url_summ">Uygulamadan çıkışta en son adresi hatırlamak istiyor musunuz? (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
     <string name="save_url_pref">Son adresi hatırla</string>
-    <string name="exit_summ">Alt yönetim çubuğunda çıkış düğmesi göstermek istiyor musunuz? (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
     <string name="exit_pref">Alt yönetim çubuğunda çıkış düğmesi göster</string>
     <string name="refresh">Yenile</string>
     <string name="with_thanks">Aşağıdaki kişilere teşekkürlerle:</string>
@@ -47,7 +43,8 @@
     <string name="lib_summ">Bu uygulamada kullanılan açık kaynak kütüphanelerini gör</string>
     <string name="xda_summ">Bunun hakkında diğer insanlarla tartış!</string>
     <string name="ads_summ">Materyal diyalog içerisinde reklâmlar hakkında bilgi al</string>
+    <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
+    <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
 
-    <string name="nothing" translatable="false"/>
 
 </resources>

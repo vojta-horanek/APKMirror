@@ -17,14 +17,20 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="save_url"
-        android:summary="@string/save_url_summ"
+        android:summary="@string/restart_required"
         android:title="@string/save_url_pref" />
 
     <SwitchPreference
         android:defaultValue="false"
         android:key="show_exit"
-        android:summary="@string/exit_summ"
+        android:summary="@string/restart_required"
         android:title="@string/exit_pref" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="external_download"
+        android:summary="@string/external_download_summ"
+        android:title="Use external download app" />
 
     <PreferenceCategory android:title="@string/about" />
     <Preference

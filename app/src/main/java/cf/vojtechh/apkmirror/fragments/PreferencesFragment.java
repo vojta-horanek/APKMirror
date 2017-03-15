@@ -27,6 +27,7 @@ public class PreferencesFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
         prefsFragment = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
+
         Preference github = findPreference("github");
         Preference libs = findPreference("libs");
         Preference xda = findPreference("xda");

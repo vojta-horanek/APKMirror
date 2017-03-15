@@ -51,7 +51,6 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import cf.vojtechh.apkmirror.BuildConfig;
 import cf.vojtechh.apkmirror.R;
-import cf.vojtechh.apkmirror.classes.ObservableWebView;
 import cf.vojtechh.apkmirror.classes.PageAsync;
 import cf.vojtechh.apkmirror.interfaces.AsyncResponse;
 import im.delight.android.webview.AdvancedWebView;
@@ -60,7 +59,7 @@ import im.delight.android.webview.AdvancedWebView;
 
 public class MainActivity extends AppCompatActivity implements AdvancedWebView.Listener, AsyncResponse {
 
-    private ObservableWebView webView;
+    private AdvancedWebView webView;
     private ProgressBar progressBar;
     private BottomBar navigation;
     private FloatingActionButton fabSearch;
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         settingsLayoutFragment = (RelativeLayout) findViewById(R.id.settings_layout_fragment);
         webContainer = (RelativeLayout) findViewById(R.id.web_container);
         firstLoadingView = (LinearLayout) findViewById(R.id.first_loading_view);
-        webView = (ObservableWebView) findViewById(R.id.main_webview);
+        webView = (AdvancedWebView) findViewById(R.id.main_webview);
         fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);
         progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -119,9 +118,9 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
+;
         //Analytics
-        if (sharedPreferences.getBoolean("firebase", true)) {
+        if (sharedPreferences.getBoolean("firebase", true) || BuildConfig.DEBUG) {
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         }
 
@@ -234,12 +233,6 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     @Override
     protected void onPause() {
-        //Doing this here for the app to have some time to save it
-        if (saveUrl) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("last_url", webView.getUrl());
-            editor.apply();
-        }
         webView.onPause();
         super.onPause();
     }
@@ -248,6 +241,16 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     protected void onDestroy() {
         webView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    protected  void onStop(){
+        if (saveUrl) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("last_url", webView.getUrl());
+            editor.apply();
+        }
+        super.onStop();
     }
 
     @Override
@@ -280,10 +283,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             }
 
         }else {
-            if (!webView.getUrl().equals(APKMIRROR_UPLOAD_URL)){
-                navigation.selectTabWithId(R.id.navigation_home);
-            }else {
+            if (webView != null && webView.getUrl().equals(APKMIRROR_UPLOAD_URL)){
                 navigation.selectTabWithId(R.id.navigation_upload);
+            }else {
+                navigation.selectTabWithId(R.id.navigation_home);
+
             }
             return;
         }
@@ -419,11 +423,17 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     private void download(String url, String name) {
 
-        if (AdvancedWebView.handleDownload(this, url, name)) {
-            Toast.makeText(MainActivity.this, getString(R.string.download_started), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(MainActivity.this, getString(R.string.cant_download), Toast.LENGTH_SHORT).show();
+        if (!sharedPreferences.getBoolean("external_download", false)){
+            if (AdvancedWebView.handleDownload(this, url, name)) {
+                Toast.makeText(MainActivity.this, getString(R.string.download_started), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, getString(R.string.cant_download), Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         }
+
+
 
     }
 
@@ -578,6 +588,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) {
 
+        runAsync(webView.getUrl());
         if (isWritePermissionGranted()) {
             download(url, suggestedFilename);
         } else {
