@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context="cf.vojtechh.apkmirror.activities.MainActivity">
 
-    <!--This makes null pointer in AS preview but allows to set dynamic items-->
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/navigation"
@@ -15,7 +14,8 @@
         android:layout_height="60dp"
         app:bb_showShadow="false"
         android:elevation="8dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        app:bb_tabXmlResource="@xml/navigation"/>
 
     <LinearLayout
         android:id="@+id/first_loading_view"
@@ -76,7 +76,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="4dp"
-            android:background="#FFFFFF"
             android:layout_alignParentBottom="true"
             android:id="@+id/main_progress_bar_container">
 

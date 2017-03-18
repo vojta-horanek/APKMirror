@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         Intent link = getIntent();
         Uri data = link.getData();
 
+
         if (data != null) {
             //App was opened from browser
             url = data.toString();
@@ -157,7 +158,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                         url = bundleUrl;
                     }
                 } else {
-                    url = APKMIRROR_URL;
+                    if (saveUrl){
+                        url = sharedPreferences.getString("last_url", APKMIRROR_URL);
+                    }else {
+                        url = APKMIRROR_URL;
+                    }
                 }
             }
         }
@@ -184,11 +189,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         navigation.setOnTabSelectListener(tabSelectListener);
         navigation.setOnTabReselectListener(tabReselectListener);
 
-        if (!sharedPreferences.getBoolean("show_exit", false)){
-            navigation.setItems(R.xml.navigation);
-        }else{
+        if (sharedPreferences.getBoolean("show_exit", false)) {
             navigation.setItems(R.xml.navigation_exit);
+            navigation.invalidate();
         }
+
 
     }
 
@@ -244,10 +249,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     @Override
     protected  void onStop(){
-        if (saveUrl) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("last_url", webView.getUrl());
-            editor.apply();
+        if (sharedPreferences.getBoolean("save_url", false) && !webView.getUrl().equals("apkmirror://settings")) {
+            sharedPreferences.edit().putString("last_url", webView.getUrl()).apply();
         }
         super.onStop();
     }
