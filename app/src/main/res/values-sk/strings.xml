@@ -32,7 +32,8 @@
     <string name="nin_thx">Za pomoc s vývojom</string>
     <string name="azalel_thx">Za preklad do nemčiny</string>
     <string name="tim_thx">Za preklad do nemčiny</string>
-
+    <string name="berkantkz_thx">Za preklad do turečtiny</string>
+    
     <string name="storage_access">Táto aplikácia vyžaduje povolenie pre zápis na úložisko, aby bolo možné ukladať súbory. (Musíte znova kliknúť na tlačidlo Download)</string>
     <string name="request_permission">Vyžiadať povolenie</string>
     <string name="write_permission">Povolenie pre zápis na úložisko</string>
