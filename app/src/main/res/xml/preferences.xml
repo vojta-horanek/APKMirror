@@ -70,5 +70,14 @@
         android:key="azalel"
         android:summary="@string/azalel_thx"
         android:title="Sandro Azalel" />
+    <Preference
+        android:key="tim"
+        android:summary="@string/tim_thx"
+        android:title="TimSchumi" />
+
+    <Preference
+        android:key="tim"
+        android:summary="@string/berkantkz_thx"
+        android:title="Berkant Korkmaz" />
 
 </PreferenceScreen>

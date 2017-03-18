@@ -31,6 +31,7 @@
     <string name="lucky_thx">Za preklad do taliančiny</string>
     <string name="nin_thx">Za pomoc s vývojom</string>
     <string name="azalel_thx">Za preklad do nemčiny</string>
+    <string name="tim_thx">Za preklad do nemčiny</string>
 
     <string name="storage_access">Táto aplikácia vyžaduje povolenie pre zápis na úložisko, aby bolo možné ukladať súbory. (Musíte znova kliknúť na tlačidlo Download)</string>
     <string name="request_permission">Vyžiadať povolenie</string>

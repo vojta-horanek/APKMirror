@@ -7,13 +7,18 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 150317
-        versionName "3.0.4"
+        versionCode 180317
+        versionName "3.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "AD_MOB_APP_KEY", AD_MOB_APP_KEY)
         resValue("string", "AD_MOB_SETTINGS_BANNER_AD_KEY", AD_MOB_SETTINGS_BANNER_AD_KEY)
 
     }
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+
     buildTypes {
         release {
             minifyEnabled true

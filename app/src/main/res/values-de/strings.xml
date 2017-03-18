@@ -15,7 +15,6 @@
     <string name="libraries">Bibliotheken</string>
     <string name="download_started">Download gestartet…</string>
     <string name="search">Suche</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">Über</string>
 
     <string name="ads_info">Information über Werbung</string>
@@ -35,13 +34,13 @@
     <string name="lucky_thx">Für die Italienische Übersetzung</string>
     <string name="nin_thx">Für die Hilfe bei der Entwicklung</string>
     <string name="azalel_thx">Für die Deutsche Übersetzung</string>
+    <string name="tim_thx">Für die Deutsche Übersetzung</string>
     <string name="github_summ">Interessiert wie die App funktioniert?</string>
     <string name="lib_summ">Zeige die benutzten Open-Souce Bibliotheken</string>
     <string name="xda_summ">Diskutiere mit anderen Leuten über die App!</string>
     <string name="ads_summ">Zeige Informationen über Werbung</string>
     <string name="restart_required">Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden</string>
 
-    <string name="nothing" translatable="false"/>
     <string name="external_download_summ">Benutze Apps wie ADM oder Download Accelerator um APKs herunterzuladen</string>
     <string name="external_download_pref">Benutze eine externe Download App</string>
 
