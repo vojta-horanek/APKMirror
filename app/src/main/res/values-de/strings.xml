@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">APKMirror</string>
+    <string name="settings">Einstellungen</string>
+    <string name="upload">Hochladen</string>
+    <string name="browse">Durchsuchen</string>
+    <string name="exit">Schließen</string>
+
+    <string name="storage_access">Diese App braucht die Erlaubnis auf den externen Speicher zu schreiben um Dateien zu speichern. (Du musst nochmal auf den Download-Knopf drücken)</string>
+    <string name="request_permission">Nach Erlaubnis fragen</string>
+    <string name="write_permission">Schreibzugriff</string>
+
+    <string name="error">Fehler</string>
+    <string name="error_while_loading_page">Ein Fehler ist aufgetreten während versucht wurde diese Seite zu laden: </string>
+    <string name="thread">XDA Thread</string>
+    <string name="libraries">Bibliotheken</string>
+    <string name="download_started">Download gestartet…</string>
+    <string name="search">Suche</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">Über</string>
+
+    <string name="ads_info">Information über Werbung</string>
+    <string name="ads_info_dialog">Werbung wird benötigt um APKMirror am laufen zu halten, da es ein kostenloser Service ist. Wenn du APKMirror weiter benutzen willst, solltest du vielleicht deinen Ad-Blocker ausschalten. Allderdings unterstützt die Werbung in den Einstellungen den Entwickler dieser App und nicht APKMirror.</string>
+    <string name="ok">OK</string>
+    <string name="fab_pref_summ">Wenn du dies deaktivierst verschwindet der schwebende Suchen-Knopf (Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden)</string>
+    <string name="fab_pref">Zeige den schwebenden Suchen-Knopf</string>
+    <string name="firebase_pref">Nutzungsdaten (Analytics) senden</string>
+    <string name="firebase_pref_summ">Schicke Nutzungsdaten an den Entwickler der App (Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden)</string>
+    <string name="cant_download">Konnte den Download nicht starten, stelle sicher dass der DownloadManager installiert ist</string>
+    <string name="save_url_pref">Letzte URL merken</string>
+    <string name="exit_pref">Den Schließen Button anzeigen</string>
+    <string name="refresh">Neu laden</string>
+    <string name="with_thanks">Danke an die folgenden Leute:</string>
+    <string name="evo_thx">Für das Icon, Hilfe mit dem Design, der Französichen Übersetzung und vielem mehr!</string>
+    <string name="ja_som_thx">Für die Hilfe und die duchgehende Aktualisierung der Slovakischen Übersetzung</string>
+    <string name="lucky_thx">Für die Italienische Übersetzung</string>
+    <string name="nin_thx">Für die Hilfe bei der Entwicklung</string>
+    <string name="azalel_thx">Für die Deutsche Übersetzung</string>
+    <string name="github_summ">Interessiert wie die App funktioniert?</string>
+    <string name="lib_summ">Zeige die benutzten Open-Souce Bibliotheken</string>
+    <string name="xda_summ">Diskutiere mit anderen Leuten über die App!</string>
+    <string name="ads_summ">Zeige Informationen über Werbung</string>
+    <string name="restart_required">Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden</string>
+
+    <string name="nothing" translatable="false"/>
+    <string name="external_download_summ">Benutze Apps wie ADM oder Download Accelerator um APKs herunterzuladen</string>
+    <string name="external_download_pref">Benutze eine externe Download App</string>
+
+</resources>
+
