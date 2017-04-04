@@ -77,14 +77,16 @@
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/main_progress_bar_container">
+            android:id="@+id/main_progress_bar_container"
+            android:background="#FFFFFF">
 
             <ProgressBar
                 android:id="@+id/main_progress_bar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:scaleY="4"/>
 
         </FrameLayout>
 

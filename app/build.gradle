@@ -7,8 +7,8 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 180317
-        versionName "3.0.5"
+        versionCode 40417
+        versionName "3.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "AD_MOB_APP_KEY", AD_MOB_APP_KEY)
         resValue("string", "AD_MOB_SETTINGS_BANNER_AD_KEY", AD_MOB_SETTINGS_BANNER_AD_KEY)
@@ -36,9 +36,10 @@ dependencies {
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
 
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
 
-    compile 'com.android.support:design:25.1.0'
+
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:25.3.0'
 
     //Added dependencies bellow
     //WebView
@@ -46,17 +47,17 @@ dependencies {
     //HTML Parser
     compile 'org.jsoup:jsoup:1.10.2'
     //Licenses dialog
-    compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
+    compile 'de.psdev.licensesdialog:licensesdialog:1.8.2'
     //Material dialogs
     compile 'com.afollestad.material-dialogs:core:0.9.2.3'
     //Bottom navigation
-    compile 'com.roughike:bottom-bar:2.1.1'
+    compile 'com.roughike:bottom-bar:2.2.0'
     //ads
-    compile 'com.google.firebase:firebase-ads:10.2.0'
+    compile 'com.google.firebase:firebase-ads:10.2.1'
 
     //firebase
-    compile 'com.google.firebase:firebase-crash:10.2.0'
-    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-crash:10.2.1'
+    compile 'com.google.firebase:firebase-core:10.2.1'
 
 
 }

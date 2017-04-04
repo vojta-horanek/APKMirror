@@ -82,7 +82,7 @@ public class PreferencesFragment extends PreferenceFragment {
                 new MaterialDialog.Builder(getActivity())
                         .title(R.string.ads_info)
                         .content(R.string.ads_info_dialog)
-                        .positiveText(R.string.ok)
+                        .positiveText(android.R.string.ok)
                         .show();
 
                 return true;

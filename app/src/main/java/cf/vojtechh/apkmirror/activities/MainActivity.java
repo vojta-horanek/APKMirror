@@ -6,6 +6,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -89,97 +92,125 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme);
-        setContentView(R.layout.activity_main);
+        try {
+            setTheme(R.style.AppTheme);
+            setContentView(R.layout.activity_main);
 
-        previsionThemeColor = Color.parseColor("#FF8B14");
+            previsionThemeColor = Color.parseColor("#FF8B14");
 
-        //Views
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
-        progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
-        navigation = (BottomBar) findViewById(R.id.navigation);
-        settingsLayoutFragment = (RelativeLayout) findViewById(R.id.settings_layout_fragment);
-        webContainer = (RelativeLayout) findViewById(R.id.web_container);
-        firstLoadingView = (LinearLayout) findViewById(R.id.first_loading_view);
-        webView = (AdvancedWebView) findViewById(R.id.main_webview);
-        fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);
-        progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            //Views
+            refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
+            progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
+            navigation = (BottomBar) findViewById(R.id.navigation);
+            settingsLayoutFragment = (RelativeLayout) findViewById(R.id.settings_layout_fragment);
+            webContainer = (RelativeLayout) findViewById(R.id.web_container);
+            firstLoadingView = (LinearLayout) findViewById(R.id.first_loading_view);
+            webView = (AdvancedWebView) findViewById(R.id.main_webview);
+            fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);
+            progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        initSearchFab();
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        shortAnimDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            initSearchFab();
+            nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            shortAnimDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-        initNavigation();
+            initNavigation();
 
-        //Ads
-        MobileAds.initialize(getApplicationContext(), BuildConfig.AD_MOB_APP_KEY);
-        //Loading the ad
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-//Analytics
-        if (sharedPreferences.getBoolean("firebase", true) || BuildConfig.DEBUG) {
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        }
+            //Ads
+            MobileAds.initialize(getApplicationContext(), BuildConfig.AD_MOB_APP_KEY);
+            //Loading the ad
+            AdView mAdView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+            //Analytics
+            if (sharedPreferences.getBoolean("firebase", true) || BuildConfig.DEBUG) {
+                mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            }
 
-        saveUrl = sharedPreferences.getBoolean("save_url", false);
+            saveUrl = sharedPreferences.getBoolean("save_url", false);
 
-        String url;
+            String url;
 
-        Intent link = getIntent();
-        Uri data = link.getData();
+            Intent link = getIntent();
+            Uri data = link.getData();
 
 
-        if (data != null) {
-            //App was opened from browser
-            url = data.toString();
-        } else {
-            //data is null which means it was either launched from shortcuts or normally
-            Bundle bundle = link.getExtras();
-            if (bundle == null) {
-                //Normal start from launcher
-                if (saveUrl){
-                    url = sharedPreferences.getString("last_url", APKMIRROR_URL);
-                }else {
-                    url = APKMIRROR_URL;
-                }
+            if (data != null) {
+                //App was opened from browser
+                url = data.toString();
             } else {
-                //Ok it was shortcuts, check if it was settings
-                String bundleUrl = bundle.getString("url");
-                if (bundleUrl != null) {
-                    if (bundleUrl.equals("apkmirror://settings")) {
-                        //It was settings
-                        url = APKMIRROR_URL;
-                        navigation.selectTabWithId(R.id.navigation_settings);
-                        crossFade(webContainer, settingsLayoutFragment);
-                        settingsShortcut = true;
+                //data is null which means it was either launched from shortcuts or normally
+                Bundle bundle = link.getExtras();
+                if (bundle == null) {
+                    //Normal start from launcher
+                    if (saveUrl) {
+                        url = sharedPreferences.getString("last_url", APKMIRROR_URL);
                     } else {
-                        url = bundleUrl;
+                        url = APKMIRROR_URL;
                     }
                 } else {
-                    if (saveUrl){
-                        url = sharedPreferences.getString("last_url", APKMIRROR_URL);
-                    }else {
-                        url = APKMIRROR_URL;
+                    //Ok it was shortcuts, check if it was settings
+                    String bundleUrl = bundle.getString("url");
+                    if (bundleUrl != null) {
+                        if (bundleUrl.equals("apkmirror://settings")) {
+                            //It was settings
+                            url = APKMIRROR_URL;
+                            navigation.selectTabWithId(R.id.navigation_settings);
+                            crossFade(webContainer, settingsLayoutFragment);
+                            settingsShortcut = true;
+                        } else {
+                            url = bundleUrl;
+                        }
+                    } else {
+                        if (saveUrl) {
+                            url = sharedPreferences.getString("last_url", APKMIRROR_URL);
+                        } else {
+                            url = APKMIRROR_URL;
+                        }
                     }
                 }
             }
-        }
 
-        initWebView(url);
+            initWebView(url);
 
-        //I know not the best solution xD
-        if(!settingsShortcut) {
-            firstLoadingView.setVisibility(View.VISIBLE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (firstLoadingView.getVisibility() == View.VISIBLE) {
-                        crossFade(firstLoadingView, webContainer);
+            //I know not the best solution xD
+            if (!settingsShortcut) {
+                firstLoadingView.setVisibility(View.VISIBLE);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (firstLoadingView.getVisibility() == View.VISIBLE) {
+                            crossFade(firstLoadingView, webContainer);
+                        }
                     }
-                }
-            }, 2000);
+                }, 2000);
+            }
+
+        } catch (final RuntimeException e) {
+
+            new MaterialDialog.Builder(this)
+                    .title(R.string.error)
+                    .content(R.string.runtime_error_dialog_content)
+                    .positiveText(android.R.string.ok)
+                    .neutralText(R.string.copy_log)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        finish();
+                                    }
+                                }
+                    ).onNeutral(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            // Gets a handle to the clipboard service.
+                            ClipboardManager clipboard = (ClipboardManager)
+                                    getSystemService(Context.CLIPBOARD_SERVICE);
+                            // Creates a new text clip to put on the clipboard
+                            ClipData clip = ClipData.newPlainText("log",e.toString());
+                            clipboard.setPrimaryClip(clip);
+                        }
+                    });
+
         }
     }
 
@@ -219,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         webView.addHttpHeader("X-Requested-With", "APKMirror android web app");
         webView.loadUrl(url);
 
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -248,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     }
 
     @Override
-    protected  void onStop(){
+    protected void onStop() {
         if (sharedPreferences.getBoolean("save_url", false) && !webView.getUrl().equals("apkmirror://settings")) {
             sharedPreferences.edit().putString("last_url", webView.getUrl()).apply();
         }
@@ -284,10 +316,10 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 return;
             }
 
-        }else {
-            if (webView != null && webView.getUrl().equals(APKMIRROR_UPLOAD_URL)){
+        } else {
+            if (webView != null && webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
                 navigation.selectTabWithId(R.id.navigation_upload);
-            }else {
+            } else {
                 navigation.selectTabWithId(R.id.navigation_home);
 
             }
@@ -390,13 +422,13 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 }
             } else if (tabId == R.id.navigation_settings) {
                 //Settings pressed
-                if (firstLoadingView.getVisibility() ==  View.VISIBLE){
+                if (firstLoadingView.getVisibility() == View.VISIBLE) {
                     firstLoadingView.setVisibility(View.GONE);
                 }
                 crossFade(webContainer, settingsLayoutFragment);
                 changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 
-            }else if (tabId == R.id.navigation_exit) {
+            } else if (tabId == R.id.navigation_exit) {
                 finish();
             }
         }
@@ -425,16 +457,15 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     private void download(String url, String name) {
 
-        if (!sharedPreferences.getBoolean("external_download", false)){
+        if (!sharedPreferences.getBoolean("external_download", false)) {
             if (AdvancedWebView.handleDownload(this, url, name)) {
                 Toast.makeText(MainActivity.this, getString(R.string.download_started), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MainActivity.this, getString(R.string.cant_download), Toast.LENGTH_SHORT).show();
             }
-        }else {
+        } else {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         }
-
 
 
     }
@@ -499,12 +530,19 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     }
 
     private void setupNFC(String url) {
+
         if (nfcAdapter != null) { // in case there is no NFC
-            // create an NDEF message containing the current URL:
-            NdefRecord rec = NdefRecord.createUri(url); // url: current URL (String or Uri)
-            NdefMessage ndef = new NdefMessage(rec);
-            // make it available via Android Beam:
-            nfcAdapter.setNdefPushMessage(ndef, this, this);
+
+            try {
+                // create an NDEF message containing the current URL:
+                NdefRecord rec = NdefRecord.createUri(url); // url: current URL (String or Uri)
+                NdefMessage ndef = new NdefMessage(rec);
+                // make it available via Android Beam:
+                nfcAdapter.setNdefPushMessage(ndef, this, this);
+
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -520,10 +558,13 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         if (navigation.getCurrentTabId() == R.id.navigation_home) {
             if (url.equals(APKMIRROR_UPLOAD_URL)) {
                 navigation.selectTabWithId(R.id.navigation_upload);
+
             }
         } else if (navigation.getCurrentTabId() == R.id.navigation_upload) {
             if (!url.equals(APKMIRROR_UPLOAD_URL)) {
                 navigation.selectTabWithId(R.id.navigation_home);
+                //Fixes issue with loading the main page on search etc.
+                webView.loadUrl(url);
             }
         }
 
@@ -590,7 +631,6 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) {
 
-        runAsync(webView.getUrl());
         if (isWritePermissionGranted()) {
             download(url, suggestedFilename);
         } else {

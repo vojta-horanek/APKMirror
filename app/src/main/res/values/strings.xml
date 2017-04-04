@@ -23,7 +23,6 @@
 
     <string name="ads_info">Information about ads</string>
     <string name="ads_info_dialog">Ads are needed for APKMirror to keep running because its a free service, so if you want to keep using it please consider disabling your Ad Blocker. However the ad in settings is displayed to support the developer, rather than APKMirror.</string>
-    <string name="ok">OK</string>
     <string name="fab_pref_summ">Disabling this will hide the search floating action button (restart is required in order to change this settings)</string>
     <string name="fab_pref">Show search FAB</string>
     <string name="firebase_pref">Enable analytics</string>
@@ -49,6 +48,8 @@
     <string name="nothing" translatable="false"/>
     <string name="external_download_summ">Use apps like ADM or Download Accelerator to download apks</string>
     <string name="external_download_pref">Use external download app</string>
+    <string name="runtime_error_dialog_content">A Runtime error occurred,make sure you have webview package installed.</string>
+    <string name="copy_log">Copy log</string>
 
 </resources>
 

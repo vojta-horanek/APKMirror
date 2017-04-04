@@ -19,7 +19,6 @@
 
     <string name="ads_info">Information über Werbung</string>
     <string name="ads_info_dialog">Werbung wird benötigt um APKMirror am laufen zu halten, da es ein kostenloser Service ist. Wenn du APKMirror weiter benutzen willst, solltest du vielleicht deinen Ad-Blocker ausschalten. Allderdings unterstützt die Werbung in den Einstellungen den Entwickler dieser App und nicht APKMirror.</string>
-    <string name="ok">OK</string>
     <string name="fab_pref_summ">Wenn du dies deaktivierst verschwindet der schwebende Suchen-Knopf (Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden)</string>
     <string name="fab_pref">Zeige den schwebenden Suchen-Knopf</string>
     <string name="firebase_pref">Nutzungsdaten (Analytics) senden</string>
