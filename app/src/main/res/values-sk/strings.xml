@@ -45,6 +45,8 @@
     <string name="download_started">Sťahovanie sa začalo…</string>
     <string name="search">Hľadať</string>
     <string name="restart_required">Pre aplikovanie zmien je potrebné reštartovať aplikáciu</string>
+    <string name="runtime_error_dialog_content">Vyskytla sa chyba, uistite sa, že máte nainštalový balíček webview.</string>
+    <string name="copy_log">Kopírovať záznam</string>
 
 
 </resources>
