@@ -76,8 +76,13 @@
         android:title="TimSchumi" />
 
     <Preference
-        android:key="tim"
+        android:key="berkant"
         android:summary="@string/berkantkz_thx"
         android:title="Berkant Korkmaz" />
+
+    <Preference
+        android:key="hbbx"
+        android:summary="@string/hbbxmjbb_thx"
+        android:title="hbbxmjbb" />
 
 </PreferenceScreen>

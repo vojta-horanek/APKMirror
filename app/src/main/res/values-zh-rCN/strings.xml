@@ -18,7 +18,6 @@
     <string name="libraries">库</string>
     <string name="download_started">下载开始…</string>
     <string name="search">搜索</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">关于</string>
 
     <string name="ads_info">应用信息和广告</string>
@@ -45,7 +44,6 @@
     <string name="ads_summ">在一个很棒的MD对话框里查看关于广告的信息</string>
     <string name="restart_required">重启应用来启用修改</string>
 
-    <string name="nothing" translatable="false"/>
     <string name="external_download_summ">使用ADM或者下载加速器这类应用下载apk</string>
     <string name="external_download_pref">使用其他应用下载</string>
     <string name="runtime_error_dialog_content">运行时发生错误，请确认你的网络正常。</string>

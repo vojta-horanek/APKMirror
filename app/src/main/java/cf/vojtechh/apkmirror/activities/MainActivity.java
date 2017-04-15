@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    private boolean saveUrl;
     private boolean settingsShortcut = false;
+    private boolean triggerAction = true;
 
     NfcAdapter nfcAdapter;
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
             }
 
-            saveUrl = sharedPreferences.getBoolean("save_url", false);
+            boolean saveUrl = sharedPreferences.getBoolean("save_url", false);
 
             String url;
 
@@ -200,16 +200,16 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                                     }
                                 }
                     ).onNeutral(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            // Gets a handle to the clipboard service.
-                            ClipboardManager clipboard = (ClipboardManager)
-                                    getSystemService(Context.CLIPBOARD_SERVICE);
-                            // Creates a new text clip to put on the clipboard
-                            ClipData clip = ClipData.newPlainText("log",e.toString());
-                            clipboard.setPrimaryClip(clip);
-                        }
-                    });
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                    // Gets a handle to the clipboard service.
+                    ClipboardManager clipboard = (ClipboardManager)
+                            getSystemService(Context.CLIPBOARD_SERVICE);
+                    // Creates a new text clip to put on the clipboard
+                    ClipData clip = ClipData.newPlainText("log", e.toString());
+                    clipboard.setPrimaryClip(clip);
+                }
+            }).show();
 
         }
     }
@@ -318,8 +318,10 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
         } else {
             if (webView != null && webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
+                triggerAction = false;
                 navigation.selectTabWithId(R.id.navigation_upload);
             } else {
+                triggerAction = false;
                 navigation.selectTabWithId(R.id.navigation_home);
 
             }
@@ -388,49 +390,55 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         @Override
         public void onTabSelected(@IdRes int tabId) {
 
+            if (triggerAction) {
 
-            if (tabId == R.id.navigation_home) {
-                //Home pressed
-                if (settingsLayoutFragment.getVisibility() != View.VISIBLE) {
-                    //settings is not visible
-                    //Load url
-                    webView.loadUrl(APKMIRROR_URL);
-
-                } else {
-                    //settings is visible, gonna hide it
-                    if (webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
+                if (tabId == R.id.navigation_home) {
+                    //Home pressed
+                    if (settingsLayoutFragment.getVisibility() != View.VISIBLE) {
+                        //settings is not visible
+                        //Load url
                         webView.loadUrl(APKMIRROR_URL);
-                    }
-                    crossFade(settingsLayoutFragment, webContainer);
-                    changeUIColor(previsionThemeColor);
 
-                }
-            } else if (tabId == R.id.navigation_upload) {
-                //Upload pressed
-                if (settingsLayoutFragment.getVisibility() != View.VISIBLE) {
-                    //settings is not visible
-                    //Load url
-                    webView.loadUrl(APKMIRROR_UPLOAD_URL);
-                } else {
-                    //settings is visible, gonna hide it
-                    if (!webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
+                    } else {
+                        //settings is visible, gonna hide it
+                        if (webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
+                            webView.loadUrl(APKMIRROR_URL);
+                        }
+                        crossFade(settingsLayoutFragment, webContainer);
+                        changeUIColor(previsionThemeColor);
+
+                    }
+                } else if (tabId == R.id.navigation_upload) {
+                    //Upload pressed
+                    if (settingsLayoutFragment.getVisibility() != View.VISIBLE) {
+                        //settings is not visible
+                        //Load url
                         webView.loadUrl(APKMIRROR_UPLOAD_URL);
+                    } else {
+                        //settings is visible, gonna hide it
+                        if (!webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
+                            webView.loadUrl(APKMIRROR_UPLOAD_URL);
+                        }
+                        crossFade(settingsLayoutFragment, webContainer);
+                        changeUIColor(previsionThemeColor);
+
                     }
-                    crossFade(settingsLayoutFragment, webContainer);
-                    changeUIColor(previsionThemeColor);
+                } else if (tabId == R.id.navigation_settings) {
+                    //Settings pressed
+                    if (firstLoadingView.getVisibility() == View.VISIBLE) {
+                        firstLoadingView.setVisibility(View.GONE);
+                    }
+                    crossFade(webContainer, settingsLayoutFragment);
+                    changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 
+                } else if (tabId == R.id.navigation_exit) {
+                    finish();
                 }
-            } else if (tabId == R.id.navigation_settings) {
-                //Settings pressed
-                if (firstLoadingView.getVisibility() == View.VISIBLE) {
-                    firstLoadingView.setVisibility(View.GONE);
-                }
-                crossFade(webContainer, settingsLayoutFragment);
-                changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 
-            } else if (tabId == R.id.navigation_exit) {
-                finish();
             }
+
+            triggerAction = true;
+
         }
     };
 
@@ -551,36 +559,39 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
 
-        runAsync(url);
-        setupNFC(url);
 
-        //Updating bottom navigation
-        if (navigation.getCurrentTabId() == R.id.navigation_home) {
-            if (url.equals(APKMIRROR_UPLOAD_URL)) {
-                navigation.selectTabWithId(R.id.navigation_upload);
+        if (!url.contains("http://www.apkmirror.com/wp-content/")) {
 
+            runAsync(url);
+            setupNFC(url);
+
+            //Updating bottom navigation
+            if (navigation.getCurrentTabId() == R.id.navigation_home) {
+                if (url.equals(APKMIRROR_UPLOAD_URL)) {
+                    triggerAction = false;
+                    navigation.selectTabWithId(R.id.navigation_upload);
+                }
+            } else if (navigation.getCurrentTabId() == R.id.navigation_upload) {
+                if (!url.equals(APKMIRROR_UPLOAD_URL)) {
+                    triggerAction = false;
+                    navigation.selectTabWithId(R.id.navigation_home);
+
+                }
             }
-        } else if (navigation.getCurrentTabId() == R.id.navigation_upload) {
-            if (!url.equals(APKMIRROR_UPLOAD_URL)) {
-                navigation.selectTabWithId(R.id.navigation_home);
-                //Fixes issue with loading the main page on search etc.
-                webView.loadUrl(url);
-            }
+
+            //Showing progress bar
+            progressBarContainer.animate()
+                    .alpha(1f)
+                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            super.onAnimationStart(animation);
+                            progressBarContainer.setVisibility(View.VISIBLE);
+                        }
+                    });
+
         }
-
-        //Showing progress bar
-        progressBarContainer.animate()
-                .alpha(1f)
-                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-                        super.onAnimationStart(animation);
-                        progressBarContainer.setVisibility(View.VISIBLE);
-                    }
-                });
-
-
     }
 
     @Override
