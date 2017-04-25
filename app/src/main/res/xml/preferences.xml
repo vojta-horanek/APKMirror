@@ -2,17 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/settings" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="firebase"
-        android:summary="@string/firebase_pref_summ"
-        android:title="@string/firebase_pref" />
 
     <SwitchPreference
         android:defaultValue="true"
         android:key="fab"
         android:summary="@string/fab_pref_summ"
         android:title="@string/fab_pref" />
+
 
     <SwitchPreference
         android:defaultValue="false"
@@ -44,10 +40,7 @@
         android:key="xda"
         android:summary="@string/xda_summ"
         android:title="@string/thread" />
-    <Preference
-        android:key="ads_info"
-        android:summary="@string/ads_summ"
-        android:title="@string/ads_info" />
+
 
     <PreferenceCategory android:title="@string/with_thanks" />
     <Preference

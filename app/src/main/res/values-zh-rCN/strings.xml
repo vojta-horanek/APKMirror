@@ -20,12 +20,8 @@
     <string name="search">搜索</string>
     <string name="about">关于</string>
 
-    <string name="ads_info">应用信息和广告</string>
-    <string name="ads_info_dialog">广告是为了使APKMirror作为免费服务运行所需的，所以如果你希望继续使用它请关闭你的去广告应用。但是设置里的广告是支持开发者而不是APKMirror的。</string>
     <string name="fab_pref_summ">禁用此功能将隐藏搜索浮动操作按钮（需要重新打开应用才能启用修改）</string>
     <string name="fab_pref">显示搜索栏</string>
-    <string name="firebase_pref">启用分析</string>
-    <string name="firebase_pref_summ">向开发人员发送分析数据(需要重新打开应用才能启用修改)</string>
     <string name="cant_download">无法开始下载，请确保您已安装了下载管理器。</string>
     <string name="save_url_pref">记住最后一个链接</string>
     <string name="exit_pref">在底栏中显示退出按钮</string>
@@ -41,7 +37,6 @@
     <string name="github_summ">对这个程序怎样工作有兴趣？</string>
     <string name="lib_summ">查看在这个应用中使用的开源库</string>
     <string name="xda_summ">与更多人讨论这个！</string>
-    <string name="ads_summ">在一个很棒的MD对话框里查看关于广告的信息</string>
     <string name="restart_required">重启应用来启用修改</string>
 
     <string name="external_download_summ">使用ADM或者下载加速器这类应用下载apk</string>

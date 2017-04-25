@@ -4,9 +4,7 @@
     <string name="upload">Nahrať</string>
     <string name="settings">Nastavenia</string>
     <string name="exit">Ukončiť</string>
-    
-    <string name="firebase_pref">Povoliť analytiku</string>
-    <string name="firebase_pref_summ">Odošle analytiku vývojárovi (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
+
     <string name="fab_pref">Zobraziť tlačidlo pre vyhľadávanie</string>
     <string name="fab_pref_summ">Zakázanie skryje plávajúce tlačidlo pre vyhľadávanie (pre aplikovanie zmien je potrebné reštartovať aplikáciu)</string>
     <string name="save_url_pref">Zapamätať poslednú adresu</string>
@@ -20,11 +18,8 @@
     <string name="lib_summ">Zobraziť použité open source knižnice v tejto aplikácií</string>
     <string name="thread">Téma na XDA</string>
     <string name="xda_summ">Diskutujte o aplikácií s ďalšími používateľmi!</string>
-    <string name="ads_info">Informácie o reklamách</string>
-    <string name="ads_summ">Zobraziť informácie o reklamách, v peknom dialógovom okne s material dizajnom</string>
-    <string name="ads_info_dialog">Reklamy sú potrebné pre chod APKMirror, pretože je to bezplatná služba, ak ju chcete naďalej používať, prosím, zvážte zakázanie blokovania reklám. Avšak reklama v nastaveniach slúži na podporu vývojára, nie APKMirror.</string>
 
-    
+
     <string name="with_thanks">Vďaka týmto ľuďom:</string>
     <string name="evo_thx">Za úžasnú ikonu, pomoc s dizajnom, preklad do francúzštiny a oveľa viac!</string>
     <string name="ja_som_thx">Za pomoc a pravidelnú aktualizáciu slovenského prekladu</string>

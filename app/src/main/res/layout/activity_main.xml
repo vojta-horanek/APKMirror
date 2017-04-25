@@ -12,10 +12,9 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:bb_showShadow="false"
-        android:elevation="8dp"
         android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/navigation"/>
+        app:bb_showShadow="true"
+        app:bb_tabXmlResource="@xml/navigation" />
 
     <LinearLayout
         android:id="@+id/first_loading_view"
@@ -28,15 +27,15 @@
         <ImageView
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:src="@drawable/splash_image"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="70dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="70dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="16dp"
             android:maxHeight="130dp"
             android:maxWidth="130dp"
             android:minHeight="130dp"
             android:minWidth="130dp"
-            android:layout_marginBottom="16dp"/>
+            android:src="@drawable/splash_image" />
 
         <ProgressBar
 
@@ -51,8 +50,8 @@
         android:id="@+id/web_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_above="@id/navigation">
+        android:layout_above="@id/navigation"
+        android:visibility="gone">
 
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/refresh_layout"
@@ -65,19 +64,19 @@
                 android:layout_height="fill_parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:scrollbars="vertical"
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
-                android:scrollbarSize="20dp" />
+                android:scrollbarSize="20dp"
+                android:scrollbars="vertical" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <!--This removes the padding in progress bar-->
 
         <FrameLayout
+            android:id="@+id/main_progress_bar_container"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_alignParentBottom="true"
-            android:id="@+id/main_progress_bar_container"
             android:background="#FFFFFF">
 
             <ProgressBar
@@ -86,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:scaleY="4"/>
+                android:scaleY="4" />
 
         </FrameLayout>
 
@@ -95,13 +94,13 @@
             android:id="@+id/fab_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
-            app:fabSize="normal"
             android:src="@drawable/ic_search_black_24dp"
             android:tint="#FFFFFF"
             android:visibility="gone"
-            android:layout_alignParentBottom="true"
+            app:fabSize="normal"
             tools:ignore="RelativeOverlap" />
 
     </RelativeLayout>
@@ -114,34 +113,21 @@
         android:visibility="gone">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/settings_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/settings"
             android:background="@color/colorPrimary"
-            android:id="@+id/settings_toolbar"
-            app:titleTextColor="#FFFFFF"
-            android:elevation="8dp"/>
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/AD_MOB_SETTINGS_BANNER_AD_KEY">
-
-        </com.google.android.gms.ads.AdView>
+            android:elevation="8dp"
+            app:title="@string/settings"
+            app:titleTextColor="#FFFFFF" />
 
         <fragment
             android:id="@+id/settings_fragment_main"
             android:name="cf.vojtechh.apkmirror.fragments.PreferencesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/adView"
-            tools:layout="@android:layout/preference_category"
-            android:layout_below="@id/settings_toolbar" />
+            android:layout_below="@id/settings_toolbar"
+            tools:layout="@android:layout/preference_category" />
 
 
     </RelativeLayout>

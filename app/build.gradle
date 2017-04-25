@@ -7,12 +7,9 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 150417
-        versionName "3.2"
+        versionCode 20170425
+        versionName "3.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "AD_MOB_APP_KEY", AD_MOB_APP_KEY)
-        resValue("string", "AD_MOB_SETTINGS_BANNER_AD_KEY", AD_MOB_SETTINGS_BANNER_AD_KEY)
-
     }
 
     lintOptions {
@@ -39,7 +36,7 @@ dependencies {
 
 
     //noinspection GradleCompatible
-    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:design:25.3.1'
 
     //Added dependencies bellow
     //WebView
@@ -52,14 +49,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.2.3'
     //Bottom navigation
     compile 'com.roughike:bottom-bar:2.3.1'
-    //ads
-    compile 'com.google.firebase:firebase-ads:10.2.1'
-
-    //firebase
-    compile 'com.google.firebase:firebase-crash:10.2.1'
-    compile 'com.google.firebase:firebase-core:10.2.1'
 
 
 }
 
-apply plugin: 'com.google.gms.google-services'

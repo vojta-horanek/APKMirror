@@ -26,7 +26,5 @@
 -dontwarn com.roughike.bottombar.**
 -keep class * extends android.webkit.WebChromeClient { *; }
 -dontwarn im.delight.android.webview.**
--keep class com.google.ads.** # Don't proguard AdMob classes
--dontwarn com.google.ads.** # Temporary workaround for v6.2.1. It gives a warning
 -keeppackagenames org.jsoup.nodes
 

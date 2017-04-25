@@ -21,12 +21,8 @@
     <string name="github" translatable="false">GitHub</string>
     <string name="about">About</string>
 
-    <string name="ads_info">Information about ads</string>
-    <string name="ads_info_dialog">Ads are needed for APKMirror to keep running because its a free service, so if you want to keep using it please consider disabling your Ad Blocker. However the ad in settings is displayed to support the developer, rather than APKMirror.</string>
     <string name="fab_pref_summ">Disabling this will hide the search floating action button (restart is required in order to change this settings)</string>
     <string name="fab_pref">Show search FAB</string>
-    <string name="firebase_pref">Enable analytics</string>
-    <string name="firebase_pref_summ">Send analytics to the developer (restart is required in order to change this settings)</string>
     <string name="cant_download">Can\'t start download, please make sure you have download manager installed.</string>
     <string name="save_url_pref">Remember last url</string>
     <string name="exit_pref">Show exit button in navigation</string>
@@ -44,7 +40,6 @@
     <string name="github_summ">Interested how this app works?</string>
     <string name="lib_summ">View the used open source libraries in this app</string>
     <string name="xda_summ">Discuss about this with other people!</string>
-    <string name="ads_summ">View the info about ads, in a nice material dialog</string>
     <string name="restart_required">Restart is required in order to change this settings</string>
 
     <string name="nothing" translatable="false"/>

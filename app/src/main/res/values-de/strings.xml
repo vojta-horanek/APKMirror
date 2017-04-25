@@ -17,12 +17,8 @@
     <string name="search">Suche</string>
     <string name="about">Über</string>
 
-    <string name="ads_info">Information über Werbung</string>
-    <string name="ads_info_dialog">Werbung wird benötigt um APKMirror am laufen zu halten, da es ein kostenloser Service ist. Wenn du APKMirror weiter benutzen willst, solltest du vielleicht deinen Ad-Blocker ausschalten. Allderdings unterstützt die Werbung in den Einstellungen den Entwickler dieser App und nicht APKMirror.</string>
     <string name="fab_pref_summ">Wenn du dies deaktivierst verschwindet der schwebende Suchen-Knopf (Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden)</string>
     <string name="fab_pref">Zeige den schwebenden Suchen-Knopf</string>
-    <string name="firebase_pref">Nutzungsdaten (Analytics) senden</string>
-    <string name="firebase_pref_summ">Schicke Nutzungsdaten an den Entwickler der App (Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden)</string>
     <string name="cant_download">Konnte den Download nicht starten, stelle sicher dass der DownloadManager installiert ist</string>
     <string name="save_url_pref">Letzte URL merken</string>
     <string name="exit_pref">Den Schließen Button anzeigen</string>
@@ -37,7 +33,6 @@
     <string name="github_summ">Interessiert wie die App funktioniert?</string>
     <string name="lib_summ">Zeige die benutzten Open-Souce Bibliotheken</string>
     <string name="xda_summ">Diskutiere mit anderen Leuten über die App!</string>
-    <string name="ads_summ">Zeige Informationen über Werbung</string>
     <string name="restart_required">Ein Neustart wird benötigt damit die geänderten Einstellungen aktiv werden</string>
 
     <string name="external_download_summ">Benutze Apps wie ADM oder Download Accelerator um APKs herunterzuladen</string>

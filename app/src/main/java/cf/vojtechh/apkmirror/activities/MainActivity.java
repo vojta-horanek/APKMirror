@@ -44,15 +44,10 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import cf.vojtechh.apkmirror.BuildConfig;
 import cf.vojtechh.apkmirror.R;
 import cf.vojtechh.apkmirror.classes.PageAsync;
 import cf.vojtechh.apkmirror.interfaces.AsyncResponse;
@@ -82,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     SharedPreferences sharedPreferences;
 
-    private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean settingsShortcut = false;
     private boolean triggerAction = true;
@@ -106,8 +100,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             webContainer = (RelativeLayout) findViewById(R.id.web_container);
             firstLoadingView = (LinearLayout) findViewById(R.id.first_loading_view);
             webView = (AdvancedWebView) findViewById(R.id.main_webview);
-            fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);
-            progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
+            fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             initSearchFab();
@@ -115,17 +108,6 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             shortAnimDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             initNavigation();
-
-            //Ads
-            MobileAds.initialize(getApplicationContext(), BuildConfig.AD_MOB_APP_KEY);
-            //Loading the ad
-            AdView mAdView = (AdView) findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-            //Analytics
-            if (sharedPreferences.getBoolean("firebase", true) || BuildConfig.DEBUG) {
-                mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-            }
 
             boolean saveUrl = sharedPreferences.getBoolean("save_url", false);
 
@@ -241,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         }
     }
 
+
+
     private void initWebView(String url) {
 
         webView.setListener(this, this);
@@ -317,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             }
 
         } else {
+            crossFade(settingsLayoutFragment, webContainer);
             if (webView != null && webView.getUrl().equals(APKMIRROR_UPLOAD_URL)) {
                 triggerAction = false;
                 navigation.selectTabWithId(R.id.navigation_upload);

@@ -8,8 +8,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import cf.vojtechh.apkmirror.R;
 import de.psdev.licensesdialog.LicensesDialog;
 import de.psdev.licensesdialog.licenses.ApacheSoftwareLicense20;
@@ -31,7 +29,6 @@ public class PreferencesFragment extends PreferenceFragment {
         Preference github = findPreference("github");
         Preference libs = findPreference("libs");
         Preference xda = findPreference("xda");
-        Preference ads = findPreference("ads_info");
         Preference evo = findPreference("evo");
         Preference jasom = findPreference("ja_som");
         Preference nuke = findPreference("nuke");
@@ -71,19 +68,6 @@ public class PreferencesFragment extends PreferenceFragment {
 
                 Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/android/apps-games/apkmirror-web-app-t3450564"));
                 startActivity(threadIntent);
-
-                return true;
-            }
-        });
-
-        ads.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                new MaterialDialog.Builder(getActivity())
-                        .title(R.string.ads_info)
-                        .content(R.string.ads_info_dialog)
-                        .positiveText(android.R.string.ok)
-                        .show();
 
                 return true;
             }
