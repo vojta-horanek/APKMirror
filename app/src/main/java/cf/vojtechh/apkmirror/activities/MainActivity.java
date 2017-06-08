@@ -231,7 +231,6 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         webView.addPermittedHostname("apkmirror.com");
         webView.setWebChromeClient(chromeClient);
         webView.setUploadableFileTypes("application/vnd.android.package-archive");
-        webView.addHttpHeader("X-Requested-With", "APKMirror android web app");
         webView.loadUrl(url);
 
 

@@ -29,11 +29,6 @@ public class PreferencesFragment extends PreferenceFragment {
         Preference github = findPreference("github");
         Preference libs = findPreference("libs");
         Preference xda = findPreference("xda");
-        Preference evo = findPreference("evo");
-        Preference jasom = findPreference("ja_som");
-        Preference nuke = findPreference("nuke");
-        Preference nin = findPreference("nin");
-        Preference azalel = findPreference("azalel");
 
         github.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference pref) {
@@ -73,51 +68,6 @@ public class PreferencesFragment extends PreferenceFragment {
             }
         });
 
-        evo.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=5366167"));
-                startActivity(threadIntent);
-
-                return true;
-            }
-        });
-        jasom.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=5201515"));
-                startActivity(threadIntent);
-
-                return true;
-            }
-        });
-        nuke.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=6243385"));
-                startActivity(threadIntent);
-
-                return true;
-            }
-        });
-        nin.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent threadIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://forum.xda-developers.com/member.php?u=6002018"));
-                startActivity(threadIntent);
-
-                return true;
-            }
-        });
-        azalel.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/SandroAzazel"));
-                startActivity(githubIntent);
-
-                return true;
-            }
-        });
     }
 
 }

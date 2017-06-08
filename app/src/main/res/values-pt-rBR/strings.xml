@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Please dont translate strings with translatable="false"-->
+
+    <string name="app_name">APKMirror</string>
+    <string name="settings">Configurações</string>
+    <string name="upload">Enviar</string>
+    <string name="browse">Navegar</string>
+    <string name="exit">Sair</string>
+
+    <string name="storage_access">Este app precisa ter a permissão para escrever no armazenamento externo para poder salvar arquivos. (Você precisa tocar o botão de download novamente)</string>
+    <string name="request_permission">Requisitar permissão</string>
+    <string name="write_permission">Permissão de escrita</string>
+
+    <string name="error">Erro</string>
+    <string name="error_while_loading_page">Um erro ocorreu ao carregar esta página: </string>
+    <string name="thread">Tópico no XDAd</string>
+    <string name="libraries">Bibliotecas</string>
+    <string name="download_started">Download iniciado…</string>
+    <string name="search">Pesquisa</string>
+    <string name="about">Sobre</string>
+
+    <string name="fab_pref_summ">Desabilitando isso irá ocultar o botão flutuante de pesquisa (será necessário reiniciar para alterar esta configuração)</string>
+    <string name="fab_pref">Mostrar FAB de pesqisa</string>
+    <string name="cant_download">Não foi possível iniciar o download, certitique-se de que você tem um gerenciador de downloads instalado.</string>
+    <string name="save_url_pref">Lembrar a última URL</string>
+    <string name="exit_pref">Mostrar botão Sair na navegação</string>
+    <string name="refresh">Atualizar</string>
+    <string name="with_thanks">Com agradecimentos às seguintes pessoas:</string>
+    <string name="evo_thx">Pelo ícone incrível, ajuda no design, tradução para o Francês e muito mais!</string>
+    <string name="ja_som_thx">Pela ajuda e atualização constante da tradução para o Eslovaco</string>
+    <string name="lucky_thx">Pela tradução para o Italiano</string>
+    <string name="nin_thx">Pela ajuda com o desenvolvimento</string>
+    <string name="azalel_thx">Pela tradução para o Alemão</string>
+    <string name="tim_thx">Pela tradução para o Alemão</string>
+    <string name="berkantkz_thx">Pela tradução para o Turco</string>
+    <string name="hbbxmjbb_thx">Pela tradução para o Chinês</string>
+
+    <string name="github_summ">Interessado em como esse app funciona?</string>
+    <string name="lib_summ">Ver as bibliotecas open source usadas nesse app</string>
+    <string name="xda_summ">Discutir sobre isso com outras pessoas!</string>
+    <string name="restart_required">Um reinício é necessário para mudar esta configuração</string>
+
+    <string name="external_download_summ">Usar apps como o ADM ou o Download Accelerator para baixar os APKs</string>
+    <string name="external_download_pref">Usar app de download externo</string>
+    <string name="runtime_error_dialog_content">Um erro de tempo de execução ocorreu, verifique se você tem um pacote WebView instalado.</string>
+    <string name="copy_log">Copiar registros</string>
+
+</resources>
