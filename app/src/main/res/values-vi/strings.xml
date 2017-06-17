@@ -1,0 +1,53 @@
+<resources>
+
+    <!--Please dont translate strings with translatable="false"-->
+
+    <string name="app_name">APKMirror</string>
+    <string name="settings">Cài đặt</string>
+    <string name="upload">Tải lên</string>
+    <string name="browse">Trình duyệt</string>
+    <string name="exit">Thoát</string>
+
+    <string name="storage_access">Ứng dụng này cần được cấp quyền ghi lên ổ lưu trữ ngoài để lưu files. (Bạn cần nhấn vào nút tải về lần nữa)</string>
+    <string name="request_permission">Yêu cầu quyền truy cập</string>
+    <string name="write_permission">Quyền được ghi</string>
+
+    <string name="error">Lỗi</string>
+    <string name="error_while_loading_page">Có lỗi xảy ra khi tải trang này: </string>
+    <string name="thread">Chủ đề XDA</string>
+    <string name="libraries">Thư viện</string>
+    <string name="download_started">Bắt đầu tải về…</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">Thông tin</string>
+
+    <string name="fab_pref_summ">Tắt tính năng này sẽ ẩn nút tác vụ tìm kiếm nổi trên ứng dụng (Bạn cần khởi động lại ứng dụng để cài đặt có hiệu lực)</string>
+    <string name="fab_pref">Hiển thị nút tìm kiếm nổi</string>
+    <string name="cant_download">Không thể bắt đầu tải về, chắc chắn rằng bàn đã cài đặt trình quản lý tải về.</string>
+    <string name="save_url_pref">Ghi nhớ đường dẫ cuối cùng</string>
+    <string name="exit_pref">Hiện nút thoát trên thanh điều hướng</string>
+    <string name="refresh">Làm mới</string>
+    <string name="with_thanks">Gửi lời cảm ơn đến những người sau:</string>
+    <string name="evo_thx">Người thiết kế biểu tượng tuyệt vời, trợ giúp thiết kế, biên dịch sang tiếng Pháp và nhiều hơn thế nữa!</string>
+    <string name="ja_som_thx">Người trợ giúp và không ngừng cập nhật biên dịch sang tiếng Slovak</string>
+    <string name="lucky_thx">Người biên dịch sang tiếng Ý</string>
+    <string name="nin_thx">Người giúp đỡ phát triển ứng dụng</string>
+    <string name="azalel_thx">Người biên dịch sang tiếng Đức</string>
+    <string name="tim_thx">Người biên dịch sang tiếng Đức</string>
+    <string name="berkantkz_thx">Người biên dịch sang tiếng Thổ Nhĩ Kỳ</string>
+    <string name="hbbxmjbb_thx">Người biên dịch sang tiếng Trung Quốc</string>
+    <string name="io_gh0st">Người biên dịch sang tiếng Bồ Đào Nha của những người Brazil</string>
+
+    <string name="github_summ">Bạn quan tâm ứng dụng hoạt động như thế nào?</string>
+    <string name="lib_summ">Xem những thư viện mở được sử dụng trong ứng dụng này</string>
+    <string name="xda_summ">Thảo luận về ứng dụng này với các thành viên khác của XDA!</string>
+    <string name="restart_required">Bạn cần khởi động lại ứng dụng để những cài đặt có hiệu lực</string>
+
+    <string name="nothing" translatable="false"/>
+    <string name="external_download_summ">Sử dụng những ứng dụng dạng như ADM hoặc Download Accelerator để tải về tập tin apks</string>
+    <string name="external_download_pref">Sử dụng ứng dụng tải về bên ngoài</string>
+    <string name="runtime_error_dialog_content">Đã xảy ra lỗi,chắc chắn rằng bạn đã cài đặt gói webview.</string>
+    <string name="copy_log">Sao chép log</string>
+
+</resources>
+
