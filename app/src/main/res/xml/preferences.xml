@@ -73,5 +73,11 @@
     <Preference
         android:summary="@string/hbbxmjbb_thx"
         android:title="io_gh0st" />
+    <Preference
+        android:summary="@string/nightstorm8x"
+        android:title="nightstorm8x" />
+    <Preference
+        android:summary="@string/fonodosebas"
+        android:title="FonoDoSebas" />
 
 </PreferenceScreen>

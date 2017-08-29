@@ -18,7 +18,6 @@
     <string name="libraries">Thư viện</string>
     <string name="download_started">Bắt đầu tải về…</string>
     <string name="search">Tìm kiếm</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">Thông tin</string>
 
     <string name="fab_pref_summ">Tắt tính năng này sẽ ẩn nút tác vụ tìm kiếm nổi trên ứng dụng (Bạn cần khởi động lại ứng dụng để cài đặt có hiệu lực)</string>
@@ -43,7 +42,6 @@
     <string name="xda_summ">Thảo luận về ứng dụng này với các thành viên khác của XDA!</string>
     <string name="restart_required">Bạn cần khởi động lại ứng dụng để những cài đặt có hiệu lực</string>
 
-    <string name="nothing" translatable="false"/>
     <string name="external_download_summ">Sử dụng những ứng dụng dạng như ADM hoặc Download Accelerator để tải về tập tin apks</string>
     <string name="external_download_pref">Sử dụng ứng dụng tải về bên ngoài</string>
     <string name="runtime_error_dialog_content">Đã xảy ra lỗi,chắc chắn rằng bạn đã cài đặt gói webview.</string>
