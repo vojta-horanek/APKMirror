@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v13.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -389,7 +390,9 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                             webView.loadUrl(APKMIRROR_URL);
                         }
                         crossFade(settingsLayoutFragment, webContainer);
-                        changeUIColor(previsionThemeColor);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            changeUIColor(previsionThemeColor);
+                        }
 
                     }
                 } else if (tabId == R.id.navigation_upload) {
@@ -404,7 +407,9 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                             webView.loadUrl(APKMIRROR_UPLOAD_URL);
                         }
                         crossFade(settingsLayoutFragment, webContainer);
-                        changeUIColor(previsionThemeColor);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            changeUIColor(previsionThemeColor);
+                        }
 
                     }
                 } else if (tabId == R.id.navigation_settings) {
@@ -413,7 +418,9 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                         firstLoadingView.setVisibility(View.GONE);
                     }
                     crossFade(webContainer, settingsLayoutFragment);
-                    changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        changeUIColor(ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
+                    }
 
                 } else if (tabId == R.id.navigation_exit) {
                     finish();
@@ -474,11 +481,14 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     public void onProcessFinish(Integer themeColor) {
 
         // updating interface
-        changeUIColor(themeColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            changeUIColor(themeColor);
+        }
         previsionThemeColor = themeColor;
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeUIColor(Integer color) {
 
         ValueAnimator anim = ValueAnimator.ofArgb(previsionThemeColor, color);
@@ -501,6 +511,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setSystemBarColor(int color) {
 
         int clr;
@@ -601,25 +612,34 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
 
-        new MaterialDialog.Builder(this)
-                .title(R.string.error)
-                .content(getString(R.string.error_while_loading_page) + " " + failingUrl + "(" + String.valueOf(errorCode) + " " + description + ")")
-                .positiveText(R.string.refresh)
-                .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        webView.reload();
-                        dialog.dismiss();
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        finish();
-                    }
-                })
-                .show();
+        if (errorCode == -2) {
+            new MaterialDialog.Builder(this)
+                    .title(R.string.error)
+                    .content(getString(R.string.error_while_loading_page) + " " + failingUrl + "(" + String.valueOf(errorCode) + " " + description + ")")
+                    .positiveText(R.string.refresh)
+                    .negativeText(android.R.string.cancel)
+                    .neutralText("Dismiss")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            webView.reload();
+                            dialog.dismiss();
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            finish();
+                        }
+                    })
+                    .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            materialDialog.dismiss();
+                        }
+                    })
+                    .show();
+        }
 
     }
 

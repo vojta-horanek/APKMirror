@@ -96,12 +96,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_margin="16dp"
             android:src="@drawable/ic_search_black_24dp"
             android:tint="#FFFFFF"
             android:visibility="gone"
             app:fabSize="normal"
-            tools:ignore="RelativeOverlap" />
+            tools:ignore="RelativeOverlap"
+            app:useCompatPadding="true"/>
 
     </RelativeLayout>
 
