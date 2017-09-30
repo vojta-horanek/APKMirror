@@ -15,7 +15,7 @@
             android:title="@string/save_url_pref" />
 
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="show_exit"
         android:summary="@string/restart_required"
         android:title="@string/exit_pref" />
@@ -79,5 +79,8 @@
     <Preference
         android:summary="@string/fonodosebas"
         android:title="FonoDoSebas" />
+    <Preference
+        android:summary="@string/josefill"
+        android:title="József Illés" />
 
 </PreferenceScreen>

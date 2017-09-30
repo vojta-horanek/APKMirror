@@ -7,8 +7,8 @@ android {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 16
         targetSdkVersion 26
-        versionName "3.3.3-1Anniversary"
-        versionCode 20170829
+        versionName "3.3.4"
+        versionCode 20170930
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
