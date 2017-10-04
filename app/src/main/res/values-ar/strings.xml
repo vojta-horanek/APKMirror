@@ -1,0 +1,44 @@
+<resources>
+
+    <!--Please dont translate strings with translatable="false"-->
+
+    <string name="app_name">APKMirror</string>
+    <string name="settings">الإعدادات</string>
+    <string name="upload">الرفع</string>
+    <string name="browse">تصفح</string>
+    <string name="exit">حروج</string>
+
+    <string name="storage_access">هذا التطبيق يحتاج إلى إذن للكتابة إلى وحدة التخزين الخارجية من أجل حفظ الملفات. (تحتاج إلى النقر على زر التنزيل مرة أخرى)</string>
+    <string name="request_permission">طلب إذن</string>
+    <string name="write_permission">إذن الكتابة</string>
+
+    <string name="error">خطأ</string>
+    <string name="error_while_loading_page">حدث خطأ أثناء تحميل هذه الصفحة: </string>
+    <string name="thread">XDA Thread</string>
+    <string name="libraries">المكتبات</string>
+    <string name="download_started">بدأ التنزيل...</string>
+    <string name="search">بحث</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">حول</string>
+
+    <string name="fab_pref_summ">سيؤدي تعطيل هذا إلى إخفاء زر إجراء البحث العائم (مطلوب إعادة التشغيل من أجل تغيير هذه الإعدادات)</string>
+    <string name="fab_pref">Show search FAB</string>
+    <string name="cant_download">لا يمكن بدء التنزيل، يرجى التأكد من تثبيت مدير التنزيلات.</string>
+    <string name="save_url_pref">تذكر رابط العنوان السابق</string>
+    <string name="exit_pref">إظهار زر الخروج في التنقل</string>
+    <string name="refresh">تحديث</string>
+    <string name="with_thanks">مع الشكر إلى كل من الأشخاص :</string>
+
+    <string name="github_summ">مهتم كيف يعمل هذا التطبيق؟</string>
+    <string name="lib_summ">عرض المكتبات مفتوحة المصدر المستخدمة في هذا التطبيق</string>
+    <string name="xda_summ">مناقشة حول هذا مع الآخرين!</string>
+    <string name="restart_required">إعادة التشغيل مطلوبة لتغيير هذه الإعدادات</string>
+
+    <string name="nothing" translatable="false"/>
+    <string name="external_download_summ">استخدام تطبيقات مثل ADM أومسرع التحميل لتحميل ملفات apk</string>
+    <string name="external_download_pref">استخدام تطبيق تنزيل خارجي</string>
+    <string name="runtime_error_dialog_content">حدث خطأ وقت التشغيل، تأكد من تثبيت حزمة webview.</string>
+    <string name="copy_log">نسح سجل الاخطاء</string>
+
+</resources>
+
