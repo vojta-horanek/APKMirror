@@ -1,0 +1,55 @@
+<resources>
+
+    <!--Please dont translate strings with translatable="false"-->
+
+    <string name="app_name">APKMirror</string>
+    <string name="settings">Настройки</string>
+    <string name="upload">Загрузить</string>
+    <string name="browse">Обзор</string>
+    <string name="exit">Выход</string>
+
+    <string name="storage_access">Это приложение должно иметь разрешение на запись на внешнее хранилище для загрузки приложений. (Или попробуйте скачать снова)</string>
+    <string name="request_permission">Запрос разрешения</string>
+    <string name="write_permission">Разрешение на запись</string>
+
+    <string name="error">Ошибка</string>
+    <string name="error_while_loading_page">Произошла ошибка при загрузке страницы: </string>
+    <string name="thread">Тема на XDA</string>
+    <string name="libraries">Библиотеки</string>
+    <string name="download_started">Загрузка началась…</string>
+    <string name="search">Поиск</string>
+    <string name="github" translatable="false">GitHub</string>
+    <string name="about">О нас</string>
+
+    <string name="fab_pref_summ">Отключение этого параметра уберёт кнопку поиска в приложении (Требуется перезагрузка)</string>
+    <string name="fab_pref">Показать кнопку поиска</string>
+    <string name="cant_download">Невозможно скачать, убедитесь что у вас есть хоть какой-нибудь менеджер загрузок.</string>
+    <string name="save_url_pref">Запомнить последний URL-адрес</string>
+    <string name="exit_pref">Показывать кнопку выхода в панели навигации</string>
+    <string name="refresh">Обновить</string>
+    <string name="with_thanks">Благодарности:</string>
+    <string name="evo_thx">За иконку, за дизайн,за переводы и многое другое!</string>
+    <string name="ja_som_thx">За помощь по исправлению словакского перевода</string>
+    <string name="lucky_thx">За итальянский перевод</string>
+    <string name="nin_thx">За помощь в разработке</string>
+    <string name="azalel_thx">За немецкий перевод</string>
+    <string name="tim_thx">За немецкий перевод</string>
+    <string name="berkantkz_thx">За перевод на турецкий язык</string>
+    <string name="hbbxmjbb_thx">За китайский перевод</string>
+    <string name="nightstorm8x">За вьетнамский перевод</string>
+    <string name="fonodosebas">За испанский перевод</string>
+    <string name="josefill">За перевод на венгерский язык</string>
+
+    <string name="github_summ">Заинтересован как работает это приложение?</string>
+    <string name="lib_summ">Посмотреть какие библиотеки с открытым исходным кодом используются в этом приложении</string>
+    <string name="xda_summ">Обсуждения на XDA</string>
+    <string name="restart_required">Для изменения этих параметров требуется перезагрузка!</string>
+
+    <string name="nothing" translatable="false"/>
+    <string name="external_download_summ">Использовать сторонний менеджер загрузок (Что-то типа ADM, Download Accelerator и т.д.)/string>
+    <string name="external_download_pref">Использовать внешнее приложение для загрузки</string>
+    <string name="runtime_error_dialog_content">Произошла ошибка WebView пожалуйста обновите WebView.</string>
+    <string name="copy_log">Скопировать журнал</string>
+
+</resources>
+
