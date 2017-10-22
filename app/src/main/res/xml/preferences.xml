@@ -82,5 +82,11 @@
     <Preference
         android:summary="@string/josefill"
         android:title="József Illés" />
+    <Preference
+        android:summary="@string/xx6600xx"
+        android:title="xx6600xx" />
+    <Preference
+        android:summary="@string/vladandroidgamer"
+        android:title="VladAndroidGamer" />
 
 </PreferenceScreen>

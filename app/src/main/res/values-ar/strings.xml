@@ -18,7 +18,6 @@
     <string name="libraries">المكتبات</string>
     <string name="download_started">بدأ التنزيل...</string>
     <string name="search">بحث</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="about">حول</string>
 
     <string name="fab_pref_summ">سيؤدي تعطيل هذا إلى إخفاء زر إجراء البحث العائم (مطلوب إعادة التشغيل من أجل تغيير هذه الإعدادات)</string>
@@ -34,7 +33,6 @@
     <string name="xda_summ">مناقشة حول هذا مع الآخرين!</string>
     <string name="restart_required">إعادة التشغيل مطلوبة لتغيير هذه الإعدادات</string>
 
-    <string name="nothing" translatable="false"/>
     <string name="external_download_summ">استخدام تطبيقات مثل ADM أومسرع التحميل لتحميل ملفات apk</string>
     <string name="external_download_pref">استخدام تطبيق تنزيل خارجي</string>
     <string name="runtime_error_dialog_content">حدث خطأ وقت التشغيل، تأكد من تثبيت حزمة webview.</string>

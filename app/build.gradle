@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 16
         targetSdkVersion 26
-        versionName "3.3.4"
-        versionCode 20170930
+        versionName "3.4"
+        versionCode 20171022
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

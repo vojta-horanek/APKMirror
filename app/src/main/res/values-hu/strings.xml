@@ -14,7 +14,7 @@
     <string name="external_download_pref">Használjon külső letöltő alkalmazást</string>
     <string name="external_download_summ">Használja az olyan alkalmazásokat, mint az ADM vagy a Letöltés gyorsitót az apk letöltéséhez</string>
     <string name="fab_pref">Keresés megjelenítése FAB</string>
-    <string name="fab_pref_summ">A letiltással elrejti a keresési lebegő gombot (a beállítások módosításához újra kell indítani)</string>
+    <string name="fab_pref_summ">Letiltással elrejti a keresési lebegő gombot (a beállítások módosításához újra kell indítani)</string>
     <string name="github_summ">Érdekli, hogyan működik ez az alkalmazás?</string>
     <string name="ja_som_thx">Segítség és a szlovák fordítás folyamatos frissítése</string>
     <string name="lib_summ">A nyílt forráskódú könyvtárak megtekintése ebben az alkalmazásban</string>
@@ -38,5 +38,7 @@
     <string name="copy_log">Napló másolása</string>
     <string name="fonodosebas">Spanyol fordítás</string>
     <string name="hbbxmjbb_thx">Kinai fordítás</string>
+    <string name="runtime_error_dialog_content">Futtatási hiba történt, győződjön meg róla, hogy telepítve van a webview csomag.</string>
     <string name="nightstorm8x">Vietnámi fordítás</string>
+    <string name="josefill">Magyar forditás</string>
 </resources>
