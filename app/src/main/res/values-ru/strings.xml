@@ -38,11 +38,14 @@
     <string name="nightstorm8x">За вьетнамский перевод</string>
     <string name="fonodosebas">За испанский перевод</string>
     <string name="josefill">За перевод на венгерский язык</string>
+    <string name="vladandroidgamer">За перевод на русский язык</string>
+    <string name="xx6600xx">За перевод на арабский язык</string>
+
 
     <string name="github_summ">Заинтересован как работает это приложение?</string>
     <string name="lib_summ">Посмотреть какие библиотеки с открытым исходным кодом используются в этом приложении</string>
     <string name="xda_summ">Обсуждения на XDA</string>
-    <string name="restart_required">Для изменения этих параметров требуется перезагрузка!</string>
+    <string name="restart_required">Для изменения этого параметра требуется перезагрузка!</string>
 
     <string name="external_download_summ">Использовать сторонний менеджер загрузок (Что-то типа ADM, Download Accelerator и т.д.)</string>
     <string name="external_download_pref">Использовать внешнее приложение для загрузки</string>
