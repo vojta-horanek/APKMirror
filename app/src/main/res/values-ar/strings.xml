@@ -22,7 +22,7 @@
     <string name="about">حول</string>
 
     <string name="fab_pref_summ">سيؤدي تعطيل هذا إلى إخفاء زر إجراء البحث العائم (مطلوب إعادة التشغيل من أجل تغيير هذه الإعدادات)</string>
-    <string name="fab_pref">Show search FAB</string>
+    <string name="fab_pref">إظهار زر البحث العائم</string>
     <string name="cant_download">لا يمكن بدء التنزيل، يرجى التأكد من تثبيت مدير التنزيلات.</string>
     <string name="save_url_pref">تذكر رابط العنوان السابق</string>
     <string name="exit_pref">إظهار زر الخروج في التنقل</string>
