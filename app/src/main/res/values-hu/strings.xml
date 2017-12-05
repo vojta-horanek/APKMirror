@@ -1,44 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">Rólunk</string>
-    <string name="app_name">APKMirror</string>
-    <string name="azalel_thx">Német forditás</string>
+
+    <string name="settings">Beállítások</string>
+    <string name="upload">Feltöltés</string>
     <string name="browse">Böngészés</string>
-    <string name="cant_download">"Nem lehet elindítani a letöltést, kérjük, győződjön meg róla, hogy telepítve van a letöltéskezelő."</string>
-    <string name="download_started">Letöltés…</string>
+    <string name="exit">Kilépés</string>
+
+    <string name="storage_access">Ennek az alkalmazásnak engedélyezni kell a külső tárhelyre történő írást a fájlok mentéséhez. (A letöltési gombra kell kattintani)</string>
+    <string name="request_permission">Engedély kérés</string>
+    <string name="write_permission">Írási engedély</string>
+
     <string name="error">Hiba</string>
     <string name="error_while_loading_page">Hiba történt az oldal betöltésekor:</string>
-    <string name="evo_thx">A csodálatos ikonra, a design-ra, a francia fordításra és még sok másra!</string>
-    <string name="exit">Kilépés</string>
-    <string name="exit_pref">Megjelenik a kilépés gomb a navigációban</string>
-    <string name="external_download_pref">Használjon külső letöltő alkalmazást</string>
-    <string name="external_download_summ">Használja az olyan alkalmazásokat, mint az ADM vagy a Letöltés gyorsitót az apk letöltéséhez</string>
-    <string name="fab_pref">Keresés megjelenítése FAB</string>
-    <string name="fab_pref_summ">Letiltással elrejti a keresési lebegő gombot (a beállítások módosításához újra kell indítani)</string>
-    <string name="github_summ">Érdekli, hogyan működik ez az alkalmazás?</string>
-    <string name="ja_som_thx">Segítség és a szlovák fordítás folyamatos frissítése</string>
-    <string name="lib_summ">A nyílt forráskódú könyvtárak megtekintése ebben az alkalmazásban</string>
-    <string name="libraries">Könyvtár</string>
-    <string name="lucky_thx">Olasz fordítás</string>
-    <string name="nin_thx">Segítség a fejlesztéshez</string>
-    <string name="refresh">Frissítés</string>
-    <string name="request_permission">Engedély kérés</string>
-    <string name="restart_required">A beállítások módosításához újraindításra van szükség</string>
-    <string name="save_url_pref">Emlékezzen az utolsó url-re</string>
-    <string name="search">Keresés</string>
-    <string name="settings">Beállítások</string>
-    <string name="storage_access">Ennek az alkalmazásnak engedélyezni kell a külső tárhelyre történő írást a fájlok mentéséhez. (A letöltési gombra kell kattintani)</string>
     <string name="thread">XDA Téma</string>
-    <string name="tim_thx">Német forditás</string>
-    <string name="upload">Feltöltés</string>
+    <string name="libraries">Könyvtár</string>
+    <string name="download_started">Letöltés…</string>
+    <string name="search">Keresés</string>
+    <string name="about">Rólunk</string>
+
+    <string name="fab_pref_summ">Letiltással elrejti a keresési lebegő gombot (a beállítások módosításához újra kell indítani)</string>
+    <string name="fab_pref">Keresés megjelenítése FAB</string>
+    <string name="cant_download">"Nem lehet elindítani a letöltést, kérjük, győződjön meg róla, hogy telepítve van a letöltéskezelő."</string>
+    <string name="save_url_pref">Emlékezzen az utolsó url-re</string>
+    <string name="exit_pref">Megjelenik a kilépés gomb a navigációban</string>
+    <string name="refresh">Frissítés</string>
     <string name="with_thanks">Köszönet a következő személyeknek:</string>
-    <string name="write_permission">Írási engedély</string>
-    <string name="xda_summ">Beszélj erről másokkal!</string>
+    <string name="evo_thx">A csodálatos ikonra, a design-ra, a francia fordításra és még sok másra!</string>
+    <string name="ja_som_thx">Segítség és a szlovák fordítás folyamatos frissítése</string>
+    <string name="fast0n_thx">Olasz fordítás</string>
+    <string name="nin_thx">Segítség a fejlesztéshez</string>
+    <string name="azalel_thx">Német forditás</string>
+    <string name="tim_thx">Német forditás</string>
     <string name="berkantkz_thx">Török fordítás</string>
-    <string name="copy_log">Napló másolása</string>
-    <string name="fonodosebas">Spanyol fordítás</string>
     <string name="hbbxmjbb_thx">Kinai fordítás</string>
-    <string name="runtime_error_dialog_content">Futtatási hiba történt, győződjön meg róla, hogy telepítve van a webview csomag.</string>
     <string name="nightstorm8x">Vietnámi fordítás</string>
+    <string name="fonodosebas">Spanyol fordítás</string>
     <string name="josefill">Magyar forditás</string>
+
+    <string name="github_summ">Érdekli, hogyan működik ez az alkalmazás?</string>
+    <string name="lib_summ">A nyílt forráskódú könyvtárak megtekintése ebben az alkalmazásban</string>
+    <string name="xda_summ">Beszélj erről másokkal!</string>
+    <string name="restart_required">A beállítások módosításához újraindításra van szükség</string>
+
+    <string name="external_download_summ">Használja az olyan alkalmazásokat, mint az ADM vagy a Letöltés gyorsitót az apk letöltéséhez</string>
+    <string name="external_download_pref">Használjon külső letöltő alkalmazást</string>
+    <string name="runtime_error_dialog_content">Futtatási hiba történt, győződjön meg róla, hogy telepítve van a webview csomag.</string>
+    <string name="copy_log">Napló másolása</string>
+    
 </resources>

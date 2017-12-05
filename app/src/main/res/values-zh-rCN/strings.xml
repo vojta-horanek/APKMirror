@@ -1,8 +1,5 @@
 <resources>
 
-    <!--Please dont translate strings with translatable="false"-->
-
-    <string name="app_name">APKMirror</string>
     <string name="settings">设置</string>
     <string name="upload">上传</string>
     <string name="browse">浏览</string>
@@ -29,7 +26,7 @@
     <string name="with_thanks">感谢下面这些人：</string>
     <string name="evo_thx">设计了这个吼棒的图标，帮忙设计，法语翻译以及更多！</string>
     <string name="ja_som_thx">帮了很多忙并不断更新斯洛伐克语翻译</string>
-    <string name="lucky_thx">意大利语翻译</string>
+    <string name="fast0n">意大利语翻译</string>
     <string name="nin_thx">在开发中帮了很多忙</string>
     <string name="azalel_thx">德语翻译</string>
     <string name="tim_thx">德语翻译</string>

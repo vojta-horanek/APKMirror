@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">APKMirror</string>
     <string name="browse">Prezerať</string>
     <string name="upload">Nahrať</string>
     <string name="settings">Nastavenia</string>
@@ -23,7 +22,7 @@
     <string name="with_thanks">Vďaka týmto ľuďom:</string>
     <string name="evo_thx">Za úžasnú ikonu, pomoc s dizajnom, preklad do francúzštiny a oveľa viac!</string>
     <string name="ja_som_thx">Za pomoc a pravidelnú aktualizáciu slovenského prekladu</string>
-    <string name="lucky_thx">Za preklad do taliančiny</string>
+    <string name="fast0n_thx">Za preklad do taliančiny</string>
     <string name="nin_thx">Za pomoc s vývojom</string>
     <string name="azalel_thx">Za preklad do nemčiny</string>
     <string name="tim_thx">Za preklad do nemčiny</string>
@@ -43,6 +42,5 @@
     <string name="restart_required">Pre aplikovanie zmien je potrebné reštartovať aplikáciu</string>
     <string name="runtime_error_dialog_content">Vyskytla sa chyba, uistite sa, že máte nainštalový balíček webview.</string>
     <string name="copy_log">Kopírovať záznam</string>
-
 
 </resources>

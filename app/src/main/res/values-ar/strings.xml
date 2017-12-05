@@ -1,8 +1,5 @@
 <resources>
 
-    <!--Please dont translate strings with translatable="false"-->
-
-    <string name="app_name">APKMirror</string>
     <string name="settings">الإعدادات</string>
     <string name="upload">الرفع</string>
     <string name="browse">تصفح</string>

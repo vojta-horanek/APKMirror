@@ -1,8 +1,5 @@
 <resources>
 
-    <!--Please dont translate strings with translatable="false"-->
-
-    <string name="app_name">APKMirror</string>
     <string name="settings">Настройки</string>
     <string name="upload">Загрузить</string>
     <string name="browse">Обзор</string>
@@ -29,7 +26,7 @@
     <string name="with_thanks">Благодарности:</string>
     <string name="evo_thx">За иконку, за дизайн,за переводы и многое другое!</string>
     <string name="ja_som_thx">За помощь по исправлению словакского перевода</string>
-    <string name="lucky_thx">За итальянский перевод</string>
+    <string name="fast0n_thx">За итальянский перевод</string>
     <string name="nin_thx">За помощь в разработке</string>
     <string name="azalel_thx">За немецкий перевод</string>
     <string name="tim_thx">За немецкий перевод</string>

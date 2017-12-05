@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">APKMirror</string>
+
     <string name="settings">Ayarlar</string>
     <string name="upload">Yükle</string>
     <string name="browse">Tara</string>
     <string name="exit">Çıkış</string>
 
     <string name="storage_access">Bu uygulama, dosyaları yerel depolamayı kullanabilmek için bazı izinler gerektirir. (İndir butonuna tekrar dokunmanız gerekecek)</string>
-  <string name="request_permission">İzin iste</string>
+    <string name="request_permission">İzin iste</string>
     <string name="write_permission">Yazma isteği</string>
 
     <string name="error">Hata</string>
@@ -19,23 +19,24 @@
 
     <string name="fab_pref_summ">Bunu devredışı bırakmak yüzen arama düğmesini gizleyecek (değişikliğin uygulanması için yeniden başlatma gerekli)</string>
     <string name="fab_pref">Yüzen arama düğmesini göster</string>
-  <string name="cant_download">İndirme başlatılamadı, cihazınızda indirme yöneticisi olduğundan emin olun.</string>
+    <string name="cant_download">İndirme başlatılamadı, cihazınızda indirme yöneticisi olduğundan emin olun.</string>
     <string name="save_url_pref">Son adresi hatırla</string>
     <string name="exit_pref">Alt yönetim çubuğunda çıkış düğmesi göster</string>
     <string name="refresh">Yenile</string>
     <string name="with_thanks">Aşağıdaki kişilere teşekkürlerle:</string>
     <string name="evo_thx">Harika simge, görünüm tasarımı yardımı, Fransızca çeviri ve daha fazlasına!</string>
     <string name="ja_som_thx">Yardım ve Slovakça çeviri için</string>
-    <string name="lucky_thx">İtalyanca çeviri için</string>
+    <string name="fast0n_thx">İtalyanca çeviri için</string>
     <string name="nin_thx">Geliştirmedeki yardımı için</string>
     <string name="azalel_thx">Almanca çeviri için</string>
     <string name="tim_thx">Almanca çeviri için</string>
+    
     <string name="github_summ">Bu uygulamanın nasıl çalıştığını mı merak ediyorsunuz?</string>
     <string name="lib_summ">Bu uygulamada kullanılan açık kaynak kütüphanelerini gör</string>
     <string name="xda_summ">Bunun hakkında diğer insanlarla tartış!</string>
-  <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
+    <string name="restart_required">Değişikliğin uygulanması için yeniden başlatma gerekli</string>
+    
     <string name="external_download_summ">Apk indirmek için gelişmiş İndirme Yöneticisi (ADM) ya da indirme hızlandırıcısı gibi uygulamalar kullanın</string>
     <string name="external_download_pref">Harici indirici kullan</string>
-
 
 </resources>

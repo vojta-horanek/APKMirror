@@ -1,7 +1,5 @@
 <resources>
-    <!--Please dont translate strings with translatable="false"-->
 
-    <string name="app_name">APKMirror</string>
     <string name="settings">Ajustes</string>
     <string name="upload">Actualizar</string>
     <string name="browse">Navegar</string>
@@ -28,7 +26,7 @@
     <string name="with_thanks">Muchas gracias a las siguientes personas:</string>
     <string name="evo_thx">Por el increíble ícono, el diseño, la traducción al Francés y mucho más!</string>
     <string name="ja_som_thx">Por la ayuda y la actualización constante de la traducción al eslovaco</string>
-    <string name="lucky_thx">Por la traducción al Italiano</string>
+    <string name="fast0n_thx">Por la traducción al Italiano</string>
     <string name="nin_thx">Por ayudarme en el desarrollo</string>
     <string name="azalel_thx">Por la traducción al Alemán</string>
     <string name="tim_thx">Por la traducción al Alemán</string>

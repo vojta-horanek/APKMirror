@@ -1,0 +1,52 @@
+<resources>
+
+    <string name="settings">Impostazioni</string>
+    <string name="upload">Carica</string>
+    <string name="browse">Browse</string>
+    <string name="exit">Esci</string>
+
+    <string name="storage_access">Questa app deve avere un permesso di scrittura della memoria esterna per salvare i file. (È necessario fare nuovamente clic sul pulsante download)</string>
+    <string name="request_permission">Richiesta autorizzazione</string>
+    <string name="write_permission">Permesso di scrittura</string>
+
+    <string name="error">Errore</string>
+    <string name="error_while_loading_page">Si è verificato un errore durante il caricamento di questa pagina: </string>
+    <string name="thread">XDA Thread</string>
+    <string name="libraries">Librerie</string>
+    <string name="download_started">Download iniziato…</string>
+    <string name="search">Cerca</string>
+    <string name="about">Info</string>
+
+    <string name="fab_pref_summ">Disabilitando questo nasconderà la il FAB di ricerca (per cambiare questa impostazione, è necessario riavviare)</string>
+    <string name="fab_pref">Visualizza ricerca FAB</string>
+    <string name="cant_download">Non è possibile avviare il download, per favore assicuratevi di avere installato il download manager.</string>
+    <string name="save_url_pref">Ricorda l\'ultimo url</string>
+    <string name="exit_pref">Visualizza il pulsante esci nella navigazione</string>
+    <string name="refresh">Ricarica</string>
+    <string name="with_thanks">Con i ringraziamenti alle seguenti persone:</string>
+    <string name="evo_thx">Per l\'incredibile icona, aiuto con il design, traduzione in Francese e molto altro ancora!</string>
+    <string name="ja_som_thx">Per l\'aiuto e il costante aggiornamento della traduzione in Slovacco</string>
+    <string name="fast0n_thx">Per la traduzione Italiana</string>
+    <string name="nin_thx">Aiuto con lo sviluppo</string>
+    <string name="azalel_thx">Per la traduzione in Tedesco</string>
+    <string name="tim_thx">Per la traduzione in Tedesco</string>
+    <string name="berkantkz_thx">Per la traduzione in Turco</string>
+    <string name="hbbxmjbb_thx">Per la traduzione in Cinese</string>
+    <string name="nightstorm8x">Per la traduzione Vietnamita</string>
+    <string name="fonodosebas">Per traduzione in Spagnolo</string>
+    <string name="josefill">Per la traduzione Ungherese</string>
+    <string name="vladandroidgamer">Per la traduzione in Russo</string>
+    <string name="xx6600xx">Per la traduzione Arabo</string>
+
+    <string name="github_summ">Ti interessa come funziona questa applicazione?</string>
+    <string name="lib_summ">Mostra le librerie opensource utilizzati in questa applicazione</string>
+    <string name="xda_summ">Discuti di questo con altre persone!</string>
+    <string name="restart_required">È necessario riavviare per cambiare questa impostazione</string>
+
+    <string name="external_download_summ">Utilizza applicazioni come ADM o Download Accelerator per scaricare apk</string>
+    <string name="external_download_pref">Usa app esterne per scaricare</string>
+    <string name="runtime_error_dialog_content">Si è verificato un errore di Runtime, assicurarsi di che avere installato pacchetto di webview.</string>
+    <string name="copy_log">Copia log</string>
+
+</resources>
+
