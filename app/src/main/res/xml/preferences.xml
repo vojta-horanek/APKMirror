@@ -88,5 +88,8 @@
     <Preference
         android:summary="@string/vladandroidgamer"
         android:title="VladAndroidGamer" />
+    <Preference
+        android:summary="@string/radeox_thx"
+        android:title="Radeox" />
 
 </PreferenceScreen>
