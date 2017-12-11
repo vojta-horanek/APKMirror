@@ -1,8 +1,5 @@
 <resources>
 
-    <!--Please dont translate strings with translatable="false"-->
-
-    <string name="app_name">APKMirror</string>
     <string name="settings">Cài đặt</string>
     <string name="upload">Tải lên</string>
     <string name="browse">Trình duyệt</string>
@@ -29,7 +26,7 @@
     <string name="with_thanks">Gửi lời cảm ơn đến những người sau:</string>
     <string name="evo_thx">Người thiết kế biểu tượng tuyệt vời, trợ giúp thiết kế, biên dịch sang tiếng Pháp và nhiều hơn thế nữa!</string>
     <string name="ja_som_thx">Người trợ giúp và không ngừng cập nhật biên dịch sang tiếng Slovak</string>
-    <string name="lucky_thx">Người biên dịch sang tiếng Ý</string>
+    <string name="fast0n_thx">Người biên dịch sang tiếng Ý</string>
     <string name="nin_thx">Người giúp đỡ phát triển ứng dụng</string>
     <string name="azalel_thx">Người biên dịch sang tiếng Đức</string>
     <string name="tim_thx">Người biên dịch sang tiếng Đức</string>

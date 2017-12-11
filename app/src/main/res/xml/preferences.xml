@@ -53,8 +53,8 @@
         android:summary="@string/ja_som_thx"
         android:title="ja_som" />
     <Preference
-        android:summary="@string/lucky_thx"
-        android:title="LuckyNuke1310" />
+        android:summary="@string/fast0n_thx"
+        android:title="Fast0n" />
     <Preference
         android:summary="@string/nin_thx"
         android:title="Ninnix96" />

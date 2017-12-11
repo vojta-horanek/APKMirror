@@ -2,7 +2,7 @@
 
     <!--Please remove strings with translatable="false"-->
 
-    <string name="app_name">APKMirror</string>
+    <string translatable="false" name="app_name">APKMirror</string>
     <string name="settings">Settings</string>
     <string name="upload">Upload</string>
     <string name="browse">Browse</string>
@@ -30,7 +30,7 @@
     <string name="with_thanks">With thanks to the following people:</string>
     <string name="evo_thx">For the amazing icon, help with design, French translation and much more!</string>
     <string name="ja_som_thx">For help and constant updating of slovak translation</string>
-    <string name="lucky_thx">For Italian translation</string>
+    <string name="fast0n_thx">For Italian translation</string>
     <string name="nin_thx">For help with development</string>
     <string name="azalel_thx">For German translation</string>
     <string name="tim_thx">For German translation</string>

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">APKMirror</string>
     <string name="settings">Einstellungen</string>
     <string name="upload">Hochladen</string>
     <string name="browse">Durchsuchen</string>
@@ -26,7 +25,7 @@
     <string name="with_thanks">Danke an die folgenden Leute:</string>
     <string name="evo_thx">Für das Icon, Hilfe mit dem Design, der Französichen Übersetzung und vielem mehr!</string>
     <string name="ja_som_thx">Für die Hilfe und die duchgehende Aktualisierung der Slovakischen Übersetzung</string>
-    <string name="lucky_thx">Für die Italienische Übersetzung</string>
+    <string name="fast0n_thx">Für die Italienische Übersetzung</string>
     <string name="nin_thx">Für die Hilfe bei der Entwicklung</string>
     <string name="azalel_thx">Für die Deutsche Übersetzung</string>
     <string name="tim_thx">Für die Deutsche Übersetzung</string>
