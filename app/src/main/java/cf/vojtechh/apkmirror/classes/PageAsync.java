@@ -13,8 +13,6 @@ import cf.vojtechh.apkmirror.interfaces.AsyncResponse;
 
 public class PageAsync extends AsyncTask<String, Integer, Integer> {
 
-    private String themeColor;
-
     public AsyncResponse response = null;
 
 
@@ -27,22 +25,12 @@ public class PageAsync extends AsyncTask<String, Integer, Integer> {
 
             Elements metaElements = doc.select("meta[name=theme-color]");
 
+            String themeColor;
             if (metaElements.size() != 0) {
                 themeColor = metaElements.get(0).attr("content");
             } else {
                 themeColor = "#FF8B14";
             }
-
-//            Not going to use this since is pretty much useless
-//            (gets app title for recents)
-
-//            Elements h1Elements = doc.select("h1[class=app-title]");
-//
-//            if (h1Elements.size() != 0) {
-//                appTitle = h1Elements.get(0).attr("title");
-//            } else {
-//                appTitle = "APKMirror";
-//            }
 
             return Color.parseColor(themeColor);
 

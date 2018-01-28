@@ -41,6 +41,7 @@
     <string name="josefill">For Hungarian translation</string>
     <string name="vladandroidgamer">For Russian translation</string>
     <string name="xx6600xx">For Arabic translation</string>
+    <string name="radeox_thx">For Polish translation</string>
 
     <string name="github_summ">Interested how this app works?</string>
     <string name="lib_summ">View the used open source libraries in this app</string>
@@ -52,6 +53,8 @@
     <string name="external_download_pref">Use external download app</string>
     <string name="runtime_error_dialog_content">A Runtime error occurred,make sure you have webview package installed.</string>
     <string name="copy_log">Copy log</string>
+    <string name="clip_error">Error while copying</string>
+    <string name="search_error">Error while getting text from search dialog</string>
 
 </resources>
 

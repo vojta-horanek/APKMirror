@@ -54,8 +54,6 @@ import cf.vojtechh.apkmirror.classes.PageAsync;
 import cf.vojtechh.apkmirror.interfaces.AsyncResponse;
 import im.delight.android.webview.AdvancedWebView;
 
-//TODO Hide navigation onScroll
-
 public class MainActivity extends AppCompatActivity implements AdvancedWebView.Listener, AsyncResponse {
 
     private AdvancedWebView webView;
@@ -94,14 +92,14 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             previsionThemeColor = Color.parseColor("#FF8B14");
 
             //Views
-            refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
-            progressBar = (ProgressBar) findViewById(R.id.main_progress_bar);
-            navigation = (BottomBar) findViewById(R.id.navigation);
-            settingsLayoutFragment = (RelativeLayout) findViewById(R.id.settings_layout_fragment);
-            webContainer = (RelativeLayout) findViewById(R.id.web_container);
-            firstLoadingView = (LinearLayout) findViewById(R.id.first_loading_view);
-            webView = (AdvancedWebView) findViewById(R.id.main_webview);
-            fabSearch = (FloatingActionButton) findViewById(R.id.fab_search);progressBarContainer = (FrameLayout) findViewById(R.id.main_progress_bar_container);
+            refreshLayout = findViewById(R.id.refresh_layout);
+            progressBar = findViewById(R.id.main_progress_bar);
+            navigation = findViewById(R.id.navigation);
+            settingsLayoutFragment = findViewById(R.id.settings_layout_fragment);
+            webContainer = findViewById(R.id.web_container);
+            firstLoadingView = findViewById(R.id.first_loading_view);
+            webView = findViewById(R.id.main_webview);
+            fabSearch = findViewById(R.id.fab_search);progressBarContainer = findViewById(R.id.main_progress_bar_container);
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             initSearchFab();
@@ -190,7 +188,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                             getSystemService(Context.CLIPBOARD_SERVICE);
                     // Creates a new text clip to put on the clipboard
                     ClipData clip = ClipData.newPlainText("log", e.toString());
-                    clipboard.setPrimaryClip(clip);
+                    if (clipboard != null) {
+                        clipboard.setPrimaryClip(clip);
+                    }else{
+                        Toast.makeText(MainActivity.this, getString(R.string.clip_error), Toast.LENGTH_LONG).show();
+                    }
                 }
             }).show();
 
@@ -336,7 +338,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        webView.loadUrl("http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
+                        if(dialog.getInputEditText()!=null) {
+                            webView.loadUrl("http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
+                        }else {
+                            Toast.makeText(MainActivity.this, getString(R.string.search_error), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
                 .negativeText(android.R.string.cancel)
@@ -470,11 +476,7 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     }
 
     private boolean isWritePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        } else {
-            return true;
-        }
+        return Build.VERSION.SDK_INT < 23 || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -33,7 +34,11 @@ public class SearchActivity extends Activity {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         Intent i = new Intent(SearchActivity.this, MainActivity.class);
-                        i.putExtra("url", "http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
+                        if(dialog.getInputEditText()!=null) {
+                            i.putExtra("url", "http://www.apkmirror.com/?s=" + dialog.getInputEditText().getText());
+                        }else {
+                            Toast.makeText(SearchActivity.this, getString(R.string.search_error), Toast.LENGTH_SHORT).show();
+                        }
 
                         startActivity(i);
                         finish();
