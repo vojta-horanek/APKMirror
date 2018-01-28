@@ -1,4 +1,5 @@
 # APKMirror
+#Now abandoned, please don't report issues or maki pull requests, I will ignore them
 
 An unofficial apkmirror client/web application
 
