@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="de.psdev.licensesdialog:licensesdialog-1.8.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/licensesdialog-1.8.2.aar/ce20c3476dd72e94c30f18d163ac9d9d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/licensesdialog-1.8.2.aar/ce20c3476dd72e94c30f18d163ac9d9d/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "cf.vojtechh.apkmirror"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionName "3.4"
-        versionCode 20171022
+        versionCode 20180128
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,7 +36,7 @@ dependencies {
 
 
     //noinspection GradleCompatible
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:design:27.0.2'
 
     //Added dependencies bellow
     //WebView
