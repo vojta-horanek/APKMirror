@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+    defaultConfig {
+        applicationId "cf.vojtechh.apkmirror"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionName "3.5"
+        versionCode 20180128
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
+
+    testCompile 'junit:junit:4.12'
+
+
+    //noinspection GradleCompatible
+    compile 'com.android.support:design:27.0.2'
+
+    //Added dependencies bellow
+    //WebView
+    compile 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
+    //HTML Parser
+    compile 'org.jsoup:jsoup:1.10.2'
+    //Licenses dialog
+    compile 'de.psdev.licensesdialog:licensesdialog:1.8.2'
+    //Material dialogs
+    compile 'com.afollestad.material-dialogs:core:0.9.2.3'
+    //Bottom navigation
+    compile 'com.roughike:bottom-bar:2.3.1'
+
+
+}
+
